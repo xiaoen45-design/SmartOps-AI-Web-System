@@ -1,0 +1,25 @@
+<?php
+require_once __DIR__ . '/../admin_auth.php';
+require_once __DIR__ . '/../../includes/admin_layout.php';
+require_admin();
+admin_ui_header('Hotel Asset Summary', 'smart', 'Loading selected asset...', true);
+?>
+<section class="detail-page" data-smart-page="asset-detail">
+  <section class="kpi-container four-kpi detail-kpi-grid">
+    <div class="kpi-card"><h3>Total Open Cases</h3><h2 id="assetTotal">0</h2></div>
+    <div class="kpi-card"><h3>High</h3><h2 id="assetHigh">0</h2></div>
+    <div class="kpi-card"><h3>Medium Severity</h3><h2 id="assetMedium">0</h2></div>
+    <div class="kpi-card"><h3>Low Severity</h3><h2 id="assetLow">0</h2></div>
+  </section>
+
+  <section class="chart-card">
+    <div class="table-header"><div><h2>Component Categories</h2><p>Select a component to open its tailored case records.</p></div></div>
+    <div class="table-box detail-table-box">
+      <table class="dashboard-table detail-table">
+        <thead><tr><th>Component</th><th>Total Cases</th><th>High</th><th>Medium</th><th>Low</th><th>Action</th></tr></thead>
+        <tbody id="assetComponentBody"></tbody>
+      </table>
+    </div>
+  </section>
+</section>
+<?php admin_ui_footer(['https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js']); ?>

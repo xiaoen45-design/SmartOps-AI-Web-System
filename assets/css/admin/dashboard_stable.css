@@ -1,0 +1,867 @@
+/* SmartOps final dashboard layout authority
+   Keeps the four main admin dashboards inside one viewport without overlap,
+   clipping, JavaScript zoom, or absolute positioning. Loaded after all legacy
+   dashboard styles so this file is the single layout authority. */
+
+@media (min-width: 901px) {
+  html,
+  body.shared-dashboard-shell:not(.admin-detail-page) {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    zoom: 1 !important;
+  }
+
+  body.shared-dashboard-shell:not(.admin-detail-page) .layout.dashboard,
+  body.shared-dashboard-shell:not(.admin-detail-page) .layout,
+  body.shared-dashboard-shell:not(.admin-detail-page) .dashboard,
+  body.shared-dashboard-shell:not(.admin-detail-page) .sidebar {
+    height: 100vh !important;
+    min-height: 0 !important;
+    max-height: 100vh !important;
+    overflow: hidden !important;
+  }
+
+  body.shared-dashboard-shell:not(.admin-detail-page) .main.dashboard-page {
+    box-sizing: border-box !important;
+    height: 100vh !important;
+    min-height: 0 !important;
+    max-height: 100vh !important;
+    margin: 0 !important;
+    padding: 10px 16px !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-auto-flow: row !important;
+    gap: 9px !important;
+    align-content: stretch !important;
+    overflow: hidden !important;
+  }
+
+  body.overview-dashboard-body:not(.admin-detail-page) .main.dashboard-page {
+    grid-template-rows: 58px 74px 126px minmax(0, 1fr) !important;
+  }
+
+  body.smart-dashboard-body:not(.admin-detail-page) .main.dashboard-page {
+    grid-template-rows: 58px 74px 112px minmax(0, 1fr) !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .main.dashboard-page,
+  body.workforce-dashboard-body:not(.admin-detail-page) .main.dashboard-page {
+    grid-template-rows: 58px 74px minmax(0, 1fr) !important;
+  }
+
+  /* Header */
+  body.shared-dashboard-shell:not(.admin-detail-page) .topbar {
+    grid-row: 1 !important;
+    box-sizing: border-box !important;
+    height: 58px !important;
+    min-height: 58px !important;
+    max-height: 58px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    align-items: center !important;
+    overflow: visible !important;
+  }
+
+  body.shared-dashboard-shell:not(.admin-detail-page) .topbar h1 {
+    font-size: clamp(22px, 1.7vw, 29px) !important;
+    line-height: 1.05 !important;
+  }
+
+  body.shared-dashboard-shell:not(.admin-detail-page) .topbar p {
+    margin-top: 1px !important;
+    font-size: 10px !important;
+    line-height: 1.15 !important;
+  }
+
+  body.shared-dashboard-shell:not(.admin-detail-page) .admin-topbar-actions,
+  body.shared-dashboard-shell:not(.admin-detail-page) .live-clock {
+    height: 58px !important;
+    min-height: 58px !important;
+    max-height: 58px !important;
+  }
+
+  /* KPI row */
+  body.shared-dashboard-shell:not(.admin-detail-page) .shared-dashboard-kpis {
+    grid-row: 2 !important;
+    box-sizing: border-box !important;
+    height: 74px !important;
+    min-height: 74px !important;
+    max-height: 74px !important;
+    margin: 0 !important;
+    gap: 10px !important;
+    overflow: hidden !important;
+  }
+
+  body.shared-dashboard-shell:not(.admin-detail-page) .shared-dashboard-kpi {
+    height: 74px !important;
+    min-height: 74px !important;
+    max-height: 74px !important;
+    padding: 7px 13px !important;
+    overflow: hidden !important;
+  }
+
+  body.shared-dashboard-shell:not(.admin-detail-page) .shared-dashboard-kpi h3 {
+    margin-bottom: 2px !important;
+    font-size: 11px !important;
+  }
+
+  body.shared-dashboard-shell:not(.admin-detail-page) .shared-dashboard-kpi h2 {
+    font-size: 27px !important;
+  }
+
+  body.shared-dashboard-shell:not(.admin-detail-page) .shared-dashboard-kpi p {
+    margin-top: 3px !important;
+    font-size: 9.5px !important;
+    line-height: 1.15 !important;
+  }
+
+  /* Executive alert row */
+  body.overview-dashboard-body:not(.admin-detail-page) .overview-alerts-card {
+    grid-row: 3 !important;
+    box-sizing: border-box !important;
+    height: 126px !important;
+    min-height: 126px !important;
+    max-height: 126px !important;
+    margin: 0 !important;
+    padding: 10px 14px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+  }
+
+  body.overview-dashboard-body:not(.admin-detail-page) .overview-alerts-card .table-header {
+    flex: 0 0 auto !important;
+    margin: 0 0 7px !important;
+  }
+
+  body.overview-dashboard-body:not(.admin-detail-page) .overview-alerts-card .table-header h2 {
+    font-size: 16px !important;
+    line-height: 1 !important;
+  }
+
+  body.overview-dashboard-body:not(.admin-detail-page) .overview-alerts-card .table-header p {
+    margin-top: 2px !important;
+    font-size: 9px !important;
+    line-height: 1.1 !important;
+  }
+
+  body.overview-dashboard-body:not(.admin-detail-page) .alert-grid.four-alerts {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    overflow: hidden !important;
+  }
+
+  body.overview-dashboard-body:not(.admin-detail-page) .alert-box {
+    box-sizing: border-box !important;
+    min-height: 0 !important;
+    height: 100% !important;
+    max-height: none !important;
+    padding: 9px 12px !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    grid-template-rows: auto 1fr auto !important;
+    gap: 1px 8px !important;
+    overflow: hidden !important;
+  }
+
+  body.overview-dashboard-body:not(.admin-detail-page) .alert-label {
+    grid-column: 1 / -1 !important;
+    font-size: 12px !important;
+    line-height: 1.05 !important;
+  }
+
+  body.overview-dashboard-body:not(.admin-detail-page) .alert-box small {
+    grid-column: 1 !important;
+    align-self: center !important;
+    margin: 1px 0 0 !important;
+    font-size: 8px !important;
+    line-height: 1.1 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+
+  body.overview-dashboard-body:not(.admin-detail-page) .alert-box strong {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+    align-self: center !important;
+    justify-self: end !important;
+    margin: 0 !important;
+    font-size: 25px !important;
+    line-height: 1 !important;
+  }
+
+  body.overview-dashboard-body:not(.admin-detail-page) .alert-link {
+    grid-column: 1 / -1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 8.5px !important;
+    line-height: 1 !important;
+    justify-self: end !important;
+  }
+
+  /* Executive analytics: left trend plus two equally-sized right cards. */
+  body.overview-dashboard-body:not(.admin-detail-page) .overview-analytics-layout {
+    grid-row: 4 !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    margin: 0 !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.72fr) minmax(315px, 1fr) !important;
+    gap: 10px !important;
+    align-items: stretch !important;
+    overflow: hidden !important;
+  }
+
+  body.overview-dashboard-body:not(.admin-detail-page) .overview-primary-chart,
+  body.overview-dashboard-body:not(.admin-detail-page) .overview-side-charts,
+  body.overview-dashboard-body:not(.admin-detail-page) .compact-chart-card {
+    box-sizing: border-box !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+  }
+
+  body.overview-dashboard-body:not(.admin-detail-page) .overview-primary-chart,
+  body.overview-dashboard-body:not(.admin-detail-page) .compact-chart-card {
+    padding: 10px 12px !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  body.overview-dashboard-body:not(.admin-detail-page) .overview-side-charts {
+    display: grid !important;
+    grid-template-rows: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+
+  body.overview-dashboard-body:not(.admin-detail-page) .chart-header,
+  body.overview-dashboard-body:not(.admin-detail-page) .trend-chart-header {
+    flex: 0 0 auto !important;
+    min-height: 0 !important;
+    margin: 0 0 5px !important;
+  }
+
+  body.overview-dashboard-body:not(.admin-detail-page) .chart-header h2,
+  body.overview-dashboard-body:not(.admin-detail-page) .trend-chart-header h2 {
+    margin: 0 !important;
+    font-size: 14px !important;
+    line-height: 1.05 !important;
+  }
+
+  body.overview-dashboard-body:not(.admin-detail-page) .chart-header p,
+  body.overview-dashboard-body:not(.admin-detail-page) .trend-chart-header p {
+    margin: 2px 0 0 !important;
+    font-size: 8px !important;
+    line-height: 1.15 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+
+  body.overview-dashboard-body:not(.admin-detail-page) .overview-trend-box,
+  body.overview-dashboard-body:not(.admin-detail-page) .overview-bottom-chart-box,
+  body.overview-dashboard-body:not(.admin-detail-page) .capacity-snapshot {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: hidden !important;
+  }
+
+  body.overview-dashboard-body:not(.admin-detail-page) .capacity-snapshot {
+    display: grid !important;
+    grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr) !important;
+    gap: 8px !important;
+    align-items: center !important;
+    padding: 0 !important;
+  }
+
+  body.overview-dashboard-body:not(.admin-detail-page) .capacity-gauge-wrap {
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+  }
+
+  body.overview-dashboard-body:not(.admin-detail-page) canvas {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+  }
+
+  body.overview-dashboard-body:not(.admin-detail-page) .capacity-legend {
+    min-width: 0 !important;
+    font-size: 9px !important;
+  }
+
+  /* Other dashboards keep their existing visual design but obey the same
+     bounded viewport and normal-flow card sizing. */
+  body.smart-dashboard-body:not(.admin-detail-page) .routing-summary-card {
+    grid-row: 3 !important;
+    height: 112px !important;
+    min-height: 112px !important;
+    max-height: 112px !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+  }
+
+  body.smart-dashboard-body:not(.admin-detail-page) .smart-analytics-grid,
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-dashboard-grid,
+  body.workforce-dashboard-body:not(.admin-detail-page) .workforce-two-col-grid {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+  }
+}
+
+/* Very short embedded guided-demo viewport: preserve the full page by making
+   text denser, never by clipping a chart. */
+@media (min-width: 901px) and (max-height: 760px) {
+  body.overview-dashboard-body:not(.admin-detail-page) .main.dashboard-page {
+    grid-template-rows: 50px 66px 112px minmax(0, 1fr) !important;
+    padding: 8px 13px !important;
+    gap: 7px !important;
+  }
+
+  body.shared-dashboard-shell:not(.admin-detail-page) .topbar,
+  body.shared-dashboard-shell:not(.admin-detail-page) .admin-topbar-actions,
+  body.shared-dashboard-shell:not(.admin-detail-page) .live-clock {
+    height: 50px !important;
+    min-height: 50px !important;
+    max-height: 50px !important;
+  }
+
+  body.shared-dashboard-shell:not(.admin-detail-page) .shared-dashboard-kpis,
+  body.shared-dashboard-shell:not(.admin-detail-page) .shared-dashboard-kpi {
+    height: 66px !important;
+    min-height: 66px !important;
+    max-height: 66px !important;
+  }
+
+  body.overview-dashboard-body:not(.admin-detail-page) .overview-alerts-card {
+    height: 112px !important;
+    min-height: 112px !important;
+    max-height: 112px !important;
+    padding: 8px 11px !important;
+  }
+
+  body.overview-dashboard-body:not(.admin-detail-page) .overview-alerts-card .table-header p,
+  body.overview-dashboard-body:not(.admin-detail-page) .chart-header p,
+  body.overview-dashboard-body:not(.admin-detail-page) .trend-chart-header p {
+    display: none !important;
+  }
+
+  body.overview-dashboard-body:not(.admin-detail-page) .alert-box {
+    padding: 7px 9px !important;
+  }
+
+  body.overview-dashboard-body:not(.admin-detail-page) .alert-box small {
+    -webkit-line-clamp: 1 !important;
+  }
+}
+
+@media (max-width: 900px) {
+  html,
+  body.shared-dashboard-shell:not(.admin-detail-page),
+  body.shared-dashboard-shell:not(.admin-detail-page) .layout,
+  body.shared-dashboard-shell:not(.admin-detail-page) .dashboard,
+  body.shared-dashboard-shell:not(.admin-detail-page) .main.dashboard-page {
+    height: auto !important;
+    min-height: 100% !important;
+    max-height: none !important;
+    overflow: visible !important;
+    zoom: 1 !important;
+  }
+
+  body.overview-dashboard-body:not(.admin-detail-page) .overview-analytics-layout {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  body.overview-dashboard-body:not(.admin-detail-page) .overview-side-charts {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+}
+
+/* =====================================================================
+   v2 — Smart Maintenance + HITL viewport correction
+   Keeps every section in normal grid rows and prevents cards from covering
+   the following chart areas in the guided-demo viewport.
+   ===================================================================== */
+@media (min-width: 901px) {
+  /* Smart Maintenance Intelligence */
+  body.smart-dashboard-body:not(.admin-detail-page) .main.dashboard-page {
+    grid-template-rows: 58px 74px 132px minmax(0, 1fr) !important;
+  }
+
+  body.smart-dashboard-body:not(.admin-detail-page) .routing-summary-card {
+    grid-row: 3 !important;
+    box-sizing: border-box !important;
+    height: 132px !important;
+    min-height: 132px !important;
+    max-height: 132px !important;
+    padding: 10px 14px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+  }
+
+  body.smart-dashboard-body:not(.admin-detail-page) .routing-summary-card .chart-header {
+    flex: 0 0 auto !important;
+    margin: 0 0 7px !important;
+  }
+
+  body.smart-dashboard-body:not(.admin-detail-page) .routing-summary-card .chart-header h2 {
+    margin: 0 !important;
+    font-size: 16px !important;
+    line-height: 1.05 !important;
+  }
+
+  body.smart-dashboard-body:not(.admin-detail-page) .routing-summary-card .chart-header p {
+    margin: 2px 0 0 !important;
+    font-size: 9px !important;
+    line-height: 1.15 !important;
+  }
+
+  body.smart-dashboard-body:not(.admin-detail-page) .routing-status-grid {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    height: auto !important;
+    gap: 10px !important;
+    overflow: hidden !important;
+  }
+
+  body.smart-dashboard-body:not(.admin-detail-page) .routing-status-panel {
+    box-sizing: border-box !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    padding: 10px 14px !important;
+    overflow: hidden !important;
+  }
+
+  body.smart-dashboard-body:not(.admin-detail-page) .smart-analytics-grid {
+    grid-row: 4 !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.72fr) minmax(310px, 1fr) !important;
+    gap: 10px !important;
+    align-items: stretch !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+  }
+
+  body.smart-dashboard-body:not(.admin-detail-page) .smart-analytics-main,
+  body.smart-dashboard-body:not(.admin-detail-page) .smart-analytics-side,
+  body.smart-dashboard-body:not(.admin-detail-page) .smart-side-chart-card {
+    box-sizing: border-box !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+  }
+
+  body.smart-dashboard-body:not(.admin-detail-page) .smart-analytics-main,
+  body.smart-dashboard-body:not(.admin-detail-page) .smart-side-chart-card {
+    padding: 10px 12px !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  body.smart-dashboard-body:not(.admin-detail-page) .smart-analytics-side {
+    display: grid !important;
+    grid-template-rows: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+
+  body.smart-dashboard-body:not(.admin-detail-page) .smart-analytics-grid .chart-header {
+    flex: 0 0 auto !important;
+    margin: 0 0 5px !important;
+  }
+
+  body.smart-dashboard-body:not(.admin-detail-page) .smart-analytics-grid .chart-header h2 {
+    margin: 0 !important;
+    font-size: 14px !important;
+    line-height: 1.05 !important;
+  }
+
+  body.smart-dashboard-body:not(.admin-detail-page) .smart-analytics-grid .chart-header p {
+    margin: 2px 0 0 !important;
+    font-size: 8px !important;
+    line-height: 1.15 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+
+  body.smart-dashboard-body:not(.admin-detail-page) .smart-middle-chart-box,
+  body.smart-dashboard-body:not(.admin-detail-page) .smart-lower-chart-box {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: hidden !important;
+  }
+
+  body.smart-dashboard-body:not(.admin-detail-page) .smart-analytics-grid canvas {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+  }
+
+  /* HITL Dashboard */
+  body.hitl-dashboard-body:not(.admin-detail-page) .main.dashboard-page {
+    grid-template-rows: 58px 140px minmax(0, 1fr) 150px !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-custom-kpi-row {
+    grid-row: 2 !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    height: 140px !important;
+    min-height: 140px !important;
+    max-height: 140px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    grid-template-rows: 54px 77px !important;
+    gap: 9px !important;
+    overflow: hidden !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-custom-kpi-row .hitl-action-banner {
+    grid-row: 1 !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    height: 54px !important;
+    min-height: 54px !important;
+    max-height: 54px !important;
+    margin: 0 !important;
+    padding: 8px 14px !important;
+    overflow: hidden !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-custom-kpi-row .hitl-action-banner h2 {
+    font-size: 15px !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-custom-kpi-row .hitl-action-banner p {
+    margin-top: 2px !important;
+    font-size: 9px !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-custom-kpi-row .hitl-action-count strong {
+    font-size: 27px !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-custom-kpi-row .hitl-pending-action-card {
+    grid-row: 2 !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    height: 77px !important;
+    min-height: 77px !important;
+    max-height: 77px !important;
+    margin: 0 !important;
+    grid-template-columns: minmax(0, 1fr) 210px !important;
+    overflow: hidden !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-custom-kpi-row .hitl-pending-left-panel {
+    min-width: 0 !important;
+    height: 100% !important;
+    padding: 8px 12px !important;
+    grid-template-columns: 200px minmax(0, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-custom-kpi-row .hitl-pending-card-copy h2 {
+    font-size: 15px !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-custom-kpi-row .hitl-pending-card-copy p,
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-custom-kpi-row .hitl-pending-total-copy small,
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-custom-kpi-row .hitl-pending-link {
+    font-size: 8.5px !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-custom-kpi-row .hitl-pending-breakdown {
+    grid-template-columns: repeat(4, minmax(58px, 1fr)) !important;
+    gap: 5px !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-custom-kpi-row .hitl-pending-breakdown span {
+    height: 39px !important;
+    min-height: 39px !important;
+    padding: 4px 5px !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-custom-kpi-row .hitl-pending-total-panel {
+    padding: 8px 11px !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-trend-full {
+    grid-row: 3 !important;
+    box-sizing: border-box !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 10px 12px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-third-layer {
+    grid-row: 4 !important;
+    box-sizing: border-box !important;
+    height: 150px !important;
+    min-height: 210px !important;
+    max-height: 150px !important;
+    margin: 0 !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+    overflow: hidden !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-third-layer .chart-card {
+    box-sizing: border-box !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 9px 11px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-trend-full .chart-title-row,
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-third-layer .chart-title-row {
+    flex: 0 0 auto !important;
+    margin: 0 0 4px !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-trend-full .chart-title-row h2,
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-third-layer .chart-title-row h2 {
+    margin: 0 !important;
+    font-size: 14px !important;
+    line-height: 1.05 !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-trend-full .chart-title-row p,
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-third-layer .chart-title-row p {
+    margin: 2px 0 0 !important;
+    font-size: 8px !important;
+    line-height: 1.1 !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-trend-box,
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-bottom-chart-box {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: hidden !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) canvas {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+  }
+}
+
+@media (min-width: 901px) and (max-height: 760px) {
+  body.smart-dashboard-body:not(.admin-detail-page) .main.dashboard-page {
+    grid-template-rows: 50px 66px 116px minmax(0, 1fr) !important;
+  }
+
+  body.smart-dashboard-body:not(.admin-detail-page) .routing-summary-card {
+    height: 116px !important;
+    min-height: 116px !important;
+    max-height: 116px !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .main.dashboard-page {
+    grid-template-rows: 50px 122px minmax(0, 1fr) 126px !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-custom-kpi-row {
+    height: 122px !important;
+    min-height: 122px !important;
+    max-height: 122px !important;
+    grid-template-rows: 48px 66px !important;
+    gap: 8px !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-custom-kpi-row .hitl-action-banner {
+    height: 48px !important;
+    min-height: 48px !important;
+    max-height: 48px !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-custom-kpi-row .hitl-pending-action-card {
+    height: 66px !important;
+    min-height: 66px !important;
+    max-height: 66px !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-third-layer {
+    height: 126px !important;
+    min-height: 126px !important;
+    max-height: 126px !important;
+  }
+}
+
+
+/* =========================================================
+   2026-08-03 final Smart Maintenance + HITL presentation fit
+   ========================================================= */
+@media (min-width: 901px) {
+  /* Smart Maintenance: place routing count on the far right. */
+  body.smart-dashboard-body:not(.admin-detail-page) .routing-status-panel {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    grid-template-rows: auto auto !important;
+    column-gap: 14px !important;
+    row-gap: 3px !important;
+    align-items: center !important;
+    padding: 10px 16px !important;
+  }
+
+  body.smart-dashboard-body:not(.admin-detail-page) .routing-status-panel h3 {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    align-self: center !important;
+    margin: 0 !important;
+  }
+
+  body.smart-dashboard-body:not(.admin-detail-page) .routing-status-panel strong {
+    grid-column: 2 !important;
+    grid-row: 1 / span 2 !important;
+    justify-self: end !important;
+    align-self: center !important;
+    display: inline-flex !important;
+    align-items: baseline !important;
+    gap: 5px !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
+    text-align: right !important;
+  }
+
+  body.smart-dashboard-body:not(.admin-detail-page) .routing-status-panel p {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    margin: 0 !important;
+    align-self: start !important;
+  }
+
+  /* HITL: reduce the main trend and give both lower charts more space. */
+  body.hitl-dashboard-body:not(.admin-detail-page) .main.dashboard-page {
+    grid-template-rows: 58px 140px minmax(0, 0.78fr) 285px !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-third-layer {
+    height: 285px !important;
+    min-height: 285px !important;
+    max-height: 285px !important;
+    gap: 12px !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-third-layer .chart-card {
+    padding: 11px 14px !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-third-layer .chart-title-row h2 {
+    font-size: 16px !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-third-layer .chart-title-row p {
+    font-size: 9px !important;
+    line-height: 1.2 !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-bottom-chart-box {
+    min-height: 150px !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-trend-full {
+    padding: 9px 12px !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-trend-full .chart-title-row h2 {
+    font-size: 15px !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-trend-full .chart-title-row p {
+    font-size: 8px !important;
+  }
+}
+
+@media (min-width: 901px) and (max-height: 760px) {
+  body.hitl-dashboard-body:not(.admin-detail-page) .main.dashboard-page {
+    grid-template-rows: 50px 122px minmax(0, 0.72fr) 235px !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-third-layer {
+    height: 235px !important;
+    min-height: 235px !important;
+    max-height: 235px !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-bottom-chart-box {
+    min-height: 170px !important;
+  }
+}
+
+
+/* 2026-08-03 HITL final proportion refinement: smaller trend, larger lower charts */
+@media (min-width: 901px) {
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-trend-full {
+    min-height: 0 !important;
+    padding: 7px 12px !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-trend-box {
+    min-height: 0 !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-third-layer .chart-title-row {
+    margin-bottom: 8px !important;
+  }
+
+  body.hitl-dashboard-body:not(.admin-detail-page) .hitl-third-layer .chart-title-row h2 {
+    font-size: 17px !important;
+  }
+}

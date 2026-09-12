@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartOps AI — 04A Grounded Prompting</title>
+<style>
+  :root{
+    --bg:#f6fbff;--card:#ffffff;--line:#d5e4f2;--ink:#18314f;--muted:#6f849d;
+    --blue:#236cff;--blue-soft:#eef5ff;--purple:#7d53d8;--purple-soft:#f4efff;
+    --teal:#27b7ad;--teal-soft:#eefcf9;--orange:#f3a233;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;padding:0;background:transparent;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;background:transparent;color:var(--ink)}
+  .frame{border:0;border-radius:0;background:transparent;padding:24px 24px 8px}
+  .section-label{display:flex;align-items:center;gap:12px;margin:0 0 18px;color:var(--blue);font-size:18px;font-weight:950;letter-spacing:.12em;text-transform:uppercase}
+  .section-label:before{content:"";width:30px;height:3px;border-radius:99px;background:var(--blue)}
+  .top-flow{display:grid;grid-template-columns:minmax(0,1.2fr) 54px minmax(260px,.78fr) 54px minmax(0,.95fr);gap:14px;align-items:start}
+  .mini-kicker{margin:0 0 10px;color:var(--blue);font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+  .model-col .mini-kicker{color:var(--purple);text-align:center}
+  .output-col .mini-kicker{color:#0c9188}
+  .card{border:1px solid #cfe0f0;border-radius:24px;background:#fff;padding:22px}
+  .input-card{border-top:4px solid var(--blue)}
+  .input-card h2,.output-col h2{margin:0 0 18px;font-size:30px;line-height:1.08;letter-spacing:-.04em;color:#153553}
+  .input-grid{display:grid;gap:14px}
+  .input-box{min-height:82px;display:flex;align-items:center;padding:0 20px;border:1px solid #d7e5f2;border-radius:20px;background:#f9fcff;font-size:22px;font-weight:850;color:#16385b}
+  .frozen{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:16px;padding:16px 18px;border:1px solid #bdd7f7;border-radius:18px;background:linear-gradient(90deg,#eef6ff 0%,#f4fffc 100%)}
+  .frozen strong{font-size:18px;line-height:1.15;color:#2064d9}
+  .frozen span{font-size:15px;color:#6a8098;text-align:right;line-height:1.35}
+  .arrow{display:grid;place-items:center;padding-top:190px;color:var(--orange);font-size:54px;font-weight:950}
+  .model-col,.output-col{padding-top:4px}
+  .model-card{width:100%;max-width:360px;min-height:330px;margin:0 auto 18px;padding:24px;border-radius:30px;background:linear-gradient(145deg,#7759df 0%,#523abb 100%);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:18px;box-shadow:0 22px 40px rgba(97,70,201,.22)}
+  .groq{display:flex;align-items:center;justify-content:center;gap:12px}
+  .groq img{width:52px;height:52px;object-fit:contain;border-radius:12px;background:#fff}
+  .groq strong{font-size:26px;color:#fff}
+  .model-name{color:#fff;font-size:32px;font-weight:950;line-height:1.08;text-align:center}
+  .model-name span{display:block;margin-top:10px;color:#e5ddff;font-size:15px;letter-spacing:.15em;text-transform:uppercase}
+  .model-col p{margin:0 auto;max-width:300px;text-align:center;color:#6a7d95;font-size:16px;line-height:1.5}
+  .code-wrap{border:1px solid #cfe0f0;border-top:4px solid var(--teal);border-radius:24px;background:linear-gradient(180deg,#fbfffe 0%,#f4fffc 100%);padding:22px}
+  .json-box{border-radius:24px;background:linear-gradient(145deg,#082749 0%,#08395a 100%);padding:22px;min-height:430px}
+  .json-box pre{margin:0;color:#dff8ff;font:15px/1.55 Consolas,"Courier New",monospace;white-space:pre-wrap}
+  .controls-panel{margin-top:20px;border:1px solid var(--line);border-radius:22px;padding:20px;background:#fff}
+  .control-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+  .control-item{min-height:96px;display:grid;grid-template-columns:46px 1fr;align-items:flex-start;gap:14px;padding:16px;border:1px solid #d5e3f1;border-radius:16px;background:#fff}
+  .control-item i{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-style:normal;font-weight:900;color:var(--blue);background:var(--blue-soft)}
+  .control-item strong{display:block;font-size:18px;line-height:1.25;color:#173754}
+  .control-item small{display:block;margin-top:6px;font-size:14px;line-height:1.45;color:#7388a1}
+  .btn-row{display:flex;justify-content:flex-end;margin-top:14px}
+  .btn{min-height:50px;padding:0 22px;border:0;border-radius:13px;background:linear-gradient(135deg,#2674ff 0%,#16a49a 100%);color:#fff;font-size:14px;font-weight:900;cursor:pointer;box-shadow:0 10px 20px rgba(38,108,225,.16)}
+  dialog{width:min(980px,calc(100vw - 36px));max-height:min(84vh,780px);padding:0;border:1px solid #aac8e3;border-radius:22px;background:#f7fbff;box-shadow:0 30px 90px rgba(5,25,50,.28)}
+  dialog::backdrop{background:rgba(6,22,40,.72);backdrop-filter:blur(4px)}
+  .modal-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;background:linear-gradient(135deg,#082340,#0a4d70);color:#fff}
+  .modal-head span{display:block;color:#7addd4;font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+  .modal-head h3{margin:6px 0 0;font-size:22px}
+  .modal-head button{width:38px;height:38px;border:1px solid rgba(255,255,255,.24);border-radius:11px;background:rgba(255,255,255,.08);color:#fff;font-size:22px;cursor:pointer}
+  .modal-body{padding:18px}
+  .modal-body pre{margin:0;padding:18px;border-radius:16px;background:#081c34;color:#dff8ff;border:1px solid #173d60;white-space:pre-wrap;overflow:auto;font:13px/1.58 Consolas,"Courier New",monospace}
+</style>
+</head>
+<body>
+  <div class="frame">
+    <h2 class="section-label">Main inputs → LLM model → structured output</h2>
+
+    <div class="top-flow">
+      <section class="input-col">
+        <div class="card input-card">
+          <p class="mini-kicker">01 · Main inputs</p>
+          <h2>Controlled evidence package</h2>
+          <div class="input-grid">
+            <div class="input-box">Complaint</div>
+            <div class="input-box">Parent Scenario</div>
+            <div class="input-box">Troubleshooting Child</div>
+            <div class="input-box">Preventive Child</div>
+          </div>
+          <div class="frozen"><strong>Frozen Prompt V1</strong><span>Role, evidence-only rules and exact JSON contract</span></div>
+        </div>
+      </section>
+
+      <div class="arrow" aria-hidden="true">→</div>
+
+      <section class="model-col">
+        <p class="mini-kicker">02 · LLM model</p>
+        <div class="model-card">
+          <div class="groq"><img src="groq-logo.ico" alt="Groq logo"><strong>Groq</strong></div>
+          <div class="model-name">Llama 3.1<span>8B Instant</span></div>
+        </div>
+        <p>Transforms supplied evidence into cautious, technician-ready guidance.</p>
+      </section>
+
+      <div class="arrow" aria-hidden="true">→</div>
+
+      <section class="output-col">
+        <p class="mini-kicker">03 · Output</p>
+        <div class="code-wrap">
+          <h2>Recommendation JSON</h2>
+          <div class="json-box">
+<pre>{
+  "scenario_summary": "...",
+  "likely_issue": "...",
+  "recommended_actions": [],
+  "safety_precautions": [],
+  "preventive_actions": [],
+  "tools_or_materials": [],
+  "evidence": [],
+  "context_sufficient": true,
+  "information_gaps": []
+}</pre>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="controls-panel">
+      <h2 class="section-label" style="font-size:16px; margin-bottom:0;">Grounded structured prompt controls</h2>
+      <div class="control-grid">
+        <div class="control-item"><i>01</i><span><strong>Use supplied evidence only</strong><small>No unsupported diagnosis, tool, procedure or action.</small></span></div>
+        <div class="control-item"><i>02</i><span><strong>Use cautious causal language</strong><small>The complaint is a symptom, not proof of root cause.</small></span></div>
+        <div class="control-item"><i>03</i><span><strong>Return one exact JSON schema</strong><small>Required fields and data types stay machine-readable.</small></span></div>
+        <div class="control-item"><i>04</i><span><strong>Keep governance outside the LLM</strong><small>No severity, priority, approval, escalation or assignment decisions.</small></span></div>
+      </div>
+      <div class="btn-row"><button class="btn" id="openPrompt" type="button">View Full Frozen Prompt V1 ↗</button></div>
+    </section>
+  </div>
+
+  <dialog id="promptModal">
+    <div class="modal-head">
+      <div>
+        <span>Frozen prompt specification</span>
+        <h3>SmartOps AI — Frozen Prompt V1</h3>
+      </div>
+      <button type="button" id="closePrompt" aria-label="Close">×</button>
+    </div>
+    <div class="modal-body">
+<pre>You are a hotel maintenance recommendation generator.
+
+Use only the supplied evidence package:
+- complaint
+- selected parent scenario
+- troubleshooting child
+- preventive child
+
+Rules:
+- Use evidence only.
+- Do not invent unsupported diagnoses, tools, procedures or actions.
+- Use cautious language such as "possible", "may indicate" and "should be inspected".
+- Do not decide severity, priority, approval, escalation or assignment.
+- Return one exact JSON object only.
+
+Required JSON fields:
+{
+  "scenario_summary": string,
+  "likely_issue": string,
+  "recommended_actions": string[],
+  "safety_precautions": string[],
+  "preventive_actions": string[],
+  "tools_or_materials": string[],
+  "evidence": string[],
+  "context_sufficient": boolean,
+  "information_gaps": string[]
+}
+
+When the context is insufficient:
+- set context_sufficient to false
+- state the gaps
+- avoid inventing missing procedures
+
+Return JSON only.</pre>
+    </div>
+  </dialog>
+
+<script>
+  const modal = document.getElementById('promptModal');
+  document.getElementById('openPrompt').addEventListener('click', () => modal.showModal());
+  document.getElementById('closePrompt').addEventListener('click', () => modal.close());
+  modal.addEventListener('click', (e) => { if (e.target === modal) modal.close(); });
+</script>
+</body>
+</html>

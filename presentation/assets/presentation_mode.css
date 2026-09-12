@@ -1,0 +1,121 @@
+/*
+ * Loaded ONLY while Presentation Mode is active.
+ * The demo bar is part of normal document flow and the dashboard height is
+ * reduced accordingly, so it does not cover the existing Admin/Technician UI.
+ */
+:root {
+  --presentation-demo-bar-h: 54px;
+}
+
+.presentation-demo-bar {
+  width: 100%;
+  min-height: var(--presentation-demo-bar-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 16px;
+  border-bottom: 1px solid #dbe5f1;
+  background: #f8fbff;
+  color: #0f172a;
+  font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+  z-index: 9999;
+}
+
+.presentation-demo-brand,
+.presentation-demo-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.presentation-demo-brand strong {
+  font-size: 13px;
+}
+
+.presentation-demo-case {
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: #eaf2ff;
+  color: #1d4ed8;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.presentation-demo-link {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 11px;
+  border: 1px solid #d4e0ee;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #334155;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.presentation-demo-link.active {
+  border-color: #93b4e5;
+  background: #eaf2ff;
+  color: #1d4ed8;
+}
+
+.presentation-demo-link.primary {
+  border-color: #2563eb;
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.presentation-demo-link.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Admin dashboards: reserve vertical room for the demo strip. */
+body.presentation-demo-active.admin-dashboard-page .layout,
+body.presentation-demo-active.admin-dashboard-page .dashboard,
+body.presentation-demo-active.admin-dashboard-page .sidebar,
+body.presentation-demo-active.admin-dashboard-page .main.dashboard-page {
+  height: calc(100dvh - var(--presentation-demo-bar-h)) !important;
+  min-height: calc(100dvh - var(--presentation-demo-bar-h)) !important;
+}
+
+body.presentation-demo-active.admin-detail-page .layout,
+body.presentation-demo-active.admin-detail-page .dashboard,
+body.presentation-demo-active.admin-detail-page .sidebar,
+body.presentation-demo-active.admin-detail-page .main.dashboard-page {
+  height: auto !important;
+  min-height: calc(100dvh - var(--presentation-demo-bar-h)) !important;
+}
+
+/* Technician website: reserve the same room without changing its normal width. */
+body.presentation-demo-active.tech-body .phone-shell {
+  min-height: calc(100vh - var(--presentation-demo-bar-h));
+}
+
+@media (max-width: 900px) {
+  :root {
+    --presentation-demo-bar-h: 94px;
+  }
+
+  .presentation-demo-bar,
+  .presentation-demo-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .presentation-demo-bar {
+    gap: 7px;
+  }
+
+  .presentation-demo-actions {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+}

@@ -1,0 +1,350 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --blue: #2563eb;
+  --blue-dark: #1d4ed8;
+  --green: #16a34a;
+  --red: #ef4444;
+  --text: #111827;
+  --muted: #6b7280;
+  --border: #dbe4ef;
+  --page: #f4f6f9;
+  --navy: #0b223a;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  background: var(--page);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+}
+
+body.guided-demo-page {
+  min-height: 100vh;
+  height: auto;
+  display: block;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.guided-demo-toolbar {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 4px 10px;
+  border-bottom: 1px solid var(--border);
+  background: #ffffff;
+}
+
+.guided-demo-roles {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.guided-role-button,
+.guided-continue-button {
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 5px 11px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: .2s ease;
+}
+
+.guided-role-button {
+  position: relative;
+  min-width: 132px;
+  border: 2px solid #d7e2ef;
+  background: #f8fafc;
+  color: #9ca3af;
+  cursor: pointer;
+}
+
+.guided-role-button.active {
+  border-color: #8bb5ff;
+  background: #edf4ff;
+  color: #2459c4;
+}
+
+.guided-role-button.locked,
+.guided-role-button:disabled {
+  cursor: not-allowed;
+  opacity: .82;
+}
+
+.guided-role-button.ready:not(.active) {
+  border-color: #4ade80;
+  background: #f0fdf4;
+  color: #15803d;
+  animation: guidedReadyPulse 1.5s ease-in-out infinite;
+}
+
+.guided-role-button.has-notification:not(.active) {
+  border-color: #f87171;
+  background: #fff1f2;
+  color: #dc2626;
+  animation: guidedNotificationPulse 1.5s ease-in-out infinite;
+}
+
+.guided-ready-dot {
+  width: 8px;
+  height: 8px;
+  display: none;
+  border-radius: 50%;
+  background: #22c55e;
+}
+
+.guided-role-button.ready .guided-ready-dot {
+  display: block;
+}
+
+.guided-notification-badge {
+  min-width: 20px;
+  height: 20px;
+  display: inline-grid;
+  place-items: center;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--red);
+  color: #ffffff;
+  font-size: 10px;
+  font-style: normal;
+}
+
+.guided-notification-badge[hidden] {
+  display: none;
+}
+
+.guided-continue-button {
+  border: 1px solid var(--blue);
+  background: var(--blue);
+  color: #ffffff;
+  box-shadow: 0 5px 12px rgba(37, 99, 235, .18);
+  white-space: nowrap;
+}
+
+.guided-continue-button:hover {
+  background: var(--blue-dark);
+}
+
+.guided-instruction-bar {
+  min-height: 44px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 5px 14px;
+  background: linear-gradient(90deg, #2f6df0, #2457bd);
+  color: #ffffff;
+}
+
+.guided-demo-label {
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #2457bd;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .12em;
+}
+
+.guided-instruction-copy {
+  min-width: 0;
+}
+
+.guided-instruction-copy strong,
+.guided-instruction-copy small {
+  display: block;
+}
+
+.guided-instruction-copy strong {
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.guided-instruction-copy small {
+  margin-top: 2px;
+  color: #dbeafe;
+  font-size: 10px;
+}
+
+.guided-instruction-bar > i {
+  color: #dbeafe;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.guided-browser-shell {
+  min-height: 0;
+  display: block;
+  margin: 5px 8px 18px;
+  overflow: hidden;
+  border: 1px solid #b8c9dd;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 16px 38px rgba(15, 23, 42, .12);
+}
+
+.guided-browser-bar {
+  display: grid;
+  grid-template-columns: 90px minmax(240px, 1fr) 135px;
+  align-items: center;
+  gap: 12px;
+  padding: 0 14px;
+  border-bottom: 1px solid #29425b;
+  background: var(--navy);
+  color: #9fb3c8;
+}
+
+.guided-browser-dots {
+  display: flex;
+  gap: 7px;
+}
+
+.guided-browser-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fb7185;
+}
+
+.guided-browser-dots span:nth-child(2) { background: #fbbf24; }
+.guided-browser-dots span:nth-child(3) { background: #4ade80; }
+
+.guided-browser-address {
+  max-width: 690px;
+  width: 100%;
+  justify-self: center;
+  padding: 4px 12px;
+  border: 1px solid #2a4864;
+  border-radius: 9px;
+  text-align: center;
+  font-size: 11px;
+}
+
+.guided-fresh-status {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #a7f3d0;
+  font-size: 9px;
+  font-weight: 900;
+}
+
+.guided-fresh-status span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 12px #34d399;
+}
+
+#guidedDashboardFrame {
+  display: block;
+  width: 100%;
+  min-height: 620px;
+  height: calc(100vh - 178px);
+  border: 0;
+  background: #f4f6f9;
+  overflow: hidden;
+}
+
+.guided-toast {
+  position: fixed;
+  right: 30px;
+  bottom: 28px;
+  z-index: 20;
+  max-width: min(430px, calc(100vw - 40px));
+  padding: 11px 15px;
+  border-radius: 12px;
+  background: #0b2948;
+  color: #e5eef7;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .2);
+  font-size: 12px;
+  font-weight: 700;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: .2s ease;
+}
+
+.guided-toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes guidedReadyPulse {
+  50% { box-shadow: 0 0 0 7px rgba(34, 197, 94, .13); }
+}
+
+@keyframes guidedNotificationPulse {
+  50% { box-shadow: 0 0 0 7px rgba(239, 68, 68, .12); }
+}
+
+@media (max-width: 900px) {
+  body.guided-demo-page {
+    height: auto;
+    min-height: 100vh;
+    overflow: auto;
+  }
+
+  .guided-demo-toolbar {
+    align-items: center;
+    justify-content: flex-start;
+    padding: 8px 10px;
+    overflow-x: auto;
+  }
+
+  .guided-demo-roles {
+    display: flex;
+    width: max-content;
+    min-width: max-content;
+  }
+
+  .guided-role-button,
+  .guided-continue-button {
+    min-width: auto;
+    width: auto;
+    font-size: 13px;
+  }
+
+  .guided-instruction-bar {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 14px;
+  }
+
+  .guided-instruction-bar > i {
+    justify-self: start;
+  }
+
+  .guided-browser-shell {
+    height: 760px;
+    margin: 12px;
+  }
+
+  .guided-browser-bar {
+    grid-template-columns: auto 1fr;
+  }
+
+  .guided-fresh-status {
+    display: none;
+  }
+}

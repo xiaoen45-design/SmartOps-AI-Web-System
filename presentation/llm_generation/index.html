@@ -1,0 +1,2292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f5f9ff" />
+  <title>SmartOps AI — LLM Engineering Presentation</title>
+  <style>
+    :root {
+      --bg: #edf5ff;
+      --panel: #f8fbff;
+      --card: #ffffff;
+      --ink: #102947;
+      --muted: #647b98;
+      --line: #cfe0f4;
+      --blue: #1767ff;
+      --blue-2: #0d4e98;
+      --blue-soft: #e9f2ff;
+      --cyan: #16b7b1;
+      --cyan-soft: #e8fbfa;
+      --purple: #7d53d8;
+      --purple-soft: #f1ecff;
+      --orange: #ff7a22;
+      --orange-soft: #fff2e9;
+      --red: #e94d64;
+      --red-soft: #fff0f3;
+      --green: #0faa78;
+      --green-soft: #e9fbf4;
+      --shadow: 0 22px 55px rgba(43, 84, 129, 0.12);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --header-h: 74px;
+      --sidebar-w: 304px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(23,103,255,.08), transparent 27%),
+        linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%);
+    }
+
+    body { min-height: 100vh; overflow: hidden; }
+
+    button, a { font: inherit; }
+
+    .topbar {
+      height: var(--header-h);
+      display: grid;
+      grid-template-columns: minmax(260px, 1fr) auto minmax(180px, 1fr);
+      align-items: center;
+      gap: 24px;
+      padding: 0 36px;
+      background: rgba(255,255,255,.96);
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 5px 18px rgba(35,75,120,.05);
+      position: relative;
+      z-index: 30;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(145deg, #e6f1ff, #ffffff);
+      border: 1px solid #c4dbf8;
+      color: var(--blue);
+      box-shadow: inset 0 0 0 4px #f6faff;
+      flex: 0 0 auto;
+    }
+
+    .brand-copy strong {
+      display: block;
+      font-size: 19px;
+      line-height: 1;
+      letter-spacing: -.02em;
+    }
+
+    .brand-copy strong span { color: var(--blue); }
+
+    .brand-copy small {
+      display: block;
+      margin-top: 4px;
+      color: #7085a0;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .11em;
+      white-space: nowrap;
+    }
+
+    .topnav {
+      display: flex;
+      align-items: stretch;
+      gap: 25px;
+      height: 100%;
+    }
+
+    .topnav a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #40546d;
+      font-size: 13px;
+      font-weight: 750;
+      position: relative;
+      white-space: nowrap;
+    }
+
+    .topnav a.active { color: #0d1e39; }
+    .topnav a.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 17px;
+      height: 2px;
+      border-radius: 99px;
+      background: var(--blue);
+    }
+
+    .top-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 9px;
+    }
+
+    .icon-btn {
+      height: 38px;
+      min-width: 38px;
+      padding: 0 12px;
+      border-radius: 12px;
+      border: 1px solid #c9dbf2;
+      background: #fff;
+      color: #31516f;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 800;
+      transition: .18s ease;
+    }
+
+    .icon-btn:hover { transform: translateY(-1px); border-color: #98bdf0; }
+
+    .app-shell {
+      height: calc(100vh - var(--header-h));
+      display: grid;
+      grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
+      max-width: 1700px;
+      margin: 0 auto;
+    }
+
+    .sidebar {
+      padding: 20px 18px 18px 22px;
+      border-right: 1px solid var(--line);
+      background: rgba(238,246,255,.72);
+      overflow: hidden;
+    }
+
+    .sidebar-panel {
+      height: 100%;
+      border: 1px solid #c8dcf3;
+      border-top: 4px solid var(--blue);
+      border-radius: 20px;
+      background-color: rgba(255,255,255,.72);
+      background-image:
+        linear-gradient(rgba(74,130,190,.09) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(74,130,190,.09) 1px, transparent 1px);
+      background-size: 28px 28px;
+      box-shadow: var(--shadow);
+      padding: 20px 16px;
+      overflow: auto;
+    }
+
+    .sidebar-title {
+      margin: 0 0 18px 4px;
+      color: var(--blue);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .pipeline-list { display: grid; gap: 10px; }
+
+    .pipeline-item,
+    .sub-item {
+      width: 100%;
+      border: 1px solid #cadcf1;
+      border-radius: 16px;
+      background: rgba(255,255,255,.96);
+      color: var(--ink);
+      padding: 12px 13px;
+      display: grid;
+      grid-template-columns: 40px minmax(0,1fr) 18px;
+      align-items: center;
+      gap: 10px;
+      text-align: left;
+      cursor: default;
+    }
+
+    .pipeline-item .num,
+    .sub-item .num {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      display: grid;
+      place-items: center;
+      background: #edf4ff;
+      border: 1px solid #b8d2fa;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .pipeline-item .label strong,
+    .sub-item .label strong {
+      display: block;
+      font-size: 12px;
+      line-height: 1.2;
+    }
+
+    .pipeline-item .label small,
+    .sub-item .label small {
+      display: block;
+      margin-top: 4px;
+      color: #7b90a8;
+      font-size: 8px;
+      line-height: 1.25;
+    }
+
+    .pipeline-item.active {
+      background: linear-gradient(135deg, #0c3e77, #0a5c9a);
+      color: #fff;
+      border-color: #0f65bc;
+      box-shadow: inset 0 -3px 0 var(--cyan), 0 10px 22px rgba(17,92,156,.18);
+    }
+
+    .pipeline-item.active .num {
+      color: #fff;
+      border-color: #6db6ff;
+      background: #2374ea;
+    }
+
+    .pipeline-item.active .label small { color: #bcd9f6; }
+
+    .chev {
+      width: 10px;
+      height: 10px;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(45deg);
+      opacity: .6;
+      margin-left: 2px;
+    }
+
+    .active .chev { transform: rotate(225deg); }
+
+    .sub-list {
+      margin: 2px 0 2px 28px;
+      padding-left: 16px;
+      border-left: 1px solid #8fc0fb;
+      display: grid;
+      gap: 8px;
+    }
+
+    .sub-item {
+      grid-template-columns: 42px minmax(0,1fr);
+      cursor: pointer;
+      transition: .16s ease;
+    }
+
+    .sub-item .num {
+      width: 40px;
+      height: 40px;
+      font-size: 12px;
+      border: 0;
+      background: #eff4f9;
+      color: #607995;
+    }
+
+    .sub-item:hover { transform: translateX(2px); border-color: #8bb9f6; }
+
+    .sub-item.active {
+      background: #edf5ff;
+      border-color: #4190f7;
+      box-shadow: 0 8px 18px rgba(53,110,179,.08);
+    }
+
+    .sub-item.active .num {
+      background: #2d72f2;
+      color: #fff;
+    }
+
+    .main {
+      min-width: 0;
+      padding: 20px 26px 22px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .presentation-shell {
+      height: 100%;
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) 54px;
+      gap: 10px;
+    }
+
+    .slide-stage {
+      position: relative;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .slide {
+      display: none;
+      height: 100%;
+      overflow: auto;
+      border: 1px solid #c8dcf3;
+      border-radius: 22px;
+      background:
+        linear-gradient(180deg, rgba(238,246,255,.96), rgba(249,252,255,.98)),
+        #fff;
+      box-shadow: var(--shadow);
+      padding: 22px;
+      animation: fadeIn .28s ease;
+    }
+
+    .slide.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .slide-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+
+    .slide-heading {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: start;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .slide-code {
+      min-width: 46px;
+      height: 30px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: #edf4ff;
+      border: 1px solid #a9c9fa;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .06em;
+    }
+
+    .slide-title {
+      margin: 0;
+      font-size: clamp(22px, 2vw, 31px);
+      letter-spacing: -.03em;
+      line-height: 1.08;
+    }
+
+    .slide-subtitle {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .status-pill {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 13px;
+      border: 1px solid #abd0f3;
+      border-radius: 999px;
+      background: #f4fbff;
+      color: #14558d;
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .status-pill .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 0 4px rgba(22,183,177,.12);
+    }
+
+    .panel {
+      background: rgba(255,255,255,.72);
+      border: 1px solid #cadff4;
+      border-radius: 18px;
+    }
+
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .section-label::before {
+      content: "";
+      width: 20px;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--blue);
+    }
+
+    /* Slide 1 */
+    .pipeline-panel {
+      padding: 18px;
+      margin-bottom: 14px;
+    }
+
+    .pipeline-flow {
+      display: grid;
+      grid-template-columns: 1fr 30px 1.3fr 30px 1fr 30px 1.18fr 30px 1fr;
+      align-items: stretch;
+      gap: 6px;
+      margin-top: 15px;
+    }
+
+    .flow-card {
+      border: 1px solid #b9d3ef;
+      border-top: 3px solid var(--blue);
+      border-radius: 16px;
+      background: #fff;
+      padding: 14px;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 244px;
+    }
+
+    .flow-card.rag { border-top-color: var(--cyan); }
+    .flow-card.llm { border-top-color: var(--purple); }
+    .flow-card.json { border-top-color: var(--orange); }
+    .flow-card.system { border-top-color: var(--green); }
+
+    .flow-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: var(--blue-soft);
+      color: var(--blue);
+      border: 1px solid #c5daf6;
+    }
+
+    .rag .flow-icon { background: var(--cyan-soft); color: #0d968f; border-color: #bceae7; }
+    .llm .flow-icon { background: var(--purple-soft); color: var(--purple); border-color: #d6c8f8; }
+    .json .flow-icon { background: var(--orange-soft); color: var(--orange); border-color: #ffd3b4; }
+    .system .flow-icon { background: var(--green-soft); color: var(--green); border-color: #bcebd9; }
+
+    .flow-card h3 {
+      margin: 0;
+      font-size: 12px;
+      color: #173555;
+      line-height: 1.25;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .flow-card p,
+    .flow-card li {
+      color: #5f7895;
+      font-size: 10px;
+      line-height: 1.45;
+    }
+
+    .flow-card p { margin: 0; }
+    .flow-card ul { margin: 0; padding-left: 16px; display: grid; gap: 5px; }
+
+    .flow-arrow {
+      display: grid;
+      place-items: center;
+      color: var(--orange);
+    }
+
+    .arrow-line {
+      position: relative;
+      width: 26px;
+      height: 2px;
+      background: currentColor;
+      border-radius: 2px;
+    }
+
+    .arrow-line::after {
+      content: "";
+      position: absolute;
+      right: -1px;
+      top: -4px;
+      width: 8px;
+      height: 8px;
+      border-top: 2px solid currentColor;
+      border-right: 2px solid currentColor;
+      transform: rotate(45deg);
+    }
+
+    .governance-strip {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      align-items: center;
+      padding: 14px 16px;
+      border: 1px solid #f4b779;
+      border-left: 4px solid var(--orange);
+      border-radius: 15px;
+      background: #fff8f1;
+      color: #6d3d1a;
+      font-size: 11px;
+      line-height: 1.45;
+    }
+
+    .governance-strip strong { color: #9a4b08; }
+
+    .mini-badge {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #fff;
+      border: 1px solid #ffc08c;
+      color: var(--orange);
+      font-weight: 900;
+    }
+
+    .benefit-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .benefit {
+      min-height: 72px;
+      padding: 12px;
+      border: 1px solid #d1e1f2;
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    .benefit strong { display: block; font-size: 11px; }
+    .benefit span { display: block; margin-top: 5px; color: var(--muted); font-size: 9px; line-height: 1.35; }
+
+    /* Slide 2 */
+    .engineering-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(350px, .95fr);
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .stack-panel,
+    .controls-panel { padding: 18px; }
+
+    .stack-visual {
+      position: relative;
+      min-height: 455px;
+      margin-top: 14px;
+      display: grid;
+      place-items: center;
+      border: 1px dashed #c4d9ef;
+      border-radius: 18px;
+      background:
+        linear-gradient(rgba(61,119,184,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(61,119,184,.05) 1px, transparent 1px),
+        #fbfdff;
+      background-size: 28px 28px;
+      overflow: hidden;
+    }
+
+    .ring {
+      position: absolute;
+      display: grid;
+      place-items: start center;
+      border: 2px solid;
+      border-radius: 22px;
+      padding-top: 9px;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: .18em;
+      background: rgba(255,255,255,.45);
+    }
+
+    .ring.loop { width: 88%; height: 88%; border-color: var(--orange); color: var(--orange); }
+    .ring.harness { width: 75%; height: 75%; border-color: var(--purple); color: var(--purple); top: 12.5%; }
+    .ring.context { width: 61%; height: 61%; border-color: var(--cyan); color: #0a9c96; top: 19.5%; }
+    .ring.prompt { width: 47%; height: 47%; border-color: var(--blue); color: var(--blue); top: 26.5%; }
+
+    .model-core {
+      width: 150px;
+      height: 98px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(145deg, #ff8a49, #ff5c2d);
+      color: #fff;
+      font-size: 19px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      box-shadow: 0 16px 30px rgba(255,105,54,.25);
+      position: relative;
+      z-index: 6;
+    }
+
+    .stack-caption {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 14px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      z-index: 8;
+    }
+
+    .stack-chip {
+      border: 1px solid #cbdff3;
+      background: rgba(255,255,255,.92);
+      border-radius: 12px;
+      padding: 8px;
+      text-align: center;
+      color: #58728f;
+      font-size: 8px;
+      line-height: 1.35;
+    }
+
+    .controls-list { display: grid; gap: 9px; margin-top: 14px; }
+
+    .control-row {
+      display: grid;
+      grid-template-columns: 38px minmax(0,1fr) 124px;
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      border: 1px solid #d0e1f2;
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    .control-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 11px;
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+    }
+
+    .control-row:nth-child(1) .control-icon { background: var(--blue-soft); color: var(--blue); }
+    .control-row:nth-child(2) .control-icon { background: var(--cyan-soft); color: #0e9b95; }
+    .control-row:nth-child(3) .control-icon { background: var(--purple-soft); color: var(--purple); }
+    .control-row:nth-child(4) .control-icon { background: var(--orange-soft); color: var(--orange); }
+    .control-row:nth-child(5) .control-icon { background: #eef3f8; color: #6f879f; }
+
+    .control-copy strong { display: block; font-size: 11px; }
+    .control-copy span { display: block; margin-top: 4px; font-size: 9px; color: var(--muted); line-height: 1.4; }
+
+    .control-outcome {
+      border-left: 1px solid #d8e4f1;
+      padding-left: 12px;
+      color: #257566;
+      font-size: 9px;
+      line-height: 1.4;
+      font-weight: 800;
+    }
+
+    .engineering-cards {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .engineering-card {
+      min-height: 104px;
+      border: 1px solid #d1e2f2;
+      border-radius: 14px;
+      background: #fff;
+      padding: 12px;
+    }
+
+    .engineering-card b {
+      display: inline-grid;
+      place-items: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      background: var(--blue-soft);
+      color: var(--blue);
+      font-size: 10px;
+      margin-bottom: 7px;
+    }
+
+    .engineering-card:nth-child(2) b { background: var(--cyan-soft); color: #09978f; }
+    .engineering-card:nth-child(3) b { background: var(--orange-soft); color: var(--orange); }
+    .engineering-card:nth-child(4) b { background: var(--green-soft); color: var(--green); }
+
+    .engineering-card strong { display: block; font-size: 10px; }
+    .engineering-card p { margin: 4px 0 0; color: var(--muted); font-size: 9px; line-height: 1.45; }
+
+    /* Slide 3 */
+    .loop-panel { padding: 18px; }
+
+    .loop-flow {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 24px;
+      margin-top: 16px;
+      position: relative;
+    }
+
+    .loop-step {
+      position: relative;
+      min-height: 186px;
+      padding: 12px;
+      border: 1px solid #bdd4ed;
+      border-top: 3px solid var(--orange);
+      border-radius: 15px;
+      background: #fff;
+    }
+
+    .loop-step:nth-child(2) { border-top-color: var(--purple); }
+    .loop-step:nth-child(3) { border-top-color: var(--cyan); }
+    .loop-step:nth-child(4) { border-top-color: var(--red); }
+    .loop-step:nth-child(5) { border-top-color: var(--blue); }
+    .loop-step:nth-child(6) { border-top-color: var(--green); }
+
+    .loop-step:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      right: -18px;
+      top: 50%;
+      width: 12px;
+      height: 2px;
+      background: var(--orange);
+      transform: translateY(-50%);
+    }
+
+    .loop-step:not(:last-child)::before {
+      content: "";
+      position: absolute;
+      right: -18px;
+      top: calc(50% - 4px);
+      width: 7px;
+      height: 7px;
+      border-top: 2px solid var(--orange);
+      border-right: 2px solid var(--orange);
+      transform: rotate(45deg);
+    }
+
+    .step-no {
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      display: grid;
+      place-items: center;
+      background: var(--orange-soft);
+      color: var(--orange);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .loop-step:nth-child(2) .step-no { background: var(--purple-soft); color: var(--purple); }
+    .loop-step:nth-child(3) .step-no { background: var(--cyan-soft); color: #0b9d96; }
+    .loop-step:nth-child(4) .step-no { background: var(--red-soft); color: var(--red); }
+    .loop-step:nth-child(5) .step-no { background: var(--blue-soft); color: var(--blue); }
+    .loop-step:nth-child(6) .step-no { background: var(--green-soft); color: var(--green); }
+
+    .step-kicker {
+      margin-top: 10px;
+      font-size: 7px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+
+    .loop-step:nth-child(2) .step-kicker { color: var(--purple); }
+    .loop-step:nth-child(3) .step-kicker { color: #0b9d96; }
+    .loop-step:nth-child(4) .step-kicker { color: var(--red); }
+    .loop-step:nth-child(5) .step-kicker { color: var(--blue); }
+    .loop-step:nth-child(6) .step-kicker { color: var(--green); }
+
+    .loop-step h3 { margin: 7px 0 6px; font-size: 11px; line-height: 1.25; }
+    .loop-step p { margin: 0; color: var(--muted); font-size: 8px; line-height: 1.45; }
+
+    .return-track {
+      margin: 14px 18px 0;
+      height: 36px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .return-track::before {
+      content: "";
+      position: absolute;
+      left: 2%;
+      right: 2%;
+      top: 17px;
+      border-top: 2px dashed var(--orange);
+    }
+
+    .return-track::after {
+      content: "↶";
+      position: absolute;
+      left: 0;
+      top: 1px;
+      color: var(--orange);
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    .return-pill {
+      position: relative;
+      z-index: 2;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1px solid #f4bb86;
+      background: #fff7ef;
+      color: #a9520e;
+      font-size: 9px;
+      font-weight: 900;
+    }
+
+    .decision-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .decision-pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid;
+      text-align: center;
+      font-size: 8px;
+      font-weight: 900;
+    }
+
+    .decision-pill.run { color: #a94352; background: #fff4f6; border-color: #efb4be; }
+    .decision-pill.block { color: #8f3346; background: #fff0f2; border-color: #e9a0af; }
+    .decision-or { color: #72869c; font-size: 10px; font-weight: 900; }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .metric {
+      min-height: 86px;
+      padding: 12px;
+      border: 1px solid #cadff3;
+      border-radius: 14px;
+      background: #fff;
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .metric strong {
+      font-size: 34px;
+      line-height: 1;
+      color: var(--orange);
+      letter-spacing: -.05em;
+    }
+
+    .metric:nth-child(2) strong { color: var(--purple); }
+    .metric:nth-child(3) strong { color: var(--cyan); }
+    .metric:nth-child(4) strong { color: var(--green); }
+
+    .metric span { color: #5f7893; font-size: 8px; line-height: 1.35; font-weight: 750; }
+
+    .loop-message {
+      margin-top: 12px;
+      padding: 13px 14px;
+      border: 1px solid #f2bf8b;
+      border-left: 4px solid var(--orange);
+      border-radius: 13px;
+      background: #fff8f1;
+      color: #754215;
+      font-size: 9px;
+      font-weight: 800;
+      line-height: 1.45;
+    }
+
+    .controls-bar {
+      display: grid;
+      grid-template-columns: minmax(180px, 1fr) auto minmax(180px, 1fr);
+      align-items: center;
+      gap: 14px;
+    }
+
+    .slide-progress-copy {
+      color: #6a8098;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .nav-controls { display: flex; align-items: center; gap: 8px; }
+
+    .nav-btn {
+      height: 40px;
+      padding: 0 16px;
+      border: 1px solid #bed5ef;
+      border-radius: 12px;
+      background: #fff;
+      color: #244c75;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 900;
+      transition: .16s ease;
+    }
+
+    .nav-btn.primary {
+      color: #fff;
+      border-color: var(--blue);
+      background: linear-gradient(135deg, #1e74ff, #0b58cb);
+      box-shadow: 0 8px 18px rgba(23,103,255,.2);
+    }
+
+    .nav-btn:hover:not(:disabled) { transform: translateY(-1px); }
+    .nav-btn:disabled { opacity: .35; cursor: not-allowed; }
+
+    .dots { display: flex; justify-content: flex-end; gap: 7px; }
+    .dot-btn {
+      width: 9px;
+      height: 9px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: #bfd1e3;
+      cursor: pointer;
+    }
+    .dot-btn.active { width: 25px; border-radius: 999px; background: var(--blue); }
+
+    .keyboard-hint {
+      position: absolute;
+      right: 36px;
+      bottom: 70px;
+      color: #86a0bb;
+      font-size: 9px;
+      font-weight: 800;
+      pointer-events: none;
+    }
+
+    svg { display: block; }
+
+    @media (max-width: 1250px) {
+      :root { --sidebar-w: 260px; }
+      .topnav { gap: 14px; }
+      .topnav a { font-size: 11px; }
+      .pipeline-flow { grid-template-columns: 1fr 22px 1.15fr 22px 1fr 22px 1.12fr 22px 1fr; }
+      .flow-card { padding: 11px; }
+      .loop-flow { gap: 16px; }
+      .loop-step:not(:last-child)::after { right: -12px; width: 8px; }
+      .loop-step:not(:last-child)::before { right: -12px; }
+    }
+
+    @media (max-width: 1040px) {
+      body { overflow: auto; }
+      .topbar { grid-template-columns: 1fr auto; padding: 0 18px; }
+      .topnav { display: none; }
+      .app-shell { height: auto; min-height: calc(100vh - var(--header-h)); grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .main { padding: 14px; }
+      .presentation-shell { min-height: calc(100vh - var(--header-h) - 28px); }
+      .slide { overflow: visible; }
+      .pipeline-flow { grid-template-columns: 1fr; }
+      .flow-arrow { height: 24px; transform: rotate(90deg); }
+      .flow-card { min-height: auto; }
+      .engineering-grid { grid-template-columns: 1fr; }
+      .loop-flow { grid-template-columns: repeat(2, 1fr); }
+      .loop-step:not(:last-child)::after,
+      .loop-step:not(:last-child)::before { display: none; }
+      .engineering-cards, .benefit-grid, .metric-row { grid-template-columns: repeat(2, 1fr); }
+      .keyboard-hint { display: none; }
+    }
+
+    @media (max-width: 620px) {
+      .brand-copy small { display: none; }
+      .slide { padding: 15px; }
+      .slide-header { flex-direction: column; }
+      .status-pill { align-self: flex-start; }
+      .engineering-cards, .benefit-grid, .metric-row, .loop-flow { grid-template-columns: 1fr; }
+      .control-row { grid-template-columns: 34px 1fr; }
+      .control-outcome { grid-column: 2; border-left: 0; padding-left: 0; }
+      .stack-visual { min-height: 390px; }
+      .stack-caption { grid-template-columns: repeat(2,1fr); }
+      .controls-bar { grid-template-columns: 1fr; justify-items: center; }
+      .slide-progress-copy { display: none; }
+      .dots { justify-content: center; }
+    }
+
+    /* 04A · Grounded structured prompting */
+    .grounded-prompting-layout { display: grid; gap: 12px; }
+    .prompting-flow-panel { padding: 18px; }
+    .prompting-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) 30px minmax(190px, .72fr) 30px minmax(0, 1.08fr);
+      align-items: stretch;
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .prompt-input-stage,
+    .prompt-model-stage,
+    .prompt-output-stage {
+      min-width: 0;
+      padding: 15px;
+      border: 1px solid #c9dcf1;
+      border-top: 3px solid var(--blue);
+      border-radius: 16px;
+      background: #fff;
+    }
+
+    .prompt-model-stage { border-top-color: var(--purple); background: linear-gradient(180deg, #fff, #fbf9ff); }
+    .prompt-output-stage { border-top-color: var(--cyan); background: linear-gradient(180deg, #fff, #f6fffd); }
+    .prompting-flow-panel > .section-label { font-size: 15px; }
+    .prompt-stage-kicker { color: var(--blue); font-size: 11px; font-weight: 900; letter-spacing: .13em; }
+    .prompt-model-stage .prompt-stage-kicker { color: var(--purple); }
+    .prompt-output-stage .prompt-stage-kicker { color: #078f87; }
+    .prompt-input-stage h3,
+    .prompt-output-stage h3 { margin: 9px 0 12px; color: #143452; font-size: 18px; }
+
+    .prompt-input-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
+    .prompt-input-grid > div {
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      padding: 10px 14px;
+      border: 1px solid #d4e3f2;
+      border-radius: 11px;
+      background: #f8fbff;
+    }
+    .prompt-input-grid b,
+    .prompt-input-grid span { display: block; }
+    .prompt-input-grid b { color: #153b61; font-size: 18px; letter-spacing: -.015em; }
+    .prompt-input-grid span { margin-top: 4px; color: #6a8097; font-size: 8px; line-height: 1.35; }
+
+    .frozen-input {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 8px;
+      padding: 10px 12px;
+      border: 1px solid #bcd9f7;
+      border-radius: 11px;
+      background: linear-gradient(90deg, #eef6ff, #f3fffb);
+    }
+    .frozen-input strong { color: #1260c7; font-size: 13px; }
+    .frozen-input span { color: #55718d; font-size: 10px; text-align: right; }
+
+    .prompt-flow-arrow { display: grid; place-items: center; color: var(--orange); font-size: 25px; font-weight: 900; }
+    .prompt-model-stage { display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .prompt-model-core {
+      width: 166px;
+      min-height: 148px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin: 24px auto 16px;
+      padding: 18px;
+      border-radius: 20px;
+      color: #fff;
+      background: linear-gradient(145deg, #7255da, #4f36b9);
+      box-shadow: 0 16px 30px rgba(107, 76, 207, .23);
+      font-weight: 900;
+    }
+    .groq-brand { display: flex; align-items: center; justify-content: center; gap: 9px; }
+    .groq-brand img { width: 34px; height: 34px; object-fit: contain; border-radius: 8px; background: #fff; }
+    .groq-brand strong { color: #fff; font-size: 20px; letter-spacing: -.03em; text-transform: none; }
+    .model-name { color: #fff; font-size: 18px; font-weight: 900; line-height: 1.15; }
+    .model-name span { display: block; margin-top: 7px; color: #e8e1ff; font-size: 11px; letter-spacing: .13em; text-transform: uppercase; }
+    .prompt-model-stage dl { width: 100%; margin: 0; display: grid; gap: 6px; }
+    .prompt-model-stage dl div { display: flex; justify-content: space-between; gap: 8px; padding: 7px 9px; border: 1px solid #e0d9f7; border-radius: 9px; background: #fff; }
+    .prompt-model-stage dt { color: #6f648d; font-size: 8px; }
+    .prompt-model-stage dd { margin: 0; color: #4f36a5; font-size: 8px; font-weight: 900; }
+    .prompt-model-stage p { margin: 10px 0 0; color: #5e7690; font-size: 10px; line-height: 1.45; }
+
+    .prompt-output-stage pre,
+    .prompt-example-panel pre {
+      margin: 0;
+      overflow: auto;
+      white-space: pre-wrap;
+      color: #dff7ff;
+      background: linear-gradient(145deg, #082343, #073c58);
+      font: 9px/1.5 Consolas, "Courier New", monospace;
+    }
+    .prompt-output-stage pre { min-height: 210px; padding: 13px; border-radius: 12px; }
+
+    .prompt-detail-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    .frozen-controls-panel,
+    .prompt-example-panel { padding: 15px; }
+    .frozen-controls-panel .section-label { font-size: 15px; }
+    .frozen-control-list { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+    .frozen-control-list > div { min-height: 72px; display: grid; grid-template-columns: 36px 1fr; gap: 11px; align-items: center; padding: 12px; border: 1px solid #d4e3f1; border-radius: 11px; background: #fff; }
+    .frozen-control-list i { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 9px; color: var(--blue); background: var(--blue-soft); font-size: 10px; font-style: normal; font-weight: 900; }
+    .frozen-control-list strong,
+    .frozen-control-list small { display: block; }
+    .frozen-control-list strong { color: #183b5e; font-size: 12px; }
+    .frozen-control-list small { margin-top: 5px; color: #607990; font-size: 9px; line-height: 1.4; }
+
+    .prompt-button-row { display: flex; justify-content: flex-end; margin-top: 12px; }
+
+    .prompt-example-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 10px; }
+    .prompt-example-head span { color: #078f87; font-size: 8px; font-weight: 900; letter-spacing: .13em; }
+    .prompt-example-head h2 { margin: 5px 0 0; color: #143452; font-size: 13px; }
+    .prompt-example-panel pre { min-height: 116px; padding: 12px; border-radius: 11px; }
+    .prompt-modal-button { flex: 0 0 auto; min-height: 42px; padding: 0 18px; border: 0; border-radius: 11px; color: #fff; background: linear-gradient(135deg, #1f72f5, #078f87); font-size: 10px; font-weight: 900; cursor: pointer; box-shadow: 0 9px 18px rgba(26, 104, 214, .18); }
+
+    /* 04B · Labels live inside the coloured layers. */
+    .ring { display: block; text-align: center; }
+    button.ring,
+    button.model-core { font-family: inherit; cursor: pointer; appearance: none; }
+    button.model-core { border: 0; }
+    .ring.loop { z-index: 1; }
+    .ring.harness { z-index: 2; }
+    .ring.context { z-index: 3; }
+    .ring.prompt { z-index: 4; }
+    .control-hotspot { transition: filter .18s ease, box-shadow .18s ease, transform .18s ease; }
+    .control-hotspot:hover { filter: brightness(.97); }
+    .control-hotspot:focus-visible { outline: 3px solid rgba(23, 103, 255, .3); outline-offset: 3px; }
+    .control-hotspot[aria-pressed="true"] { box-shadow: 0 0 0 5px rgba(23, 103, 255, .12), 0 14px 30px rgba(24, 83, 146, .16); }
+    .model-core[aria-pressed="true"] { box-shadow: 0 0 0 6px rgba(255, 105, 54, .16), 0 18px 34px rgba(255, 105, 54, .34); transform: scale(1.03); }
+    .ring > strong { display: block; font-size: 13px; letter-spacing: .18em; }
+    .ring > span {
+      position: absolute;
+      left: 50%;
+      bottom: 8px;
+      width: max-content;
+      max-width: 88%;
+      transform: translateX(-50%);
+      color: currentColor;
+      font-size: 7px;
+      font-weight: 850;
+      line-height: 1.25;
+      letter-spacing: .01em;
+      text-align: center;
+    }
+
+    .controls-panel { min-height: 507px; }
+    .control-view { display: none; margin-top: 14px; }
+    .control-view.active { display: block; }
+    .control-view-hint { margin: 0 0 12px; color: #6c8197; font-size: 9px; }
+    .control-word-list { display: grid; gap: 9px; }
+    .control-word-list button {
+      min-height: 63px;
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 14px;
+      border: 1px solid #d0e1f2;
+      border-radius: 14px;
+      color: #153754;
+      background: #fff;
+      font-family: inherit;
+      text-align: left;
+      cursor: pointer;
+      transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+    }
+    .control-word-list button:hover { transform: translateY(-1px); border-color: #93bee9; box-shadow: 0 8px 18px rgba(30, 90, 151, .07); }
+    .control-word-list button span { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 11px; color: var(--blue); background: var(--blue-soft); font-size: 13px; font-weight: 900; }
+    .control-word-list button:nth-child(2) span { color: var(--blue); }
+    .control-word-list button:nth-child(3) span { color: #078f87; background: var(--cyan-soft); }
+    .control-word-list button:nth-child(4) span { color: var(--purple); background: var(--purple-soft); }
+    .control-word-list button:nth-child(5) span { color: var(--orange); background: var(--orange-soft); }
+    .control-word-list button strong { font-size: 16px; letter-spacing: -.015em; }
+
+    .empty-control-view {
+      min-height: 410px;
+      place-items: center;
+      border: 1px dashed #c4d9ef;
+      border-radius: 16px;
+      background: linear-gradient(rgba(61,119,184,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(61,119,184,.04) 1px, transparent 1px), #fbfdff;
+      background-size: 28px 28px;
+    }
+    .empty-control-view.active { display: grid; }
+    .empty-control-view strong { color: #9aafc3; font-size: 23px; letter-spacing: .12em; }
+
+    .flow-control-view { max-height: 430px; overflow: auto; padding-right: 3px; }
+    .mini-flow { display: grid; justify-items: stretch; }
+    .mini-flow > article {
+      min-height: 51px;
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border: 1px solid #c8dcf0;
+      border-left: 4px solid var(--blue);
+      border-radius: 11px;
+      background: #fff;
+    }
+    .mini-flow > article:nth-of-type(2) { border-left-color: #42a8e8; }
+    .mini-flow > article:nth-of-type(3) { border-left-color: var(--green); }
+    .mini-flow > article:nth-of-type(4) { border-left-color: #40b88a; }
+    .mini-flow > article:nth-of-type(5) { border-left-color: var(--orange); }
+    .mini-flow > article:nth-of-type(6) { border-left-color: #348bd5; }
+    .mini-flow article b { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 9px; color: var(--blue); background: var(--blue-soft); font-size: 8px; }
+    .mini-flow article strong,
+    .mini-flow article span { display: block; }
+    .mini-flow article strong { color: #183a5a; font-size: 10px; text-transform: uppercase; }
+    .mini-flow article span { margin-top: 3px; color: #607a93; font-size: 8px; line-height: 1.3; }
+    .mini-flow > i { min-height: 13px; display: grid; place-items: center; color: #6d8daa; font-size: 12px; font-style: normal; }
+    .mini-flow .mini-decision { border-left-color: var(--orange); background: #fff9f1; }
+    .mini-branch { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 7px 0; }
+    .mini-branch article { min-height: 48px; padding: 8px 9px; border: 1px solid; border-radius: 10px; background: #fff; }
+    .mini-branch article.pass { border-color: #a9ddc9; background: #f2fbf7; }
+    .mini-branch article.repair,
+    .mini-branch article.fail { border-color: #efb5bf; background: #fff4f5; }
+    .mini-branch article.pass strong { color: #16735c; }
+    .mini-branch article.repair strong,
+    .mini-branch article.fail strong { color: #a63f50; }
+    .mini-branch article strong { display: block; font-size: 9px; }
+    .mini-branch article span { display: block; margin-top: 3px; color: #687f95; font-size: 7px; }
+    .mini-flow-principle { margin-top: 10px; padding: 10px 12px; border: 1px solid #f0bd89; border-left: 4px solid var(--orange); border-radius: 11px; color: #7e4717; background: #fff8f1; font-size: 8px; font-weight: 850; line-height: 1.35; }
+
+    /* 04B · Enlarged stack with a compact interactive engineering panel. */
+    .engineering-grid { grid-template-columns: minmax(0, 1.4fr) minmax(300px, .6fr); gap: 14px; }
+    .stack-panel { padding: 20px; }
+    .controls-panel { min-height: 555px; padding: 16px; }
+    .stack-visual { min-height: 515px; margin-top: 12px; }
+    .stack-panel-heading { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .stack-panel-heading h2 { margin: 0; color: #102b46; font-size: 13px; font-weight: 850; letter-spacing: -.01em; }
+    .stack-panel-heading span { color: #71869b; font-size: 9px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+    .ring.loop { width: 94%; height: 94%; }
+    .ring.harness { width: 81%; height: 81%; top: 9.5%; }
+    .ring.context { width: 68%; height: 68%; top: 16%; }
+    .ring.prompt { width: 55%; height: 55%; top: 22.5%; }
+    .model-core { width: 170px; height: 112px; align-content: center; gap: 7px; font-size: 21px; }
+    .model-core strong { color: #fff; font-size: 20px; font-weight: 950; letter-spacing: .11em; }
+    .model-core span { color: rgba(255,255,255,.9); font-size: 9px; font-weight: 850; line-height: 1.35; letter-spacing: .035em; text-align: center; }
+    .layer-label {
+      position: absolute;
+      left: 50%;
+      z-index: 12;
+      transform: translateX(-50%);
+      padding: 0;
+      background: transparent;
+      box-shadow: none;
+      font-size: 13px;
+      font-weight: 950;
+      line-height: 1;
+      letter-spacing: .11em;
+      pointer-events: none;
+    }
+    .layer-label-loop { top: 4.6%; color: var(--orange); }
+    .layer-label-harness { top: 11.1%; color: var(--purple); }
+    .layer-label-output { top: 17.7%; color: #079b95; }
+    .layer-label-context { top: 24.2%; color: var(--blue); }
+    .layer-description {
+      position: absolute;
+      left: 50%;
+      z-index: 12;
+      width: max-content;
+      max-width: 72%;
+      transform: translateX(-50%);
+      padding: 0;
+      color: #102b46;
+      background: transparent;
+      box-shadow: none;
+      font-size: 10px;
+      font-weight: 850;
+      line-height: 1.25;
+      text-align: center;
+      pointer-events: none;
+    }
+    .layer-description-loop { bottom: 4.4%; }
+    .layer-description-harness { bottom: 10.9%; }
+    .layer-description-output { bottom: 17.5%; }
+    .layer-description-context { bottom: 24%; }
+    .ring > strong { display: block; color: currentColor; font-size: 16px; line-height: 1; letter-spacing: .17em; text-align: center; }
+    .ring > span { bottom: 10px; max-width: 90%; color: #071525; font-size: 10px; font-weight: 950; line-height: 1.2; letter-spacing: .015em; }
+
+    .control-view-hint { margin-bottom: 9px; }
+    .control-word-list { gap: 7px; }
+    .control-word-list button { min-height: 52px; grid-template-columns: 34px 1fr; gap: 10px; padding: 8px 10px; border-radius: 11px; }
+    .control-word-list button span { width: 31px; height: 31px; border-radius: 9px; font-size: 11px; }
+    .control-word-list button strong { font-size: 13px; }
+
+    .engineering-overview-flow { display: grid; justify-items: stretch; margin-top: 10px; }
+    .engineering-overview-flow button { min-height: 55px; display: grid; grid-template-columns: 38px 1fr; align-items: center; gap: 12px; padding: 9px 12px; border: 1px solid #caddef; border-left: 4px solid var(--blue); border-radius: 12px; color: #143551; background: #fff; font-family: inherit; text-align: left; cursor: pointer; box-shadow: 0 5px 14px rgba(24, 73, 121, .05); }
+    .engineering-overview-flow button:hover { border-color: #8ebce8; transform: translateY(-1px); }
+    .engineering-overview-flow button b { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 9px; color: var(--blue); background: var(--blue-soft); font-size: 9px; }
+    .engineering-overview-flow button strong { font-size: 14px; }
+    .engineering-overview-flow > i { height: 17px; display: grid; place-items: center; color: #6b91b3; font-size: 13px; font-style: normal; }
+    .engineering-overview-flow button:nth-of-type(1) { border-left-color: #ff6b36; }
+    .engineering-overview-flow button:nth-of-type(1) b { color: #d94f20; background: #fff0ea; }
+    .engineering-overview-flow button:nth-of-type(2) { border-left-color: var(--blue); }
+    .engineering-overview-flow button:nth-of-type(3) { border-left-color: var(--cyan); }
+    .engineering-overview-flow button:nth-of-type(3) b { color: #078f87; background: var(--cyan-soft); }
+    .engineering-overview-flow button:nth-of-type(4) { border-left-color: var(--purple); }
+    .engineering-overview-flow button:nth-of-type(4) b { color: var(--purple); background: var(--purple-soft); }
+    .engineering-overview-flow button:nth-of-type(5) { border-left-color: var(--orange); }
+    .engineering-overview-flow button:nth-of-type(5) b { color: var(--orange); background: var(--orange-soft); }
+
+    .single-control-view { min-height: 190px; }
+    .single-control-view.active { display: grid; align-content: start; }
+    .legacy-control-card { min-height: 142px; display: grid; grid-template-columns: 42px minmax(0, 1fr) 86px; align-items: center; gap: 12px; padding: 15px 13px; border: 1px solid #c9dff2; border-radius: 14px; background: #fff; box-shadow: 0 10px 24px rgba(25, 78, 130, .07); }
+    .legacy-control-icon { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 10px; color: var(--blue); background: var(--blue-soft); font-size: 14px; font-weight: 950; }
+    .legacy-control-copy strong { display: block; color: #102d49; font-size: 13px; }
+    .legacy-control-copy p { margin: 6px 0 0; color: #5b7691; font-size: 8px; line-height: 1.5; }
+    .legacy-control-outcome { padding-left: 11px; border-left: 1px solid #d5e3ef; color: #08745e; font-size: 8px; font-weight: 950; line-height: 1.45; }
+    .model-control-card .legacy-control-icon { color: #7a43d9; background: #f2edff; }
+
+    .flow-control-view { max-height: 485px; padding-right: 0; }
+    .flow-control-view.active { padding: 11px; overflow: auto; border: 1px solid #17466f; border-radius: 15px; background: radial-gradient(circle at 100% 0, rgba(25, 108, 205, .18), transparent 38%), linear-gradient(145deg, #06111f, #071c31); box-shadow: inset 0 0 0 1px rgba(88, 170, 239, .04); }
+    .flow-control-view .mini-flow > article { min-height: 45px; grid-template-columns: 29px 1fr; gap: 9px; padding: 7px 9px; border: 1px solid #2a8bd0; border-left-width: 3px; border-radius: 9px; background: rgba(4, 20, 34, .92); box-shadow: inset 0 0 20px rgba(16, 92, 160, .08); }
+    .flow-control-view .mini-flow article b { width: 26px; height: 26px; color: #60b8ff; background: rgba(38, 137, 215, .14); }
+    .flow-control-view .mini-flow article strong { color: #eef7ff; font-size: 9px; letter-spacing: .025em; }
+    .flow-control-view .mini-flow article span { color: #a9c0d4; font-size: 7.5px; }
+    .flow-control-view .mini-flow > i { min-height: 10px; color: #7bc8ff; font-size: 11px; }
+    .flow-control-view .mini-flow > article:nth-of-type(1), .flow-control-view .mini-flow > article:nth-of-type(2) { border-color: #a15ce4; }
+    .flow-control-view .mini-flow > article:nth-of-type(3), .flow-control-view .mini-flow > article:nth-of-type(4) { border-color: #4cc577; }
+    .flow-control-view .mini-flow > article:nth-of-type(5) { border-color: #f0a326; }
+    .flow-control-view .mini-flow > article:nth-of-type(6) { border-color: #38a8ee; }
+    .flow-control-view .mini-flow .mini-decision { border-color: #f0a326; background: rgba(80, 45, 4, .35); }
+    .flow-control-view .mini-branch article { background: rgba(5, 22, 37, .96); }
+    .flow-control-view .mini-branch article.pass { border-color: #45bb70; background: rgba(7, 54, 39, .52); }
+    .flow-control-view .mini-branch article.repair, .flow-control-view .mini-branch article.fail { border-color: #e65353; background: rgba(69, 14, 24, .5); }
+    .flow-control-view .mini-branch article.pass strong { color: #69e79b; }
+    .flow-control-view .mini-branch article.repair strong, .flow-control-view .mini-branch article.fail strong { color: #ff7777; }
+    .flow-control-view .mini-branch article span { color: #b9c8d6; }
+    .flow-control-view .mini-flow-principle { border-color: #df8325; border-left-color: #ff7d25; color: #ffd3a5; background: rgba(61, 30, 8, .56); font-size: 8px; }
+    .context-mini-flow > article:nth-of-type(-n+3) { border-color: #f27a24 !important; }
+    .context-mini-flow > article:nth-of-type(4), .context-mini-flow > article:nth-of-type(5) { border-color: #318fe7 !important; }
+    .context-mini-flow > article:nth-of-type(6), .context-mini-flow > article:nth-of-type(7) { border-color: #18bebb !important; }
+    .context-forward-note { margin-top: 8px; padding: 8px 10px; border: 1px dashed #3ab3e8; border-radius: 9px; color: #69c9ff; background: rgba(13, 65, 95, .3); font-size: 8px; font-weight: 900; text-align: center; }
+
+    /* Light presentation treatment for the three engineering flows. */
+    .flow-control-view.active {
+      padding: 11px;
+      border: 1px solid #c9dff2;
+      background:
+        linear-gradient(rgba(45, 111, 180, .045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(45, 111, 180, .045) 1px, transparent 1px),
+        #f8fbff;
+      background-size: 22px 22px;
+      box-shadow: 0 10px 24px rgba(24, 75, 126, .07);
+    }
+    .flow-view-summary {
+      margin-bottom: 10px;
+      padding: 10px 11px;
+      border: 1px solid #c9dff2;
+      border-left: 4px solid var(--blue);
+      border-radius: 11px;
+      background: #fff;
+    }
+    .flow-view-summary span,
+    .flow-view-summary strong { display: block; }
+    .flow-view-summary span { color: var(--blue); font-size: 7px; font-weight: 950; letter-spacing: .12em; }
+    .flow-view-summary strong { margin-top: 4px; color: #153753; font-size: 10px; line-height: 1.3; }
+    .context-control-view .flow-view-summary { border-left-color: var(--cyan); background: #f3fffd; }
+    .context-control-view .flow-view-summary span { color: #078f87; }
+    .harness-control-view .flow-view-summary { border-left-color: var(--purple); background: #faf7ff; }
+    .harness-control-view .flow-view-summary span { color: var(--purple); }
+    .loop-control-view .flow-view-summary { border-left-color: var(--orange); background: #fff9f1; }
+    .loop-control-view .flow-view-summary span { color: #b5650c; }
+
+    .flow-control-view .mini-flow > article {
+      min-height: 46px;
+      border: 1px solid #c7ddef;
+      border-left: 4px solid var(--blue);
+      background: rgba(255,255,255,.97);
+      box-shadow: 0 5px 13px rgba(30, 83, 134, .05);
+    }
+    .flow-control-view .mini-flow article b { color: var(--blue); background: var(--blue-soft); }
+    .flow-control-view .mini-flow article strong { color: #173956; font-size: 9px; }
+    .flow-control-view .mini-flow article span { color: #617a92; font-size: 7.5px; }
+    .flow-control-view .mini-flow > i { color: #468dc8; }
+
+    .harness-control-view .mini-flow > article:nth-of-type(1) { border-color: #5a9ee2; }
+    .harness-control-view .mini-flow > article:nth-of-type(2) { border-color: #25b5ae; }
+    .harness-control-view .mini-flow > article:nth-of-type(3) { border-color: #8960d8; }
+    .harness-control-view .mini-flow > article:nth-of-type(4) { border-color: #42aa76; }
+    .harness-control-view .mini-flow > article:nth-of-type(5) { border-color: #e9a33d; }
+    .harness-control-view .mini-flow > article:nth-of-type(6) { border-color: #3f8ed3; }
+
+    .loop-control-view .mini-flow > article:nth-of-type(1) { border-color: #5798d8; }
+    .loop-control-view .mini-flow > article:nth-of-type(2) { border-color: #8960d8; }
+    .loop-control-view .mini-flow > article:nth-of-type(3) { border-color: #e49b32; }
+    .loop-control-view .mini-flow > article:nth-of-type(4) { border-color: #21aaa5; }
+    .flow-control-view .mini-flow .mini-decision { border-color: #e49b32; background: #fff9ef; }
+
+    .flow-control-view .mini-branch article { background: #fff; }
+    .flow-control-view .mini-branch article.pass { border-color: #90d5ba; background: #effaf5; }
+    .flow-control-view .mini-branch article.repair,
+    .flow-control-view .mini-branch article.fail { border-color: #efabb6; background: #fff2f4; }
+    .flow-control-view .mini-branch article.pass strong { color: #14705a; }
+    .flow-control-view .mini-branch article.repair strong,
+    .flow-control-view .mini-branch article.fail strong { color: #a53649; }
+    .flow-control-view .mini-branch article span { color: #647d93; }
+
+    .context-forward-note { border-color: #90cfe9; color: #12638d; background: #eef9ff; }
+    .flow-control-view .mini-flow-principle {
+      border-color: #edc690;
+      border-left-color: var(--orange);
+      color: #7e4a14;
+      background: #fff8ee;
+      font-size: 8px;
+    }
+
+    @media (max-width: 900px) {
+      .engineering-grid { grid-template-columns: 1fr; }
+      .stack-visual { min-height: 500px; }
+      .controls-panel { min-height: auto; }
+    }
+
+    /* 04C · Bounded harness loop and stopping conditions. */
+    .harness-loop-layout { display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: 12px; margin-top: 15px; }
+    .harness-loop-diagram { padding: 15px; border: 1px solid #c8ddef; border-radius: 16px; background: linear-gradient(rgba(49, 113, 181, .045) 1px, transparent 1px), linear-gradient(90deg, rgba(49, 113, 181, .045) 1px, transparent 1px), #fbfdff; background-size: 24px 24px; }
+    .harness-main-row { display: grid; grid-template-columns: 1fr 18px 1fr 18px 1fr 18px .82fr 45px 1fr; gap: 5px; align-items: center; }
+    .harness-node,
+    .harness-decision,
+    .repair-condition { min-width: 0; min-height: 105px; padding: 10px; border: 1px solid #cbdff1; border-top: 3px solid var(--blue); border-radius: 13px; background: #fff; }
+    .harness-node.verify { border-top-color: var(--purple); }
+    .harness-node.ground { border-top-color: var(--cyan); }
+    .harness-node.pass { border-top-color: var(--green); background: #f1fbf7; }
+    .harness-node.repair { border-top-color: var(--orange); background: #fff8f1; }
+    .harness-node.stop { border-top-color: var(--red); background: #fff3f5; }
+    .harness-node span,
+    .harness-decision span,
+    .repair-condition span { display: block; color: var(--blue); font-size: 7px; font-weight: 900; letter-spacing: .09em; }
+    .harness-node strong,
+    .harness-decision strong,
+    .repair-condition strong { display: block; margin-top: 8px; color: #183b5c; font-size: 10px; line-height: 1.25; }
+    .harness-node small,
+    .repair-condition small { display: block; margin-top: 6px; color: #6b8096; font-size: 7px; line-height: 1.35; }
+    .harness-decision { display: grid; place-content: center; text-align: center; border: 2px solid var(--orange); background: #fff9f2; transform: rotate(2deg); }
+    .harness-decision > * { transform: rotate(-2deg); }
+    .harness-arrow { color: #3f83cf; font-size: 14px; text-align: center; }
+    .harness-arrow.yes { color: var(--green); font-size: 8px; line-height: 1.2; }
+    .harness-arrow.no { color: var(--red); font-size: 7px; line-height: 1.2; }
+    .harness-fail-drop { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 42px; color: var(--red); font-size: 8px; font-weight: 900; letter-spacing: .08em; }
+    .harness-fail-drop i { font-size: 17px; font-style: normal; }
+    .harness-repair-row { display: grid; grid-template-columns: 1fr 24px 1.25fr 1.1fr 62px 1fr; gap: 8px; align-items: center; }
+    .repair-condition { border-top-color: var(--orange); }
+    .loop-back-arrow { min-height: 105px; display: grid; place-content: center; padding: 9px; border: 2px dashed #7c66d7; border-radius: 14px; color: #5942b1; background: #faf8ff; text-align: center; }
+    .loop-back-arrow i { font-size: 24px; font-style: normal; line-height: 1; }
+    .loop-back-arrow strong { margin-top: 5px; font-size: 8px; }
+    .loop-back-arrow small { margin-top: 4px; color: #776b9a; font-size: 6px; line-height: 1.3; }
+
+    .harness-conditions { display: grid; gap: 10px; }
+    .condition-card { padding: 13px; border: 1px solid; border-radius: 14px; background: #fff; }
+    .condition-card.run { border-color: #b7e1d1; background: #f1fbf7; }
+    .condition-card.stop { border-color: #efbcc4; background: #fff4f5; }
+    .condition-card > span { color: #16745c; font-size: 8px; font-weight: 900; letter-spacing: .1em; }
+    .condition-card.stop > span { color: #a43d4f; }
+    .condition-card ul { margin: 10px 0 0; padding-left: 16px; display: grid; gap: 7px; }
+    .condition-card li { color: #536c84; font-size: 8px; line-height: 1.35; }
+    .harness-metrics { margin-top: 12px; }
+
+    /* Full frozen prompt modal */
+    .prompt-modal { width: min(920px, calc(100vw - 40px)); max-height: min(82vh, 760px); padding: 0; border: 1px solid #a9c6e1; border-radius: 20px; background: #f7fbff; box-shadow: 0 30px 90px rgba(2, 24, 48, .35); }
+    .prompt-modal::backdrop { background: rgba(3, 18, 36, .72); backdrop-filter: blur(5px); }
+    .prompt-modal-header { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 18px 20px; color: #fff; background: linear-gradient(115deg, #082340, #0a4b70); }
+    .prompt-modal-header span { color: #75d8cf; font-size: 8px; font-weight: 900; letter-spacing: .14em; }
+    .prompt-modal-header h2 { margin: 5px 0 0; font-size: 20px; }
+    .prompt-modal-header button { width: 34px; height: 34px; border: 1px solid rgba(255,255,255,.25); border-radius: 10px; color: #fff; background: rgba(255,255,255,.08); font-size: 19px; cursor: pointer; }
+    .prompt-modal-body { max-height: calc(min(82vh, 760px) - 82px); overflow: auto; padding: 18px; }
+    .prompt-modal-body pre { margin: 0; padding: 18px; overflow: auto; white-space: pre-wrap; border: 1px solid #173d60; border-radius: 14px; color: #dff7ff; background: #071b32; font: 12px/1.6 Consolas, "Courier New", monospace; }
+
+    @media (max-width: 1250px) {
+      .harness-loop-layout { grid-template-columns: 1fr; }
+      .harness-conditions { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 1040px) {
+      .prompting-flow { grid-template-columns: 1fr; }
+      .prompt-flow-arrow { min-height: 22px; transform: rotate(90deg); }
+      .prompt-detail-grid { grid-template-columns: 1fr; }
+      .harness-main-row,
+      .harness-repair-row { grid-template-columns: 1fr; }
+      .harness-arrow { transform: rotate(90deg); }
+      .harness-node,
+      .harness-decision,
+      .repair-condition,
+      .loop-back-arrow { min-height: auto; }
+    }
+
+    @media (max-width: 620px) {
+      .prompt-input-grid,
+      .frozen-control-list,
+      .harness-conditions { grid-template-columns: 1fr; }
+      .prompt-example-head { align-items: flex-start; flex-direction: column; }
+      .ring > span { font-size: 6px; }
+      .prompt-modal-body { padding: 10px; }
+      .prompt-modal-body pre { padding: 12px; font-size: 10px; }
+    }
+  
+
+    /* SmartOps embedded chapter mode */
+    html, body { width: 100%; height: 100%; min-height: 0; }
+    body { overflow: hidden !important; background: transparent !important; }
+    .topbar, .sidebar, .keyboard-hint { display: none !important; }
+    .app-shell {
+      width: 100%;
+      height: 100vh !important;
+      max-width: none !important;
+      margin: 0 !important;
+      display: block !important;
+    }
+    .main {
+      width: 100%;
+      height: 100vh !important;
+      padding: 0 !important;
+      overflow: hidden !important;
+    }
+    .presentation-shell {
+      width: 100%;
+      height: 100vh !important;
+      grid-template-rows: minmax(0, 1fr) 54px !important;
+      gap: 10px !important;
+    }
+    .slide-stage { height: auto !important; }
+    .slide {
+      border-radius: 18px !important;
+      box-shadow: none !important;
+      border-color: #c8dcf3 !important;
+    }
+    .controls-bar { padding: 0 8px 4px; }
+    .prompt-modal { max-height: 92vh; }
+    @media (max-width: 1040px) {
+      body { overflow: hidden !important; }
+      .main { padding: 0 !important; }
+      .slide { overflow: auto !important; }
+    }
+
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand" aria-label="SmartOps AI">
+      <div class="brand-mark" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M12 2.8 20 7v10l-8 4.2L4 17V7l8-4.2Z"/>
+          <path d="M8 9h8M8 12h8M8 15h5"/>
+        </svg>
+      </div>
+      <div class="brand-copy">
+        <strong>Smart<span>Ops</span> AI</strong>
+        <small>OPERATIONAL MAINTENANCE INTELLIGENCE</small>
+      </div>
+    </div>
+
+    <nav class="topnav" aria-label="Main navigation">
+      <a href="#">Home</a>
+      <a href="#">Lifecycle</a>
+      <a href="#">Why RAG-LLM</a>
+      <a href="#" class="active">RAG-LLM</a>
+      <a href="#">Platform</a>
+      <a href="#">Live Demo</a>
+      <a href="#">Business Value</a>
+      <a href="#">Cost</a>
+      <a href="#">Sustainability</a>
+      <a href="#">Future Vision</a>
+    </nav>
+
+    <div class="top-actions">
+      <button class="icon-btn" id="fullscreenBtn" type="button" aria-label="Enter presentation mode">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/>
+        </svg>
+        Present
+      </button>
+    </div>
+  </header>
+
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="sidebar-panel">
+        <h2 class="sidebar-title">Pipeline Navigation</h2>
+        <div class="pipeline-list">
+          <div class="pipeline-item">
+            <span class="num">01</span>
+            <span class="label"><strong>Intake &amp; Routing</strong><small>Complaint understanding</small></span>
+            <span class="chev" aria-hidden="true"></span>
+          </div>
+          <div class="pipeline-item">
+            <span class="num">02</span>
+            <span class="label"><strong>Knowledge &amp; Retrieval</strong><small>Knowledge preparation + live RAG</small></span>
+            <span class="chev" aria-hidden="true"></span>
+          </div>
+          <div class="pipeline-item">
+            <span class="num">03</span>
+            <span class="label"><strong>Gate 1</strong><small>Before the LLM</small></span>
+            <span></span>
+          </div>
+          <div class="pipeline-item active">
+            <span class="num">04</span>
+            <span class="label"><strong>LLM Generation</strong><small>Engineered LLM system</small></span>
+            <span class="chev" aria-hidden="true"></span>
+          </div>
+
+          <div class="sub-list" aria-label="LLM slides">
+            <button class="sub-item active" type="button" data-slide="0">
+              <span class="num">4A</span>
+              <span class="label"><strong>Grounded Prompting</strong><small>Inputs → model → structured output</small></span>
+            </button>
+            <button class="sub-item" type="button" data-slide="1">
+              <span class="num">4B</span>
+              <span class="label"><strong>Engineered Controls</strong><small>Prompt, context, output and harness</small></span>
+            </button>
+            <button class="sub-item" type="button" data-slide="2">
+              <span class="num">4C</span>
+              <span class="label"><strong>Harness Loop</strong><small>Generate, verify, repair and re-verify</small></span>
+            </button>
+          </div>
+
+          <div class="pipeline-item">
+            <span class="num">05</span>
+            <span class="label"><strong>Gate 2</strong><small>Operational control</small></span>
+            <span></span>
+          </div>
+          <div class="pipeline-item">
+            <span class="num">06</span>
+            <span class="label"><strong>Complete System</strong><small>End-to-end governed pipeline</small></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="presentation-shell">
+        <div class="slide-stage">
+          <!-- Slide 1 -->
+          <section class="slide active" data-title="Grounded Structured Prompting" aria-hidden="false">
+            <div class="slide-header">
+              <div class="slide-heading">
+                <span class="slide-code">04A</span>
+                <div>
+                  <h1 class="slide-title">Grounded Structured Prompting</h1>
+                  <p class="slide-subtitle">Frozen Prompt V1 combines the complaint and selected maintenance evidence, constrains the LLM, and returns one predictable JSON recommendation.</p>
+                </div>
+              </div>
+              <div class="status-pill"><span class="dot"></span> Groq · Llama 3.1 8B Instant</div>
+            </div>
+
+            <div class="grounded-prompting-layout">
+              <section class="panel prompting-flow-panel">
+                <h2 class="section-label">Main inputs → LLM model → structured output</h2>
+                <div class="prompting-flow">
+                  <article class="prompt-input-stage">
+                    <div class="prompt-stage-kicker">01 · MAIN INPUTS</div>
+                    <h3>Controlled evidence package</h3>
+                    <div class="prompt-input-grid">
+                      <div><b>Complaint</b></div>
+                      <div><b>Parent Scenario</b></div>
+                      <div><b>Troubleshooting Child</b></div>
+                      <div><b>Preventive Child</b></div>
+                    </div>
+                    <div class="frozen-input"><strong>Frozen Prompt V1</strong><span>Role, evidence-only rules and exact JSON contract</span></div>
+                  </article>
+
+                  <div class="prompt-flow-arrow" aria-hidden="true">→</div>
+
+                  <article class="prompt-model-stage">
+                    <div class="prompt-stage-kicker">02 · LLM MODEL</div>
+                    <div class="prompt-model-core">
+                      <div class="groq-brand"><img src="groq-logo.ico" alt=""><strong>Groq</strong></div>
+                      <div class="model-name">Llama 3.1 <span>8B Instant</span></div>
+                    </div>
+                    <p>Transforms supplied evidence into cautious, technician-ready guidance.</p>
+                  </article>
+
+                  <div class="prompt-flow-arrow" aria-hidden="true">→</div>
+
+                  <article class="prompt-output-stage">
+                    <div class="prompt-stage-kicker">03 · OUTPUT</div>
+                    <h3>Recommendation JSON</h3>
+                    <pre>{
+  "scenario_summary": "...",
+  "likely_issue": "...",
+  "recommended_actions": [],
+  "safety_precautions": [],
+  "preventive_actions": [],
+  "tools_or_materials": [],
+  "evidence": [],
+  "context_sufficient": true,
+  "information_gaps": []
+}</pre>
+                  </article>
+                </div>
+              </section>
+
+              <div class="prompt-detail-grid">
+                <section class="panel frozen-controls-panel">
+                  <h2 class="section-label">Grounded Structured Prompt Controls</h2>
+                  <div class="frozen-control-list">
+                    <div><i>01</i><span><strong>Use supplied evidence only</strong><small>No unsupported diagnosis, tool, procedure or action.</small></span></div>
+                    <div><i>02</i><span><strong>Use cautious causal language</strong><small>The complaint is a symptom, not proof of root cause.</small></span></div>
+                    <div><i>03</i><span><strong>Return one exact JSON schema</strong><small>Required fields and data types stay machine-readable.</small></span></div>
+                    <div><i>04</i><span><strong>Keep governance outside the LLM</strong><small>No severity, priority, approval, escalation or assignment decisions.</small></span></div>
+                  </div>
+                  <div class="prompt-button-row">
+                    <button class="prompt-modal-button" id="openPromptModal" type="button">View Full Frozen Prompt V1 ↗</button>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <div hidden aria-hidden="true">
+
+            <div class="panel pipeline-panel">
+              <h2 class="section-label">What the LLM does inside SmartOps</h2>
+              <div class="pipeline-flow">
+                <article class="flow-card">
+                  <div class="flow-icon" aria-hidden="true">
+                    <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+                      <path d="M20 15a4 4 0 0 1-4 4H8l-4 3v-7a7 7 0 1 1 16 0Z"/>
+                      <path d="M8 12h.01M12 12h.01M16 12h.01"/>
+                    </svg>
+                  </div>
+                  <h3>Guest Complaint</h3>
+                  <p>“Water is leaking from the ceiling in Room 502.”</p>
+                  <p>The complaint describes a symptom, not a confirmed diagnosis.</p>
+                </article>
+
+                <div class="flow-arrow" aria-hidden="true"><span class="arrow-line"></span></div>
+
+                <article class="flow-card rag">
+                  <div class="flow-icon" aria-hidden="true">
+                    <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+                      <ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/>
+                    </svg>
+                  </div>
+                  <h3>RAG Retrieved Knowledge</h3>
+                  <ul>
+                    <li>Scenario information</li>
+                    <li>Possible causes</li>
+                    <li>Troubleshooting steps</li>
+                    <li>Corrective and safety actions</li>
+                    <li>Preventive and verification guidance</li>
+                  </ul>
+                </article>
+
+                <div class="flow-arrow" aria-hidden="true"><span class="arrow-line"></span></div>
+
+                <article class="flow-card llm">
+                  <div class="flow-icon" aria-hidden="true">
+                    <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <rect x="5" y="5" width="14" height="14" rx="3"/><path d="M9 9h6v6H9zM9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/>
+                    </svg>
+                  </div>
+                  <h3>LLM Recommendation Generator</h3>
+                  <p>Uses only the supplied maintenance context to transform technical knowledge into technician-ready guidance.</p>
+                  <p><strong>Temperature:</strong> 0.0</p>
+                </article>
+
+                <div class="flow-arrow" aria-hidden="true"><span class="arrow-line"></span></div>
+
+                <article class="flow-card json">
+                  <div class="flow-icon" aria-hidden="true">
+                    <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+                      <path d="M8 3H5a2 2 0 0 0-2 2v3c0 2-1 3-2 3 1 0 2 1 2 3v5a2 2 0 0 0 2 2h3M16 3h3a2 2 0 0 1 2 2v3c0 2 1 3 2 3-1 0-2 1-2 3v5a2 2 0 0 1-2 2h-3"/>
+                    </svg>
+                  </div>
+                  <h3>Structured Recommendation (JSON)</h3>
+                  <ul>
+                    <li>Likely issue</li>
+                    <li>Corrective actions</li>
+                    <li>Safety precautions</li>
+                    <li>Preventive actions</li>
+                    <li>Verification steps</li>
+                    <li>Tools / materials and evidence</li>
+                  </ul>
+                </article>
+
+                <div class="flow-arrow" aria-hidden="true"><span class="arrow-line"></span></div>
+
+                <article class="flow-card system">
+                  <div class="flow-icon" aria-hidden="true">
+                    <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+                      <path d="M4 4h16v5H4zM4 11h7v9H4zM13 11h7v9h-7z"/>
+                    </svg>
+                  </div>
+                  <h3>SmartOps System</h3>
+                  <ul>
+                    <li>Dashboard display</li>
+                    <li>HITL review when needed</li>
+                    <li>Technician task guidance</li>
+                    <li>Audit and history</li>
+                  </ul>
+                </article>
+              </div>
+            </div>
+
+            <div class="governance-strip">
+              <div class="mini-badge">!</div>
+              <div><strong>The LLM does not decide severity, priority, approval, escalation or technician assignment.</strong> Those decisions remain under deterministic SmartOps governance.</div>
+            </div>
+
+            <div class="benefit-grid" aria-label="Business benefits">
+              <div class="benefit"><strong>Evidence-grounded</strong><span>Recommendations are based on retrieved maintenance knowledge.</span></div>
+              <div class="benefit"><strong>Structured</strong><span>Strict JSON allows reliable dashboard and technician integration.</span></div>
+              <div class="benefit"><strong>Controlled</strong><span>The model recommends; rules retain operational authority.</span></div>
+              <div class="benefit"><strong>Auditable</strong><span>Evidence, verification and repair decisions can be traced.</span></div>
+            </div>
+            </div>
+          </section>
+
+          <!-- Slide 2 -->
+          <section class="slide" data-title="Harness-Controlled LLM Engineering" aria-hidden="true">
+            <div class="slide-header">
+              <div class="slide-heading">
+                <span class="slide-code">04B</span>
+                <div>
+                  <h1 class="slide-title">Harness-Controlled LLM Engineering</h1>
+                  <p class="slide-subtitle">The model is only the centre. SmartOps engineers the system around it to control what enters, what may be produced and what can continue.</p>
+                </div>
+              </div>
+              <div class="status-pill"><span class="dot"></span> Model + engineered controls</div>
+            </div>
+
+            <div class="engineering-grid">
+              <section class="panel stack-panel">
+                <div class="stack-panel-heading">
+                  <h2>The system around the model</h2>
+                  <span>Control layers</span>
+                </div>
+                <div class="stack-visual" role="img" aria-label="Nested engineering layers around the LLM model">
+                  <button class="ring loop control-hotspot" type="button" data-control="loop" aria-label="Loop engineering" aria-pressed="false"></button>
+                  <button class="ring harness control-hotspot" type="button" data-control="harness" aria-label="Harness engineering" aria-pressed="false"></button>
+                  <button class="ring context control-hotspot" type="button" data-control="context" aria-label="Context engineering" aria-pressed="false"></button>
+                  <button class="ring prompt control-hotspot" type="button" data-control="prompt" aria-label="Prompt engineering" aria-pressed="false"></button>
+                  <span class="layer-label layer-label-loop">LOOP</span>
+                  <span class="layer-label layer-label-harness">HARNESS</span>
+                  <span class="layer-label layer-label-output">CONTEXT</span>
+                  <span class="layer-label layer-label-context">PROMPT</span>
+                  <span class="layer-description layer-description-loop">Generate → Verify → Repair → Reverify</span>
+                  <span class="layer-description layer-description-harness">Coordinates generator, verifier, grounding and failure handling</span>
+                  <span class="layer-description layer-description-output">Supplies selected and compacted RAG evidence</span>
+                  <span class="layer-description layer-description-context">Defines role, restrictions and JSON outputs</span>
+                  <button class="model-core control-hotspot" type="button" data-control="model" aria-pressed="false"><strong>MODEL</strong><span>Groq Llama 3.1<br>8B Instant</span></button>
+                </div>
+              </section>
+
+              <section class="panel controls-panel">
+                <h2 class="section-label" id="controlPanelTitle">Engineering overview</h2>
+
+                <div class="control-view active" data-control-view="default">
+                  <p class="control-view-hint">SmartOps LLM control flow</p>
+                  <div class="engineering-overview-flow" aria-label="Model to prompt to context to harness to loop">
+                    <button type="button" data-control="model"><b>01</b><strong>Model</strong></button>
+                    <i>↓</i>
+                    <button type="button" data-control="prompt"><b>02</b><strong>Prompt</strong></button>
+                    <i>↓</i>
+                    <button type="button" data-control="context"><b>03</b><strong>Context</strong></button>
+                    <i>↓</i>
+                    <button type="button" data-control="harness"><b>04</b><strong>Harness</strong></button>
+                    <i>↓</i>
+                    <button type="button" data-control="loop"><b>05</b><strong>Loop</strong></button>
+                  </div>
+                </div>
+
+                <div class="control-view single-control-view" data-control-view="model">
+                  <article class="legacy-control-card model-control-card">
+                    <span class="legacy-control-icon">{ }</span>
+                    <div class="legacy-control-copy">
+                      <strong>Output Engineering</strong>
+                      <p>Enforces required fields, data types, action limits and a machine-readable schema.</p>
+                    </div>
+                    <div class="legacy-control-outcome">Structured<br>System compatible</div>
+                  </article>
+                </div>
+
+                <div class="control-view single-control-view" data-control-view="prompt">
+                  <article class="legacy-control-card prompt-control-card">
+                    <span class="legacy-control-icon">P</span>
+                    <div class="legacy-control-copy">
+                      <strong>Prompt Engineering</strong>
+                      <p>Defines evidence-only behaviour, cautious language, prohibited decisions and strict JSON instructions.</p>
+                    </div>
+                    <div class="legacy-control-outcome">Guided<br>Restricted<br>Consistent</div>
+                  </article>
+                </div>
+
+                <div class="control-view flow-control-view context-control-view" data-control-view="context">
+                  <div class="flow-view-summary"><span>CONTEXT CONTROL</span><strong>Only relevant evidence enters the model</strong></div>
+                  <div class="mini-flow context-mini-flow">
+                    <article><b>01</b><div><strong>Guest Complaint</strong><span>Original maintenance issue</span></div></article><i>↓</i>
+                    <article><b>02</b><div><strong>Classification Context</strong><span>Category, confidence and scenario candidates</span></div></article><i>↓</i>
+                    <article><b>03</b><div><strong>Hybrid Retrieval</strong><span>Dense vector search + sparse keyword search</span></div></article><i>↓</i>
+                    <article><b>04</b><div><strong>Rerank &amp; Select</strong><span>Choose the strongest maintenance evidence</span></div></article><i>↓</i>
+                    <article><b>05</b><div><strong>Filter &amp; Compact</strong><span>Remove duplicates and fit the token budget</span></div></article><i>↓</i>
+                    <article><b>06</b><div><strong>Context Window</strong><span>Scenario, causes, corrective, safety, preventive and verification evidence</span></div></article><i>↓</i>
+                    <article><b>07</b><div><strong>LLM Recommendation</strong><span>Structured JSON maintenance guidance</span></div></article>
+                  </div>
+                  <div class="context-forward-note">Only relevant evidence goes forward.</div>
+                  <div class="mini-flow-principle">Context engineering retrieves, reranks, filters and compacts evidence before the LLM sees it.</div>
+                </div>
+
+                <div class="control-view flow-control-view harness-control-view" data-control-view="harness">
+                  <div class="flow-view-summary"><span>HARNESS CONTROL</span><strong>Generate, verify and ground every response</strong></div>
+                  <div class="mini-flow harness-mini-flow">
+                    <article><b>01</b><div><strong>Gather</strong><span>Retrieve and compact RAG maintenance evidence</span></div></article><i>↓</i>
+                    <article><b>02</b><div><strong>Act</strong><span>LLM generates structured JSON recommendation</span></div></article><i>↓</i>
+                    <article><b>03</b><div><strong>Verify JSON</strong><span>Validate schema and required data types</span></div></article><i>↓</i>
+                    <article><b>04</b><div><strong>Verify Claims</strong><span>Run semantic evidence-support check</span></div></article><i>↓</i>
+                    <article><b>05</b><div><strong>Ground</strong><span>Run deterministic grounding pre-check</span></div></article><i>↓</i>
+                    <article><b>06</b><div><strong>Output</strong><span>Pass grounded recommendation to Gate 2</span></div></article>
+                  </div>
+                  <div class="mini-flow-principle">Harness controls what the LLM sees, produces and verifies.</div>
+                </div>
+
+                <div class="control-view flow-control-view loop-control-view" data-control-view="loop">
+                  <div class="flow-view-summary"><span>BOUNDED REPAIR</span><strong>Pass, repair once or fail closed</strong></div>
+                  <div class="mini-flow loop-mini-flow">
+                    <article><b>01</b><div><strong>Goal</strong><span>Release only grounded recommendations</span></div></article><i>↓</i>
+                    <article><b>02</b><div><strong>Run Harness</strong><span>Generate → Verify → Ground</span></div></article><i>↓</i>
+                    <article class="mini-decision"><b>03</b><div><strong>Supported?</strong><span>Do semantic and grounding checks pass?</span></div></article>
+                    <div class="mini-branch"><article class="pass"><strong>YES · PASS</strong><span>Proceed to Gate 2</span></article><article class="repair"><strong>NO · REPAIR ONCE</strong><span>Correct unsupported claims only</span></article></div>
+                    <i>↓</i><article><b>05</b><div><strong>Re-Verify</strong><span>Semantic + grounding checks again</span></div></article>
+                    <div class="mini-branch"><article class="pass"><strong>PASS</strong><span>Grounded output</span></article><article class="fail"><strong>FAIL CLOSED</strong><span>Route to HITL</span></article></div>
+                  </div>
+                  <div class="mini-flow-principle">One repair cycle maximum. Stop when supported or fail closed.</div>
+                </div>
+              </section>
+            </div>
+
+            <div class="engineering-cards" aria-label="Main LLM engineering completed in SmartOps">
+              <div class="engineering-card"><b>1</b><strong>Prompt Engineering</strong><p>Evidence-only prompts constrain the LLM and prohibit unsupported decisions.</p></div>
+              <div class="engineering-card"><b>2</b><strong>Context Engineering</strong><p>Retrieved RAG evidence is organized, filtered and compacted before generation.</p></div>
+              <div class="engineering-card"><b>3</b><strong>Loop Engineering</strong><p>A bounded Generate → Verify → Repair → Re-verify cycle corrects unsupported guidance.</p></div>
+              <div class="engineering-card"><b>4</b><strong>Output Engineering</strong><p>Strict schema, field validation and formatting retries produce compatible responses.</p></div>
+            </div>
+
+            <div class="governance-strip" style="margin-top:12px;">
+              <div class="mini-badge">✓</div>
+              <div><strong>Harness = control + guardrails + verification.</strong> It makes the LLM useful without giving the model uncontrolled operational authority.</div>
+            </div>
+          </section>
+
+          <!-- Slide 3 -->
+          <section class="slide" data-title="Safe Generate–Verify–Repair Loop" aria-hidden="true">
+            <div class="slide-header">
+              <div class="slide-heading">
+                <span class="slide-code">04C</span>
+                <div>
+                  <h1 class="slide-title">Safe Generate–Verify–Repair Loop</h1>
+                  <p class="slide-subtitle">Every draft passes semantic and deterministic checks. Unsupported claims enter one bounded repair cycle and are never released automatically.</p>
+                </div>
+              </div>
+              <div class="status-pill"><span class="dot"></span> One repair cycle · fail closed</div>
+            </div>
+
+            <section class="panel loop-panel">
+              <h2 class="section-label">Harness-controlled reasoning flow</h2>
+              <div class="harness-loop-layout">
+                <div class="harness-loop-diagram" role="img" aria-label="Generate, verify, repair and fail-closed loop">
+                  <div class="harness-main-row">
+                    <article class="harness-node generate"><span>01 · GENERATE</span><strong>Draft JSON</strong><small>Frozen prompt + retrieved evidence</small></article>
+                    <b class="harness-arrow">→</b>
+                    <article class="harness-node verify"><span>02 · VERIFY</span><strong>Semantic verifier</strong><small>Check operational claims against context</small></article>
+                    <b class="harness-arrow">→</b>
+                    <article class="harness-node ground"><span>03 · GROUND</span><strong>Deterministic pre-check</strong><small>Schema, evidence references, actions and tools</small></article>
+                    <b class="harness-arrow">→</b>
+                    <article class="harness-decision"><span>SUPPORTED?</span><strong>Both checks pass?</strong></article>
+                    <b class="harness-arrow yes">YES →</b>
+                    <article class="harness-node pass"><span>PASS</span><strong>Final grounded payload</strong><small>Proceed to Gate 2</small></article>
+                  </div>
+
+                  <div class="harness-fail-drop"><span>NO · REPAIR REQUIRED</span><i>↓</i></div>
+
+                  <div class="harness-repair-row">
+                    <article class="repair-condition"><span>REPAIR ALLOWED?</span><strong>Repair budget remains</strong><small>Maximum semantic repair cycles: 1</small></article>
+                    <b class="harness-arrow yes">YES →</b>
+                    <article class="harness-node repair"><span>04 · REPAIR ONCE</span><strong>Remove or rewrite unsupported claims</strong><small>Use the same retrieved evidence; add no new facts</small></article>
+                    <div class="loop-back-arrow"><i>↰</i><strong>Loop back to verification</strong><small>Re-run semantic verifier + deterministic grounding</small></div>
+                    <b class="harness-arrow no">NO / STILL FAILS →</b>
+                    <article class="harness-node stop"><span>STOP · FAIL CLOSED</span><strong>Do not release</strong><small>Route to Gate 2 / HITL review</small></article>
+                  </div>
+                </div>
+
+                <aside class="harness-conditions">
+                  <div class="condition-card run">
+                    <span>THE LOOP RUNS WHEN</span>
+                    <ul><li>Semantic verifier requests repair</li><li>Deterministic grounding pre-check fails</li><li>A valid draft and retrieved context exist</li><li>The one-cycle repair budget remains</li></ul>
+                  </div>
+                  <div class="condition-card stop">
+                    <span>THE LOOP STOPS WHEN</span>
+                    <ul><li>Schema, semantic verification and grounding all pass</li><li>The single repair cycle has been used</li><li>Verifier or repair execution errors</li><li>Repaired output is malformed or still unsupported</li></ul>
+                  </div>
+                </aside>
+              </div>
+
+              <div hidden aria-hidden="true">
+              <div class="loop-flow">
+                <article class="loop-step">
+                  <div class="step-no">01</div>
+                  <div class="step-kicker">Generate</div>
+                  <h3>Draft Recommendation</h3>
+                  <p>Create one structured response from the retrieved evidence.</p>
+                </article>
+                <article class="loop-step">
+                  <div class="step-no">02</div>
+                  <div class="step-kicker">Verify</div>
+                  <h3>Claim-Level Semantic Check</h3>
+                  <p>Decompose the draft and check each operational claim against retrieved context.</p>
+                </article>
+                <article class="loop-step">
+                  <div class="step-no">03</div>
+                  <div class="step-kicker">Ground</div>
+                  <h3>Deterministic Pre-Check</h3>
+                  <p>Confirm evidence references, required fields and explicit support for tools and actions.</p>
+                </article>
+                <article class="loop-step">
+                  <div class="step-no">04</div>
+                  <div class="step-kicker">Repair Once</div>
+                  <h3>Change Unsupported Claims</h3>
+                  <p>Remove or rewrite only unsupported content without adding new evidence.</p>
+                </article>
+                <article class="loop-step">
+                  <div class="step-no">05</div>
+                  <div class="step-kicker">Re-Verify</div>
+                  <h3>Verifier + Grounding Check</h3>
+                  <p>Run both controls again after the bounded repair.</p>
+                </article>
+                <article class="loop-step">
+                  <div class="step-no">06</div>
+                  <div class="step-kicker">Pass Forward</div>
+                  <h3>Final Grounded Payload</h3>
+                  <p>Only supported output proceeds to Gate 2 and downstream governance.</p>
+                </article>
+              </div>
+
+              <div class="return-track">
+                <div class="return-pill">Still unsupported? Return to the loop controller</div>
+              </div>
+
+              <div class="decision-row">
+                <div class="decision-pill run">Repair budget available → run the one repair cycle</div>
+                <div class="decision-or">OR</div>
+                <div class="decision-pill block">Repair budget exhausted → block release and route to Gate 2 / HITL</div>
+              </div>
+
+              <div class="metric-row">
+                <div class="metric"><strong>1</strong><span>Maximum semantic repair cycle</span></div>
+                <div class="metric"><strong>3</strong><span>Maximum initial schema attempts</span></div>
+                <div class="metric"><strong>2</strong><span>Verification stages when repair occurs</span></div>
+                <div class="metric"><strong>0</strong><span>Automatic release when final evidence support fails</span></div>
+              </div>
+
+              <div class="loop-message">The loop improves unsupported output while preserving predictable latency, cost, auditability and a hard stopping condition.</div>
+              </div>
+
+              <div class="metric-row harness-metrics">
+                <div class="metric"><strong>1</strong><span>Maximum semantic repair cycle</span></div>
+                <div class="metric"><strong>3</strong><span>Maximum initial schema attempts</span></div>
+                <div class="metric"><strong>2</strong><span>Verification stages when repair occurs</span></div>
+                <div class="metric"><strong>0</strong><span>Automatic release when final evidence support fails</span></div>
+              </div>
+
+              <div class="loop-message">The harness returns only when the final schema, semantic verification and deterministic grounding agree. Every unresolved failure stops safely.</div>
+            </section>
+          </section>
+        </div>
+
+        <div class="controls-bar" aria-label="Slide controls">
+          <div class="slide-progress-copy" id="slideProgressCopy">Slide 1 of 3 · LLM Role</div>
+          <div class="nav-controls">
+            <button class="nav-btn" id="prevBtn" type="button">← Previous</button>
+            <button class="nav-btn primary" id="nextBtn" type="button">Next →</button>
+          </div>
+          <div class="dots" aria-label="Choose slide">
+            <button class="dot-btn active" type="button" data-slide="0" aria-label="Go to slide 1"></button>
+            <button class="dot-btn" type="button" data-slide="1" aria-label="Go to slide 2"></button>
+            <button class="dot-btn" type="button" data-slide="2" aria-label="Go to slide 3"></button>
+          </div>
+        </div>
+      </div>
+      <div class="keyboard-hint">Use ← → or Space to navigate</div>
+    </main>
+  </div>
+
+  <dialog class="prompt-modal" id="promptModal" aria-labelledby="promptModalTitle">
+    <div class="prompt-modal-header">
+      <div><span>FROZEN PROMPT · VERSION 1.0.0</span><h2 id="promptModalTitle">Full Frozen Prompt V1</h2></div>
+      <button id="closePromptModal" type="button" aria-label="Close full prompt">×</button>
+    </div>
+    <div class="prompt-modal-body">
+      <pre>You are a hotel maintenance recommendation assistant.
+
+Use only the supplied maintenance knowledge-base context. Do not add a
+diagnosis, tool, procedure, safety instruction or preventive action that is
+not supported by the context.
+
+The complaint is evidence of a symptom, not proof of a root cause. Use cautious
+language such as "likely", "possible" or "inspect for" when the context does not
+prove the cause.
+
+Do not determine priority, severity, approval status, escalation status,
+retrieval readiness or technician assignment. Those decisions are made by
+deterministic governance rules outside the language model.
+
+Return one JSON object with exactly these fields and exact data types:
+
+{
+  "scenario_summary": "string",
+  "likely_issue": "string",
+  "recommended_actions": ["string"],
+  "safety_precautions": ["string"],
+  "preventive_actions": ["string"],
+  "tools_or_materials": ["string"],
+  "evidence": [
+    {
+      "source_type": "parent | troubleshooting | preventive",
+      "statement": "string"
+    }
+  ],
+  "context_sufficient": true,
+  "information_gaps": ["string"]
+}
+
+Important:
+- Every field ending in actions, precautions, materials or gaps MUST be a JSON array.
+- If there are no items, return an empty array [].
+- tools_or_materials MUST be [] unless an exact tool or material name is explicitly present in the retrieved context. Do not infer tools from general maintenance knowledge.
+- evidence MUST be a JSON array of objects.
+- context_sufficient MUST be a JSON boolean, not a quoted string.
+- Do not add markdown fences.
+- Do not add any fields.
+
+When the context is insufficient:
+- set context_sufficient to false
+- state the gaps
+- avoid inventing missing procedures
+
+Return JSON only.</pre>
+    </div>
+  </dialog>
+
+  <script>
+    (() => {
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const subItems = Array.from(document.querySelectorAll('.sub-item'));
+      const dots = Array.from(document.querySelectorAll('.dot-btn'));
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const progressCopy = document.getElementById('slideProgressCopy');
+      const fullscreenBtn = document.getElementById('fullscreenBtn');
+      const promptModal = document.getElementById('promptModal');
+      const openPromptModal = document.getElementById('openPromptModal');
+      const closePromptModal = document.getElementById('closePromptModal');
+      const controlTriggers = Array.from(document.querySelectorAll('[data-control]'));
+      const controlHotspots = Array.from(document.querySelectorAll('.control-hotspot'));
+      const controlViews = Array.from(document.querySelectorAll('[data-control-view]'));
+      const controlPanelTitle = document.getElementById('controlPanelTitle');
+      const labels = ['Grounded Prompting', 'Engineered Controls', 'Harness Loop'];
+      const controlTitles = {
+        default: 'Engineering overview',
+        model: 'Output engineering',
+        prompt: 'Prompt engineering',
+        context: 'Context engineering flow',
+        harness: 'Harness flow',
+        loop: 'Loop flow'
+      };
+      let current = 0;
+      let selectedControl = null;
+
+      function showControlView(requestedControl) {
+        selectedControl = selectedControl === requestedControl ? null : requestedControl;
+        const viewName = selectedControl || 'default';
+        controlViews.forEach((view) => view.classList.toggle('active', view.dataset.controlView === viewName));
+        controlHotspots.forEach((hotspot) => hotspot.setAttribute('aria-pressed', String(hotspot.dataset.control === selectedControl)));
+        controlPanelTitle.textContent = controlTitles[viewName];
+      }
+
+      function showSlide(index) {
+        current = Math.max(0, Math.min(slides.length - 1, index));
+        slides.forEach((slide, i) => {
+          const active = i === current;
+          slide.classList.toggle('active', active);
+          slide.setAttribute('aria-hidden', String(!active));
+          if (active) slide.scrollTop = 0;
+        });
+        subItems.forEach((item, i) => item.classList.toggle('active', i === current));
+        dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
+        prevBtn.disabled = current === 0;
+        nextBtn.disabled = current === slides.length - 1;
+        nextBtn.textContent = current === slides.length - 1 ? 'End of LLM Section' : 'Next →';
+        progressCopy.textContent = `Slide ${current + 1} of ${slides.length} · ${labels[current]}`;
+        document.title = `SmartOps AI — ${slides[current].dataset.title}`;
+      }
+
+      subItems.forEach(item => item.addEventListener('click', () => showSlide(Number(item.dataset.slide))));
+      dots.forEach(dot => dot.addEventListener('click', () => showSlide(Number(dot.dataset.slide))));
+      controlTriggers.forEach((trigger) => trigger.addEventListener('click', () => showControlView(trigger.dataset.control)));
+      prevBtn.addEventListener('click', () => showSlide(current - 1));
+      nextBtn.addEventListener('click', () => showSlide(current + 1));
+
+      document.addEventListener('keydown', (event) => {
+        if (promptModal.open) return;
+        if (['ArrowRight', 'PageDown', ' '].includes(event.key)) {
+          event.preventDefault();
+          showSlide(current + 1);
+        }
+        if (['ArrowLeft', 'PageUp'].includes(event.key)) {
+          event.preventDefault();
+          showSlide(current - 1);
+        }
+        if (event.key === 'Home') showSlide(0);
+        if (event.key === 'End') showSlide(slides.length - 1);
+      });
+
+      fullscreenBtn.addEventListener('click', async () => {
+        try {
+          if (!document.fullscreenElement) {
+            await document.documentElement.requestFullscreen();
+          } else {
+            await document.exitFullscreen();
+          }
+        } catch (error) {
+          console.warn('Fullscreen mode is not available in this browser.', error);
+        }
+      });
+
+      openPromptModal.addEventListener('click', () => promptModal.showModal());
+      closePromptModal.addEventListener('click', () => promptModal.close());
+      promptModal.addEventListener('click', (event) => {
+        if (event.target === promptModal) promptModal.close();
+      });
+
+      window.addEventListener('message', (event) => {
+        const data = event.data || {};
+        if (data.type === 'smartops-llm-slide') {
+          const index = Number(data.index);
+          if (Number.isFinite(index)) showSlide(index);
+        }
+      });
+
+      showSlide(0);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+Photo assets used in the product website are free-to-use Pexels photos downloaded locally for reliable localhost display.
+- Operational technician: Artem Podrez / Pexels, photo 8986042
+- Hotel exterior: JA Blends / Pexels, photo 14379603
+- Office building: Random Freeloader / Pexels, photo 32151388
+- Shopping centre: Najem Mendes / Pexels, photo 28748522
+- Campus: Dr. John Taskinsoy / Pexels, photo 31496257
+- Property building: Pak WanJanggut / Pexels, photo 34186846

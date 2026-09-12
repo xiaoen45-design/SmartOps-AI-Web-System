@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SmartOps AI — RAG-LLM powered operational maintenance intelligence, demonstrated through an end-to-end hotel maintenance workflow.">
+  <meta name="theme-color" content="#071426">
+  <title>SmartOps AI | Operational Maintenance Intelligence</title>
+  <link rel="stylesheet" href="assets/presentation.css?v=202608021635">
+</head>
+<body>
+  <div class="site-progress" aria-hidden="true"><span id="siteProgress"></span></div>
+
+  <header class="site-header" id="siteHeader">
+    <a class="brand" href="#home" aria-label="SmartOps AI home">
+      <span class="brand-copy">
+        <strong>Smart<span>Ops</span> AI</strong>
+        <small>Operational Maintenance Intelligence</small>
+      </span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Open navigation">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="site-nav" id="siteNav" aria-label="Primary navigation">
+      <a href="#home">Home</a>
+      <a href="#lifecycle">Lifecycle</a>
+      <a href="#why-rag">Why RAG-LLM</a>
+      <a href="#technology">RAG-LLM</a>
+      <a href="#platform">Platform</a>
+      <a href="#live-demo">Live Demo</a>
+      <a href="#cost">Cost</a>
+      <a href="#business-value">Business Value</a>
+    </nav>
+
+    <a class="header-cta" href="#live-demo">Start Demo <span>↓</span></a>
+  </header>
+
+  <main>
+    <section class="hero section-grid" id="home" data-section="home">
+      <div class="hero-noise" aria-hidden="true"></div>
+      <div class="hero-orb hero-orb-one" aria-hidden="true"></div>
+      <div class="hero-orb hero-orb-two" aria-hidden="true"></div>
+
+      <div class="hero-copy reveal">
+        <div class="eyebrow"><span class="pulse-dot"></span> RAG-LLM Powered · Human Governed</div>
+        <h1>Operational maintenance<br><span>turned into intelligent action</span></h1>
+        <p class="hero-lead">SmartOps AI transforms guest maintenance complaints into grounded recommendations human governed decisions and actionable technician tasks</p>
+        <p class="hero-context">Demonstrated through an end-to-end <strong>hotel operational maintenance</strong> workflow</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#problem">Explore SmartOps AI <span>↓</span></a>
+          <a class="button button-secondary" href="#live-demo">Launch Live Demo <span>↓</span></a>
+        </div>
+        <div class="hero-proof">
+          <span>WhatsApp intake</span>
+          <span>Grounded RAG</span>
+          <span>HITL governance</span>
+          <span>Technician workflow</span>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal" aria-label="SmartOps AI complaint-to-action visual">
+        <div class="visual-grid" aria-hidden="true"></div>
+        <figure class="hero-photo-panel">
+          <img src="assets/photos/hero-technician.webp" alt="Operational maintenance technician inspecting facility equipment.">
+          <figcaption><span>LIVE OPERATIONS</span><strong>Maintenance intelligence connected to real work</strong></figcaption>
+        </figure>
+        <div class="signal-line signal-one" aria-hidden="true"></div>
+        <div class="signal-line signal-two" aria-hidden="true"></div>
+
+        <article class="device-card phone-card">
+          <div class="phone-top"><span></span><small>10:21</small><i></i></div>
+          <div class="phone-chat-head">
+            <span class="mini-logo">S</span>
+            <div><strong>SmartOps Assistant</strong><small>Business Account</small></div>
+          </div>
+          <div class="chat-bubble guest">Hi, I’m in Room 305. The air-conditioning is leaking water near the indoor unit.</div>
+          <div class="chat-bubble system">Your complaint has been received and is being analysed.</div>
+          <div class="phone-input">Message <span>➤</span></div>
+        </article>
+
+        <article class="device-card ai-card">
+          <div class="card-topline"><span>AI ANALYSIS</span><i class="live-indicator">LIVE</i></div>
+          <div class="analysis-title"><span class="brain-icon">AI</span><div><small>CASE SSAI-305</small><strong>HVAC Leakage</strong></div></div>
+          <dl class="analysis-list">
+            <div><dt>Category</dt><dd>D30 HVAC</dd></div>
+            <div><dt>Severity</dt><dd class="severity">HIGH</dd></div>
+            <div><dt>Routing</dt><dd>HITL Review</dd></div>
+          </dl>
+          <div class="confidence-row"><span>Retrieval confidence</span><strong>94%</strong></div>
+          <div class="confidence-track"><span></span></div>
+          <div class="ai-tags"><span>Troubleshooting</span><span>Preventive</span></div>
+        </article>
+
+        <article class="device-card ops-card">
+          <div class="ops-header"><span>OPERATIONS</span><i></i></div>
+          <div class="ops-stat"><small>Pending review</small><strong>1</strong></div>
+          <div class="ops-flow">
+            <span class="flow-node active">Manager</span><b>→</b><span class="flow-node">Technician</span>
+          </div>
+          <div class="ops-status"><span></span> Human decision required</div>
+        </article>
+
+        <div class="hero-caption"><span>01 Capture</span><span>02 Analyse</span><span>03 Manage</span></div>
+      </div>
+    </section>
+
+    <section class="content-section problem-section" id="problem">
+      <div class="section-heading reveal">
+        <span class="section-number">01</span>
+        <div>
+          <div class="section-kicker">Business Problem</div>
+          <h2>The operational maintenance challenge</h2>
+          <p>A hotel use case showing how fragmented reporting creates delays, weak prioritisation and limited visibility.</p>
+        </div>
+      </div>
+
+      <div class="media-split">
+        <div class="video-shell reveal">
+          <div class="video-label"><span class="record-dot"></span> Hotel operational maintenance use case</div>
+          <video id="problemVideo" autoplay muted loop playsinline webkit-playsinline preload="auto" controls poster="slides/slide02.png">
+            <source src="videos/slide02.mp4" type="video/mp4">
+          </video>
+          <div class="video-caption"><strong>10-second scenario</strong><span>Automatically playing on a continuous loop</span></div>
+        </div>
+
+        <div class="challenge-grid reveal">
+          <article class="challenge-card">
+            <span class="challenge-index">01</span>
+            <div class="challenge-icon">⌁</div>
+            <h3>Fragmented Issue Reporting</h3>
+            <p>Maintenance issues are reported through calls, messages or verbal communication.</p>
+          </article>
+          <article class="challenge-card">
+            <span class="challenge-index">02</span>
+            <div class="challenge-icon">⇄</div>
+            <h3>Manual Triage</h3>
+            <p>Staff manually interpret, record and forward each issue.</p>
+          </article>
+          <article class="challenge-card">
+            <span class="challenge-index">03</span>
+            <div class="challenge-icon">⚑</div>
+            <h3>Limited Prioritisation</h3>
+            <p>Tasks may be handled by submission order rather than operational severity.</p>
+          </article>
+          <article class="challenge-card">
+            <span class="challenge-index">04</span>
+            <div class="challenge-icon">◫</div>
+            <h3>Poor Operational Visibility</h3>
+            <p>Managers lack real-time visibility into unresolved issues, technician workload and SLA risks.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section solution-section" id="solution">
+      <div class="section-heading reveal">
+        <span class="section-number">02</span>
+        <div>
+          <div class="section-kicker">Proposed Solution</div>
+          <h2>From complaint to maintenance action</h2>
+          <p>Three connected product capabilities followed by one real Room 305 operational case</p>
+        </div>
+      </div>
+
+      <div class="three-stage solution-stage-visuals reveal" aria-label="SmartOps three-stage solution">
+        <article class="stage-card stage-whatsapp">
+          <div class="stage-top"><span>01</span><small>COLLECT</small></div>
+          <figure class="stage-product-visual stage-real-visual">
+            <img src="assets/photos/solution-collect-industrial.webp" alt="Room 305 QR code and WhatsApp maintenance complaint intake.">
+            <figcaption><span>ROOM 305</span><strong>QR scan to WhatsApp intake</strong></figcaption>
+          </figure>
+          <h3>WhatsApp Intelligence</h3>
+          <p>Scan the room QR code and send the maintenance complaint through WhatsApp</p>
+          <span class="stage-output">QR intake · Room and issue details</span>
+        </article>
+
+        <div class="stage-connector"><span></span></div>
+
+        <article class="stage-card featured stage-rag">
+          <div class="stage-top"><span>02</span><small>ANALYSE</small></div>
+          <figure class="stage-product-visual stage-real-visual stage-real-visual-dark">
+            <img src="assets/photos/solution-rag-industrial.webp" alt="Industrial RAG-LLM maintenance intelligence interface showing classification evidence and recommended actions.">
+            <figcaption><span>RAG-LLM ENGINE</span><strong>Evidence-grounded maintenance intelligence</strong></figcaption>
+          </figure>
+          <h3>RAG-LLM Intelligence</h3>
+          <p>Classify the issue retrieve trusted evidence and generate grounded maintenance guidance</p>
+          <span class="stage-output">Severity · Troubleshooting · Prevention</span>
+        </article>
+
+        <div class="stage-connector"><span></span></div>
+
+        <article class="stage-card stage-platform">
+          <div class="stage-top"><span>03</span><small>MANAGE</small></div>
+          <figure class="stage-product-visual stage-real-visual stage-real-visual-dark">
+            <img src="assets/photos/solution-platform-industrial.webp" alt="Web-based operational maintenance dashboard for case monitoring and technician assignment.">
+            <figcaption><span>OPERATIONS PLATFORM</span><strong>Monitor route and assign maintenance work</strong></figcaption>
+          </figure>
+          <h3>Web-Based Platform</h3>
+          <p>Govern high-risk cases assign technicians and monitor the maintenance workflow</p>
+          <span class="stage-output">HITL · Dashboard · Technician task</span>
+        </article>
+      </div>
+
+      <div class="case-study-grid case-study-original-size">
+        <div class="video-shell solution-video-shell reveal">
+          <div class="video-label"><span class="record-dot"></span> SmartOps AI in action · Room 305</div>
+          <video id="solutionVideo" muted playsinline preload="auto" controls poster="slides/slide03.png">
+            <source src="videos/slide03.mp4" type="video/mp4">
+          </video>
+          <div class="video-caption"><strong>End-to-end solution</strong><span>Complaint → AI analysis → HITL approval → technician response</span></div>
+        </div>
+
+        <div class="case-panel reveal">
+          <div class="case-panel-head">
+            <div><small>REAL CASE STUDY</small><h3>Room 305 · HVAC Leakage</h3></div>
+          </div>
+
+          <div class="case-timeline" id="caseTimeline">
+            <button class="case-step active" type="button" data-seek="0">
+              <span class="case-step-number">01</span>
+              <span class="case-step-body"><strong>Complaint Received</strong><small>WhatsApp · Room 305</small></span>
+              <i></i>
+            </button>
+            <div class="case-detail active" data-detail="0">
+              <dl><div><dt>Location</dt><dd>Room 305</dd></div><div><dt>Issue</dt><dd>Water leaking from the air-conditioning unit</dd></div></dl>
+            </div>
+
+            <button class="case-step" type="button" data-seek="6">
+              <span class="case-step-number">02</span>
+              <span class="case-step-body"><strong>SmartOps AI Analysis</strong><small>Grounded RAG-LLM output</small></span>
+              <i></i>
+            </button>
+            <div class="case-detail case-analysis-detail" data-detail="1">
+              <dl class="case-analysis-rows">
+                <div>
+                  <dt>Category</dt>
+                  <dd>D30 HVAC</dd>
+                </div>
+                <div class="case-analysis-severity-row">
+                  <dt>Severity</dt>
+                  <dd><strong>HIGH</strong><span>HITL Required</span></dd>
+                </div>
+                <div>
+                  <dt>Outcome</dt>
+                  <dd>Manager Review</dd>
+                </div>
+              </dl>
+              <div class="case-chips"><span>Troubleshooting</span><span>Preventive Maintenance</span></div>
+            </div>
+
+            <button class="case-step" type="button" data-seek="10">
+              <span class="case-step-number">03</span>
+              <span class="case-step-body"><strong>Human-Governed Action</strong><small>Manager approval and assignment</small></span>
+              <i></i>
+            </button>
+            <div class="case-detail" data-detail="2">
+              <div class="mini-flow"><span>Manager reviews</span><b>→</b><span>Approves</span><b>→</b><span>Assigns technician</span></div>
+            </div>
+          </div>
+          <p class="case-note">The case steps follow the video timeline and the human-governed action begins at approximately 0:10</p>
+        </div>
+      </div>
+    </section>
+    <section class="content-section lifecycle-section" id="lifecycle" data-section="lifecycle">
+      <div class="section-heading reveal">
+        <span class="section-number">03</span>
+        <div>
+          <div class="section-kicker">Product Development Lifecycle</div>
+          <h2>How SmartOps AI was built</h2>
+          <p>The original Parallel Project Life Cycle is presented below in the same website layout using the final visual diagram</p>
+        </div>
+      </div>
+
+      <div class="coded-diagram-shell lifecycle-code-shell reveal">
+        <div class="coded-diagram-head">
+          <div><span>PARALLEL SDLC</span><h3>Parallel Project Life Cycle</h3></div>
+          <p>AI and web development progress in parallel before integration testing and deployment</p>
+        </div>
+        <div class="coded-diagram-scroll">
+          <div class="lifecycle-image-visual" role="img" aria-label="Parallel Project Life Cycle diagram showing business requirements and architecture planning flowing into AI RAG-LLM development and Agile Scrum web development before integration, testing, and deployment.">
+            <img src="assets/diagrams/lifecycle-diagram-with-iteration-arrows-v3.png?v=20260801-1638" alt="Parallel Project Life Cycle industrial diagram">
+            <a class="lifecycle-text-link lifecycle-link-ai" href="#technology">OPEN RAG-LLM →</a>
+            <a class="lifecycle-text-link lifecycle-link-web" href="#platform">OPEN PLATFORM →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="content-section why-section" id="why-rag" data-section="why-rag">
+      <div class="section-heading reveal">
+        <span class="section-number">04</span>
+        <div>
+          <div class="section-kicker">Why RAG-LLM</div>
+          <h2>Why RAG-LLM matters for operational maintenance</h2>
+          <p>Understand the intelligence architecture first and then compare the operational outcome</p>
+        </div>
+      </div>
+
+      <div class="rag-learning-shell rag-concept-showcase reveal">
+        <div class="rag-concept-intro">
+          <div>
+            <span>PART ONE · WHAT IS RAG?</span>
+            <h3>Retrieval-Augmented Generation</h3>
+          </div>
+          <p>RAG retrieves relevant information from a trusted maintenance knowledge base and gives that evidence to the LLM before the answer is generated.</p>
+        </div>
+
+        <div class="rag-concept-grid">
+          <article class="rag-concept-card rag-evidence-card">
+            <header>
+              <div class="rag-concept-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48"><ellipse cx="19" cy="11" rx="11" ry="5"/><path d="M8 11v20c0 3 5 5 11 5s11-2 11-5V11M8 21c0 3 5 5 11 5s11-2 11-5"/><circle cx="35" cy="31" r="7"/><path d="m40 36 5 5"/></svg>
+              </div>
+              <div>
+                <small>RAG EVIDENCE LAYER</small>
+                <h4>Connect the complaint to the right knowledge</h4>
+              </div>
+            </header>
+            <p>Instead of asking the LLM to answer from general patterns alone, SmartOps first finds the operational evidence most likely to support the maintenance decision.</p>
+
+            <div class="rag-concept-list rag-step-list">
+              <div>
+                <i>01</i>
+                <span><strong>Search</strong><small>Find relevant SOPs, maintenance scenarios and technical records.</small></span>
+              </div>
+              <div>
+                <i>02</i>
+                <span><strong>Select</strong><small>Choose the strongest and most relevant supporting evidence.</small></span>
+              </div>
+              <div>
+                <i>03</i>
+                <span><strong>Provide context</strong><small>Add the selected evidence to the LLM prompt before generation.</small></span>
+              </div>
+            </div>
+          </article>
+
+          <article class="rag-concept-card rag-benefit-card">
+            <header>
+              <div class="rag-concept-icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48"><path d="M24 5 39 11v11c0 10-6 17-15 21C15 39 9 32 9 22V11l15-6Z"/><path d="m17 24 5 5 10-12"/></svg>
+              </div>
+              <div>
+                <small>WHY RAG IS USEFUL</small>
+                <h4>Grounded, traceable and maintainable intelligence</h4>
+              </div>
+            </header>
+            <p>The knowledge base can be updated without retraining the whole language model, while every generated recommendation remains linked to retrieved evidence.</p>
+
+            <div class="rag-concept-list rag-benefit-list">
+              <div>
+                <i>✓</i>
+                <span><strong>Uses specialised knowledge</strong><small>Connects the model to hotel SOPs, scenarios and maintenance procedures.</small></span>
+              </div>
+              <div>
+                <i>✓</i>
+                <span><strong>Improves traceability</strong><small>Shows what evidence was retrieved before the recommendation was produced.</small></span>
+              </div>
+              <div>
+                <i>✓</i>
+                <span><strong>Supports fresher answers</strong><small>Updates the knowledge base when procedures change without retraining the LLM.</small></span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="rag-context-bridge" aria-label="RAG context preparation flow">
+          <div><i>01</i><span><small>INPUT</small><strong>Guest complaint</strong></span></div>
+          <b>→</b>
+          <div><i>02</i><span><small>RETRIEVE</small><strong>Relevant knowledge</strong></span></div>
+          <b>→</b>
+          <div><i>03</i><span><small>SELECT</small><strong>Trusted evidence</strong></span></div>
+          <b>→</b>
+          <div class="rag-context-ready"><i>04</i><span><small>CONTEXT READY</small><strong>Evidence sent to LLM</strong></span></div>
+        </div>
+
+        <div class="llm-concept-showcase">
+          <div class="llm-concept-intro">
+            <div>
+              <span>PART TWO · WHAT IS AN LLM?</span>
+              <h3>What is an LLM?</h3>
+            </div>
+            <p>An LLM, or large language model, is an AI system trained to understand and generate human language.</p>
+          </div>
+
+          <div class="llm-concept-grid">
+            <article class="llm-concept-card llm-strength-card">
+              <header>
+                <small>WHAT IT DOES WELL</small>
+                <h4>Turns information into clear, useful language</h4>
+              </header>
+              <p>An LLM recognises language patterns and transforms information into readable explanations, summaries and recommendations.</p>
+
+              <div class="llm-concept-list">
+                <div>
+                  <i>✓</i>
+                  <span><strong>Understands questions</strong><small>Interprets informal wording, complaint details and user intent.</small></span>
+                </div>
+                <div>
+                  <i>✓</i>
+                  <span><strong>Generates clear language</strong><small>Explains technical information in a practical and readable form.</small></span>
+                </div>
+                <div>
+                  <i>✓</i>
+                  <span><strong>Structures answers</strong><small>Creates summaries, action steps and maintenance recommendations.</small></span>
+                </div>
+              </div>
+            </article>
+
+            <article class="llm-concept-card llm-limit-card">
+              <header>
+                <small>WHAT IT CANNOT GUARANTEE ALONE</small>
+                <h4>Fluent answers are not always grounded answers</h4>
+              </header>
+              <p>Without retrieval, an LLM does not automatically check the latest private, operational or domain-specific information before answering.</p>
+
+              <div class="llm-concept-list llm-limit-list">
+                <div>
+                  <i>!</i>
+                  <span><strong>Trusted evidence</strong><small>A confident answer may still be unsupported by the correct maintenance source.</small></span>
+                </div>
+                <div>
+                  <i>!</i>
+                  <span><strong>Current operational knowledge</strong><small>The model may not know the latest SOPs, records or hotel procedures.</small></span>
+                </div>
+                <div>
+                  <i>!</i>
+                  <span><strong>Correct domain context</strong><small>Specialised maintenance terms can be misunderstood without retrieved evidence.</small></span>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="rag-llm-concept-bridge" aria-label="RAG and LLM relationship">
+            <div><small>RAG</small><strong>Supplies trusted maintenance evidence</strong></div>
+            <b>→</b>
+            <div><small>LLM</small><strong>Turns that evidence into clear operational guidance</strong></div>
+          </div>
+        </div>
+
+      <div class="friend-why-ragllm reveal" aria-label="Why RAG-LLM matters comparison">
+        <div class="friend-why-grid" aria-hidden="true"></div>
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <div class="kicker">Why the connection matters</div>
+              <h2>Why RAG-LLM matters</h2>
+            </div>
+            <p>A model can sound confident even when it does not have the correct source. RAG gives the LLM relevant evidence and makes the answer easier to verify.</p>
+          </div>
+
+          <div class="comparison-shell">
+            <div class="comparison">
+              <article class="compare-card bad">
+                <div class="compare-header">
+                  <div>
+                    <div class="compare-label">WITHOUT RAG</div>
+                    <h3>LLM answers alone</h3>
+                    <p class="compare-subtitle">The model responds directly from general learned patterns without consulting trusted maintenance evidence.</p>
+                  </div>
+                </div>
+
+                <div class="compare-flow">
+                  <div class="compare-step">
+                    <span class="compare-step-number">01</span>
+                    <span class="compare-icon">
+                      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 9h28a4 4 0 0 1 4 4v17a4 4 0 0 1-4 4H24l-9 7v-7h-5a4 4 0 0 1-4-4V13a4 4 0 0 1 4-4Z"/><circle cx="18" cy="22" r="1.5"/><circle cx="24" cy="22" r="1.5"/><circle cx="30" cy="22" r="1.5"/></svg>
+                    </span>
+                    <strong>Guest complaint</strong>
+                  </div>
+                  <div class="compare-step">
+                    <span class="compare-step-number">02</span>
+                    <span class="compare-icon">
+                      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M17 12a6 6 0 0 1 11-3 6 6 0 0 1 7 8 6 6 0 0 1 2 11 6 6 0 0 1-8 8 6 6 0 0 1-10 1 6 6 0 0 1-8-8 6 6 0 0 1 1-11 6 6 0 0 1 5-6Z"/><path d="M24 8v32M17 16h7M24 22h8M15 29h9M24 34h6"/></svg>
+                    </span>
+                    <strong>LLM only</strong>
+                  </div>
+                  <div class="compare-step">
+                    <span class="compare-step-number">03</span>
+                    <span class="compare-icon">
+                      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9 10h30a4 4 0 0 1 4 4v18a4 4 0 0 1-4 4H25l-9 7v-7H9a4 4 0 0 1-4-4V14a4 4 0 0 1 4-4Z"/><path d="M17 23h.01M24 23h.01M31 23h.01"/></svg>
+                    </span>
+                    <strong>Generic answer</strong>
+                  </div>
+                  <div class="compare-step">
+                    <span class="compare-step-number">04</span>
+                    <span class="compare-icon">
+                      <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="26" r="15"/><path d="M24 11V6M19 6h10M24 26l7-6M35 13l4 4"/></svg>
+                    </span>
+                    <strong>Slower action</strong>
+                  </div>
+                </div>
+
+                <div class="compare-points">
+                  <div class="point"><i>×</i><span>No trusted maintenance evidence</span></div>
+                  <div class="point"><i>×</i><span>Higher unsupported-answer risk</span></div>
+                  <div class="point"><i>×</i><span>More manual interpretation by staff</span></div>
+                </div>
+              </article>
+
+              <div class="vs"><span>VS</span></div>
+
+              <article class="compare-card good">
+                <div class="compare-header">
+                  <div>
+                    <div class="compare-label">WITH RAG-LLM</div>
+                    <h3>Evidence before generation</h3>
+                    <p class="compare-subtitle">SmartOps retrieves relevant operational knowledge first, then uses the LLM to explain the supported action.</p>
+                  </div>
+                </div>
+
+                <div class="compare-flow">
+                  <div class="compare-step">
+                    <span class="compare-step-number">01</span>
+                    <span class="compare-icon">
+                      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 9h28a4 4 0 0 1 4 4v17a4 4 0 0 1-4 4H24l-9 7v-7h-5a4 4 0 0 1-4-4V13a4 4 0 0 1 4-4Z"/><circle cx="18" cy="22" r="1.5"/><circle cx="24" cy="22" r="1.5"/><circle cx="30" cy="22" r="1.5"/></svg>
+                    </span>
+                    <strong>Guest complaint</strong>
+                  </div>
+                  <div class="compare-step">
+                    <span class="compare-step-number">02</span>
+                    <span class="compare-icon">
+                      <svg viewBox="0 0 48 48" aria-hidden="true"><path d="m8 15 16-8 16 8-16 8-16-8Z"/><path d="m8 24 16 8 16-8M8 33l16 8 16-8"/></svg>
+                    </span>
+                    <strong>Classification</strong>
+                  </div>
+                  <div class="compare-step">
+                    <span class="compare-step-number">03</span>
+                    <span class="compare-icon">
+                      <svg viewBox="0 0 48 48" aria-hidden="true"><ellipse cx="20" cy="11" rx="12" ry="5"/><path d="M8 11v18c0 3 5 5 12 5M32 11v10"/><ellipse cx="34" cy="31" rx="8" ry="8"/><path d="m40 37 5 5"/></svg>
+                    </span>
+                    <strong>RAG evidence</strong>
+                  </div>
+                  <div class="compare-step">
+                    <span class="compare-step-number">04</span>
+                    <span class="compare-icon">
+                      <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="17"/><path d="m16 24 5 5 11-12"/></svg>
+                    </span>
+                    <strong>Clear action</strong>
+                  </div>
+                </div>
+
+                <div class="compare-points">
+                  <div class="point"><i>✓</i><span>Retrieves trusted operational knowledge</span></div>
+                  <div class="point"><i>✓</i><span>Grounds troubleshooting and preventive actions</span></div>
+                  <div class="point"><i>✓</i><span>Supports faster technician response</span></div>
+                </div>
+              </article>
+            </div>
+
+            <div class="comparison-summary">
+              <div class="summary-pill"><span>✓</span>More reliable</div>
+              <div class="summary-pill"><span>✓</span>Explainable</div>
+              <div class="summary-pill"><span>✓</span>Actionable</div>
+              <div class="summary-pill"><span>✓</span>Human governed</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="content-section technology-section smartops-rag-section" id="technology" data-section="technology">
+      <div class="section-heading reveal">
+        <span class="section-number">05</span>
+        <div>
+          <div class="section-kicker">Explore the RAG-LLM Engine</div>
+          <h2>The RAG-LLM Intelligence Behind SmartOps AI</h2>
+          <p>See how SmartOps AI uses RAG-LLM to retrieve maintenance knowledge, generate grounded recommendations, and support human-governed operational decisions.</p>
+        </div>
+      </div>
+
+      <div class="tech-tabs reveal" role="tablist" aria-label="Technology content">
+        <button class="tech-tab active" type="button" role="tab" aria-selected="true" data-tab="framework">RAG-LLM Framework</button>
+        <button class="tech-tab" type="button" role="tab" aria-selected="false" data-tab="validation">Validation & Experiments</button>
+      </div>
+
+      <div class="tech-panel active" id="frameworkPanel" data-panel="framework">
+        <div class="chapter-layout">
+          <nav class="chapter-nav" aria-label="RAG-LLM chapters">
+            <div class="chapter-nav-group active expanded" data-chapter-group="0">
+              <button class="chapter-button active chapter-parent" type="button" data-chapter="0" aria-expanded="true" aria-controls="chapter01Subnav">
+                <span>01</span>
+                <div><strong>Intake & Routing</strong><small>Complaint understanding</small></div>
+                <i class="chapter-expand-icon" aria-hidden="true">⌄</i>
+              </button>
+              <div class="chapter-subnav" id="chapter01Subnav">
+                <button class="chapter-subbutton active" type="button" data-parent-chapter="0" data-subsection="classification-model-section">
+                  <span>1A</span><div><strong>Classification Model</strong><small>TF-IDF + Logistic Regression</small></div>
+                </button>
+                <button class="chapter-subbutton" type="button" data-parent-chapter="0" data-subsection="routing-category-section">
+                  <span>1B</span><div><strong>Routing Categories</strong><small>D10–D50 + Other</small></div>
+                </button>
+              </div>
+            </div>
+            <div class="chapter-nav-group" data-chapter-group="1">
+              <button class="chapter-button chapter-parent" type="button" data-chapter="1" aria-expanded="false" aria-controls="chapter02Subnav">
+                <span>02</span>
+                <div><strong>Knowledge & Retrieval</strong><small>Knowledge preparation + live RAG</small></div>
+                <i class="chapter-expand-icon" aria-hidden="true">⌄</i>
+              </button>
+              <div class="chapter-subnav" id="chapter02Subnav">
+                <button class="chapter-subbutton" type="button" data-parent-chapter="1" data-subsection="knowledge-preparation-section">
+                  <span>2A</span><div><strong>Knowledge Preparation</strong><small>Sources → ChromaDB</small></div>
+                </button>
+                <button class="chapter-subbutton" type="button" data-parent-chapter="1" data-subsection="parent-child-section">
+                  <span>2B</span><div><strong>Parent–Child Method</strong><small>Scenario + linked evidence</small></div>
+                </button>
+                <button class="chapter-subbutton" type="button" data-parent-chapter="1" data-subsection="hybrid-retrieval-section">
+                  <span>2C</span><div><strong>Hybrid Retrieval</strong><small>Dense + BM25 + MiniLM</small></div>
+                </button>
+              </div>
+            </div>
+            <button class="chapter-button" type="button" data-chapter="2"><span>03</span><div><strong>Gate 1</strong><small>Before the LLM</small></div></button>
+            <div class="chapter-nav-group" data-chapter-group="3">
+              <button class="chapter-button chapter-parent" type="button" data-chapter="3" aria-expanded="false" aria-controls="chapter04Subnav">
+                <span>04</span>
+                <div><strong>LLM Generation</strong><small>Engineered LLM system</small></div>
+                <i class="chapter-expand-icon" aria-hidden="true">⌄</i>
+              </button>
+              <div class="chapter-subnav" id="chapter04Subnav">
+                <button class="chapter-subbutton" type="button" data-parent-chapter="3" data-subsection="llm-engineered-system-section-static">
+                  <span>4A</span><div><strong>Engineered LLM System</strong><small>System around the model</small></div>
+                </button>
+                <button class="chapter-subbutton" type="button" data-parent-chapter="3" data-subsection="llm-harness-loop-section-static">
+                  <span>4B</span><div><strong>Harness Loop</strong><small>Verify, repair and re-verify</small></div>
+                </button>
+              </div>
+            </div>
+            <button class="chapter-button" type="button" data-chapter="4"><span>05</span><div><strong>Gate 2</strong><small>Operational control</small></div></button>
+          </nav>
+
+          <div class="chapter-content">
+            <article class="chapter intake-chapter active" data-chapter-content="0">
+              <section class="intake-model-section" id="classification-model-section" aria-labelledby="classification-model-title">
+                <div class="model-section-head">
+                  <div class="model-section-copy">
+                    <span class="chapter-tag">CHAPTER 01A · CLASSIFICATION MODEL</span>
+                    <h3 id="classification-model-title">How SmartOps AI understands each incoming complaint</h3>
+                    <p>Maintenance complaints arrive through WhatsApp as natural-language sentences. Before retrieval begins, SmartOps AI converts the text into weighted numerical features and predicts the most relevant maintenance domain.</p>
+                  </div>
+                  <div class="model-status-strip" aria-label="Classification model overview">
+                    <span><i></i> SUPERVISED CLASSIFIER</span>
+                    <strong>TF-IDF + Logistic Regression</strong>
+                    <small>Text classification before RAG retrieval</small>
+                  </div>
+                </div>
+
+                <div class="classifier-architecture" aria-label="Complaint classification architecture">
+                  <article class="architecture-node source-node">
+                    <div class="node-topline"><span>01</span><small>INPUT CHANNEL</small></div>
+                    <div class="node-visual whatsapp-tech-icon" aria-hidden="true">
+                      <svg viewBox="0 0 64 64" role="img" aria-label="WhatsApp">
+                        <path class="wa-bubble" d="M32 6C18.2 6 7 16.7 7 29.9c0 4.4 1.3 8.7 3.7 12.4L7.6 57l15.3-3.9c2.9 1.5 6 2.3 9.1 2.3 13.8 0 25-10.7 25-23.9S45.8 6 32 6Z"/>
+                        <path class="wa-phone" d="M21.2 17.5h2.2c1.1 0 2 .7 2.3 1.7l1.8 5.4c.3.9 0 1.9-.7 2.5l-2.1 1.8c2.4 4.5 6 8.1 10.5 10.5l1.8-2.1c.6-.7 1.6-1 2.5-.7l5.4 1.8c1 .3 1.7 1.2 1.7 2.3v2.2c0 1.6-1.2 2.9-2.8 3.1-13.7 1.5-25.3-10.1-23.8-23.8.3-1.5 1.6-2.7 3.2-2.7Z"/>
+                      </svg>
+                    </div>
+                    <div class="node-copy"><strong>WhatsApp Complaint Intake</strong></div>
+                  </article>
+
+                  <div class="architecture-link" aria-hidden="true"><span></span><i>01</i><b>→</b></div>
+
+                  <article class="architecture-node model-combined-node">
+                    <div class="node-topline"><span>02</span><small>CLASSIFICATION MODEL</small></div>
+                    <div class="model-combined-visual" aria-hidden="true">
+                      <div class="feature-matrix">
+                        <span style="--v:.85"></span><span style="--v:.25"></span><span style="--v:.62"></span><span style="--v:.38"></span><span style="--v:.92"></span>
+                        <span style="--v:.18"></span><span style="--v:.72"></span><span style="--v:.31"></span><span style="--v:.81"></span><span style="--v:.47"></span>
+                        <span style="--v:.58"></span><span style="--v:.14"></span><span style="--v:.76"></span><span style="--v:.42"></span><span style="--v:.68"></span>
+                      </div>
+                      <span class="model-operator">+</span>
+                      <div class="classifier-core">
+                        <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="22"/><circle cx="40" cy="40" r="8"/><path d="M40 8v10M40 62v10M8 40h10M62 40h10M17 17l8 8M55 55l8 8M63 17l-8 8M25 55l-8 8"/></svg>
+                        <span>LR</span>
+                      </div>
+                    </div>
+                    <div class="node-copy"><strong>TF-IDF + Logistic Regression</strong></div>
+                    
+                  </article>
+
+                  <div class="architecture-link" aria-hidden="true"><span></span><i>02</i><b>→</b></div>
+
+                  <article class="architecture-node output-node">
+                    <div class="node-topline"><span>03</span><small>ROUTING OUTPUT</small></div>
+                    <div class="output-orbit" aria-hidden="true"><span>D10</span><span>D20</span><span>D30</span><span>D40</span><span>D50</span><span>OTHER</span><i>CLASS</i></div>
+                    <div class="node-copy"><strong>Predicted Maintenance Domain</strong></div>
+                    
+                  </article>
+                </div>
+
+              </section>
+
+              <div class="intake-chapter-divider" aria-hidden="true"><span></span><i>01B</i><span></span></div>
+
+              <section class="routing-category-section" id="routing-category-section" aria-labelledby="routing-categories-title">
+                <div class="routing-section-heading">
+                  <div>
+                    <span class="chapter-tag">CHAPTER 01B · ROUTING CATEGORIES</span>
+                    <h3 id="routing-categories-title">Six routing outcomes organise the knowledge search</h3>
+                  </div>
+                  <p>SmartOps AI supports five operational maintenance domains. Any complaint outside these domains is assigned to <strong>Other</strong>, preventing unsupported cases from entering the automated retrieval and generation path.</p>
+                </div>
+
+                <div class="category-routing-system" aria-label="SmartOps AI maintenance routing categories">
+                  <div class="routing-system-core">
+                    <div class="core-ring" aria-hidden="true"><span>AI</span><i></i><b></b></div>
+                    <div class="router-core-copy">
+                      <span class="core-kicker">CLASSIFIER OUTPUT</span>
+                      <strong>Category Router</strong>
+                      <small>Maps each complaint to one controlled maintenance knowledge domain.</small>
+                    </div>
+                  </div>
+
+                  <div class="category-grid-tech">
+                    <article class="tech-category-card d10">
+                      <div class="category-code-block"><span>DOMAIN 01</span></div>
+                      <div class="category-icon-large" aria-hidden="true"><svg viewBox="0 0 72 72"><rect x="17" y="8" width="38" height="56" rx="5"/><path d="M36 15v13M30 22l6 6 6-6M36 57V44M30 50l6-6 6 6M23 34h26M27 40v15M45 40v15"/><circle cx="27" cy="32" r="3"/><circle cx="45" cy="32" r="3"/></svg></div>
+                      <div class="category-card-copy"><strong>D10 Conveying</strong><p>Elevators, lifts and movement systems</p></div>
+                    </article>
+
+                    <article class="tech-category-card d20">
+                      <div class="category-code-block"><span>DOMAIN 02</span></div>
+                      <div class="category-icon-large" aria-hidden="true"><svg viewBox="0 0 72 72"><path d="M10 27h31v13H10zM41 30h9a9 9 0 0 1 9 9v4M24 27V15h25v9M59 43v6M53 49h12M59 53c-5 6-6 10 0 13 6-3 5-7 0-13Z"/></svg></div>
+                      <div class="category-card-copy"><strong>D20 Plumbing</strong><p>Leaks, pipes, drainage and water supply</p></div>
+                    </article>
+
+                    <article class="tech-category-card d30">
+                      <div class="category-code-block"><span>DOMAIN 03</span></div>
+                      <div class="category-icon-large" aria-hidden="true"><svg viewBox="0 0 72 72"><path d="M36 7v58M12 21l48 30M12 51l48-30M36 7l-6 8M36 7l6 8M36 65l-6-8M36 65l6-8M12 21l10 1M12 21l4 9M60 51l-10-1M60 51l-4-9M12 51l10-1M12 51l4-9M60 21l-10 1M60 21l-4 9"/></svg></div>
+                      <div class="category-card-copy"><strong>D30 HVAC</strong><p>Air-conditioning, ventilation and cooling</p></div>
+                    </article>
+
+                    <article class="tech-category-card d40">
+                      <div class="category-code-block"><span>DOMAIN 04</span></div>
+                      <div class="category-icon-large" aria-hidden="true"><svg viewBox="0 0 72 72"><path d="M17 14h38M24 14v13h24V14M36 27v9M19 38h34M21 44v9M30 44v15M42 44v15M51 44v9M20 63h32"/><path d="M17 38c0-7 5-11 10-11h18c6 0 10 4 10 11"/></svg></div>
+                      <div class="category-card-copy"><strong>D40 Fire Protection</strong><p>Sprinklers, alarms and fire-safety systems</p></div>
+                    </article>
+
+                    <article class="tech-category-card d50">
+                      <div class="category-code-block"><span>DOMAIN 05</span></div>
+                      <div class="category-icon-large" aria-hidden="true"><svg viewBox="0 0 72 72"><path d="M42 5 17 41h19l-6 26 25-37H37z"/></svg></div>
+                      <div class="category-card-copy"><strong>D50 Electrical</strong><p>Power, sockets, lighting and electrical faults</p></div>
+                    </article>
+
+                    <article class="tech-category-card other">
+                      <div class="category-code-block"><span>EXCEPTION</span></div>
+                      <div class="category-icon-large" aria-hidden="true"><svg viewBox="0 0 72 72"><circle cx="16" cy="36" r="5"/><circle cx="36" cy="36" r="5"/><circle cx="56" cy="36" r="5"/></svg></div>
+                      <div class="category-card-copy"><strong>Other</strong><p>Unmatched cases require controlled human review</p></div>
+                    </article>
+                  </div>
+                </div>
+
+                <div class="routing-policy-grid">
+                  <article class="routing-policy supported">
+                    <span class="policy-icon" aria-hidden="true">✓</span>
+                    <div><small>SUPPORTED MAINTENANCE DOMAIN</small><strong>D10–D50 → Category-filtered RAG</strong><p>The predicted category limits retrieval to the corresponding operational knowledge collection.</p></div>
+                    <b>PROCEED</b>
+                  </article>
+                  <article class="routing-policy unsupported">
+                    <span class="policy-icon" aria-hidden="true">×</span>
+                    <div><small>UNSUPPORTED OR UNMATCHED DOMAIN</small><strong>Other → OUT_OF_KB → Human review</strong><p>Retrieval and LLM generation are bypassed to avoid unsupported recommendations.</p></div>
+                    <b>ESCALATE</b>
+                  </article>
+                </div>
+              </section>
+            </article>
+            <article class="chapter knowledge-chapter" data-chapter-content="1" hidden aria-hidden="true">
+              <section class="knowledge-preparation-section knowledge-subsection" id="knowledge-preparation-section" aria-labelledby="knowledge-preparation-title">
+                <div class="model-section-head knowledge-head-match">
+                  <div class="model-section-copy">
+                    <span class="chapter-tag">CHAPTER 02A · KNOWLEDGE PREPARATION</span>
+                    <h3 id="knowledge-preparation-title">Prepare trusted maintenance knowledge for retrieval</h3>
+                    <p>SmartOps standardises trusted maintenance references, enriches them with controlled scenario metadata and prepares searchable parent vectors in ChromaDB.</p>
+                  </div>
+                  <div class="knowledge-hero-pill" aria-label="Controlled knowledge pipeline">
+                    <span><i></i> CONTROLLED KNOWLEDGE PIPELINE</span>
+                  </div>
+                </div>
+
+                <div class="kb-compact-explorer" aria-label="Interactive five-stage knowledge preparation flow">
+                  <div class="kb-compact-nav" role="tablist" aria-label="Knowledge preparation stages">
+                    <button class="kb-compact-card active" type="button" role="tab" aria-selected="true" data-kb-stage="sources">
+                      <span class="kb-compact-number">01</span>
+                      <strong>Knowledge Sources</strong>
+                      <small>Trusted maintenance references</small>
+                    </button>
+                    <span class="kb-compact-arrow" aria-hidden="true">→</span>
+                    <button class="kb-compact-card" type="button" role="tab" aria-selected="false" data-kb-stage="clean">
+                      <span class="kb-compact-number">02</span>
+                      <strong>Clean &amp; Structure</strong>
+                      <small>Standardise records and fields</small>
+                    </button>
+                    <span class="kb-compact-arrow" aria-hidden="true">→</span>
+                    <button class="kb-compact-card" type="button" role="tab" aria-selected="false" data-kb-stage="scenario">
+                      <span class="kb-compact-number">03</span>
+                      <strong>Scenarios + Metadata</strong>
+                      <small>LLM enrichment + controlled metadata</small>
+                    </button>
+                    <span class="kb-compact-arrow" aria-hidden="true">→</span>
+                    <button class="kb-compact-card" type="button" role="tab" aria-selected="false" data-kb-stage="chunking">
+                      <span class="kb-compact-number">04</span>
+                      <strong>Parent–Child Chunking</strong>
+                      <small>Link scenario and procedures</small>
+                    </button>
+                    <span class="kb-compact-arrow" aria-hidden="true">→</span>
+                    <button class="kb-compact-card" type="button" role="tab" aria-selected="false" data-kb-stage="chromadb">
+                      <span class="kb-compact-number">05</span>
+                      <strong>Store in ChromaDB</strong>
+                      <small>Prepare searchable parent vectors</small>
+                    </button>
+                  </div>
+
+                  <div class="kb-stage-detail-shell">
+                    <article class="kb-stage-detail source-detail active" role="tabpanel" data-kb-panel="sources">
+                      <div class="source-doc-intake" aria-hidden="true">
+                        <div class="source-doc-stack compact-stack expanded-fan">
+                          <div class="source-doc doc-astm"><small>PDF</small><span>ASTM<br>Standard</span><i></i><i></i><i></i></div>
+                          <div class="source-doc doc-trouble"><small>DOCX</small><span>Troubleshooting<br>Guide</span><i></i><i></i><i></i></div>
+                          <div class="source-doc doc-prevent"><small>MANUAL</small><span>Preventive<br>Maintenance</span><i></i><i></i><i></i></div>
+                          <div class="source-doc doc-sop"><small>PDF</small><span>Technical<br>SOP</span><i></i><i></i><i></i></div>
+                        </div>
+                      </div>
+                      <div class="kb-detail-copy source-detail-copy">
+                        <span>STAGE 01 · SOURCE LAYER</span>
+                        <h4>Collect trusted maintenance knowledge</h4>
+                        <p>SmartOps AI begins with authoritative maintenance documents rather than relying on the LLM's internal memory. Multiple source formats are collected as the verified foundation of the knowledge base.</p>
+                        <div class="source-collection-grid">
+                          <div class="source-collect-card"><em>PDF</em><strong>ASTM Standards</strong><small>Authoritative maintenance standards</small></div>
+                          <div class="source-collect-card"><em>GUIDE</em><strong>Troubleshooting Guides</strong><small>Issue diagnosis and corrective actions</small></div>
+                          <div class="source-collect-card"><em>PM</em><strong>Preventive Maintenance Procedures</strong><small>Routine checks and preventive steps</small></div>
+                          <div class="source-collect-card"><em>SOP</em><strong>Technical Manuals &amp; SOPs</strong><small>Structured operating procedures and manuals</small></div>
+                        </div>
+                      </div>
+                      <div class="kb-detail-result source-result">
+                        <small>VERIFIED OUTPUT</small>
+                        <strong>Trusted Maintenance Source Set</strong>
+                        <p>Ready for cleaning and structural standardisation.</p>
+                      </div>
+                    </article>
+
+                    <article class="kb-stage-detail structure2-detail" id="kb-stage-clean" role="tabpanel" data-kb-panel="clean">
+                      <section class="structure2-raw" aria-label="Examples of inconsistent raw maintenance records">
+                        <span class="structure2-label">RAW RECORDS</span>
+                        <div class="structure2-raw-stack">
+                          <article><small>RECORD A</small><strong>Aircon leaking water</strong><p>Asset: Room AC</p></article>
+                          <article><small>RECORD B</small><strong>Water dripping from AC unit</strong><p>Equipment: AC unit</p></article>
+                          <article><small>RECORD C</small><strong>Water pooling below air-conditioner</strong><p>Issue: Condensate leakage</p></article>
+                        </div>
+                        <div class="structure2-warning-list">
+                          <span>Mixed terminology</span>
+                          <span>Different field names</span>
+                          <span>Unstructured phrases</span>
+                        </div>
+                      </section>
+
+                      <section class="structure2-core">
+                        <span>STAGE 02 · STRUCTURE LAYER</span>
+                        <h4>Standardise maintenance records</h4>
+                        <p>Terminology, field names and maintenance descriptions are normalised so the knowledge base follows one consistent structure before scenario development begins.</p>
+                        <div class="structure2-process-list">
+                          <div><em>01</em><span><strong>Remove noise</strong><small>Discard duplicates and irrelevant content</small></span></div>
+                          <div><em>02</em><span><strong>Normalise terminology</strong><small>Aircon / AC unit → Air-conditioning unit</small></span></div>
+                          <div><em>03</em><span><strong>Align record fields</strong><small>Use consistent source, asset and issue fields</small></span></div>
+                        </div>
+                      </section>
+
+                      <aside class="structure2-right-stack">
+                        <section class="structure2-standard" aria-label="Example standardised maintenance record">
+                          <span class="structure2-label">STANDARDISED RECORD</span>
+                          <div><small>ASSET TERM</small><strong>Air-conditioning unit</strong></div>
+                          <div><small>ISSUE PHRASE</small><strong>Aircond water leakage</strong></div>
+                          <div><small>RECORD TYPE</small><strong>Troubleshooting</strong></div>
+                          <div><small>SOURCE</small><strong>HVAC Maintenance Guide</strong></div>
+                        </section>
+
+                        <div class="structure2-output">
+                          <i aria-hidden="true">✓</i>
+                          <div><small>OUTPUT</small><strong>Structured maintenance records</strong><p>Ready for scenario construction and metadata enrichment.</p></div>
+                        </div>
+                      </aside>
+                    </article>
+
+
+                    <article class="kb-stage-detail scenario3-detail scenario3-wide" id="kb-stage-scenario" role="tabpanel" data-kb-panel="scenario" hidden>
+                      <section class="scenario3-core">
+                        <span>STAGE 03 · LLM METADATA ENRICHMENT</span>
+                        <h4>Build the parent scenario and tag metadata</h4>
+                        <p>The LLM builds the failure context, then returns controlled metadata through a predefined JSON schema.</p>
+
+                        <div class="scenario3-parts">
+                          <article class="scenario3-part">
+                            <header><em>PART 01</em><b>LLM SCENARIO ENRICHMENT</b></header>
+                            <strong>Build complete failure context for an air-conditioning unit leaking water</strong>
+                            <p>The LLM combines related maintenance information into one complete parent scenario so the case context stays clear, structured and retrieval-ready.</p>
+                            <div class="scenario3-context-grid compact-context-grid">
+                              <span><small>SYMPTOM</small><b>Water dripping from the indoor unit or pooling below the air-conditioner</b></span>
+                              <span><small>ROOT CAUSE</small><b>Blocked or overflowing drain pipe causing condensate water leakage</b></span>
+                            </div>
+                          </article>
+
+                          <article class="scenario3-part metadata-part">
+                            <header><em>PART 02</em><b>LLM METADATA TAGGING</b></header>
+                            <strong>Return controlled metadata</strong>
+                            <p>The LLM fills the required metadata fields while schema validation keeps every value consistent for retrieval and parent–child linking.</p>
+                          </article>
+                        </div>
+                      </section>
+
+                      <aside class="scenario3-right-stack">
+                        <section class="scenario3-parent" aria-label="Metadata-enriched parent scenario">
+                          <span class="scenario3-label">METADATA-ENRICHED PARENT</span>
+                          <div><small>PARENT ID</small><strong>P-D30-001</strong></div>
+                          <div><small>MAIN CATEGORY</small><strong>D30 HVAC</strong></div>
+                          <div><small>SUB CATEGORY</small><strong>D3030 Cooling Generating Systems</strong></div>
+                          <div><small>ISSUE CATEGORY</small><strong>Aircond water leakage</strong></div>
+                          <div class="severity-high"><small>SEVERITY</small><strong>High</strong></div>
+                          <div><small>SOURCE</small><strong>HVAC Maintenance Guide</strong></div>
+                        </section>
+
+                        <div class="scenario3-output">
+                          <i aria-hidden="true">✓</i>
+                          <div><small>VALIDATED OUTPUT</small><strong>Metadata-Enriched Parent Scenario</strong><p>Ready for parent–child chunking and linked procedure creation.</p></div>
+                        </div>
+                      </aside>
+                    </article>
+
+                    <article class="kb-stage-detail chunk4-detail chunk4-two-column" role="tabpanel" data-kb-panel="chunking" hidden>
+                      <section class="chunk4-intro" aria-label="Brief explanation of chunking">
+                        <span class="chunk4-label">WHAT IS CHUNKING?</span>
+                        <h4>Break long knowledge into searchable units</h4>
+                        <p>Chunking divides long maintenance documents into smaller units that are easier for retrieval to search.</p>
+                        <div class="chunk4-split-visual" aria-hidden="true">
+                          <div class="chunk4-long-doc"><i></i><i></i><i></i><i></i></div>
+                          <b>→</b>
+                          <div class="chunk4-small-units"><span></span><span></span><span></span></div>
+                        </div>
+                      </section>
+
+                      <section class="chunk4-core">
+                        <span>STAGE 04 · PARENT–CHILD CHUNKING</span>
+                        <h4>Keep the context, link the details</h4>
+                        <p>The parent preserves the complete scenario. Its child chunks store related procedures using the same <code>parent_id</code>.</p>
+
+                        <div class="chunk4-map" aria-label="Parent and child chunk relationship">
+                          <div class="chunk4-map-parent">
+                            <small>PARENT CHUNK</small>
+                            <strong>Aircond water leakage</strong>
+                            <p><code>P-D30-001</code> · Complete scenario context</p>
+                          </div>
+                          <div class="chunk4-map-link"><i></i><b>same parent_id</b><i></i></div>
+                          <div class="chunk4-map-children">
+                            <div><small>CHILD 01</small><strong>Troubleshooting</strong></div>
+                            <div><small>CHILD 02</small><strong>Preventive Maintenance</strong></div>
+                          </div>
+                        </div>
+
+                        <div class="chunk4-output chunk4-output-inline">
+                          <i aria-hidden="true">✓</i>
+                          <div><small>OUTPUT</small><strong>1 Parent + 2 Linked Children</strong><p>Ready for parent embedding and ChromaDB storage.</p></div>
+                        </div>
+                      </section>
+                    </article>
+
+                    <article class="kb-stage-detail stage5-detail" id="kb-stage-chromadb" role="tabpanel" data-kb-panel="chromadb" hidden>
+                      <section class="stage5-core">
+                        <span>STAGE 05 · EMBEDDING &amp; VECTOR STORE</span>
+                        <h4>Convert maintenance text into a searchable vector</h4>
+                        <p>Embedding converts maintenance text into numerical vectors that capture its semantic meaning, making similar issues easier to retrieve.</p>
+
+                        <div class="stage5-flow stage5-flow-two" aria-label="Embedding model to vector output flow">
+                          <div class="stage5-flow-card model-card">
+                            <small>01 · EMBEDDING MODEL</small>
+                            <strong>BAAI/bge-small-en-v1.5</strong>
+                            <span>Encodes maintenance meaning into a numerical representation</span>
+                          </div>
+                          <i class="stage5-arrow" aria-hidden="true">→</i>
+                          <div class="stage5-flow-card vector-card">
+                            <small>02 · VECTOR OUTPUT</small>
+                            <strong>[ 0.23, −0.12, 0.45, … ]</strong>
+                            <span>Searchable semantic vector</span>
+                          </div>
+                        </div>
+
+                        <div class="stage5-key-note"><i>◎</i><strong>Similar meanings are stored closer together in vector space.</strong></div>
+                      </section>
+
+                      <aside class="stage5-right-stack">
+                        <section class="stage5-store" aria-label="ChromaDB vector storage">
+                          <span class="stage5-label">STORE IN CHROMADB</span>
+                          <div class="stage5-db-brand stage5-db-brand-image">
+                            <img src="assets/logos/chromadb-official-logo.png" alt="ChromaDB logo">
+                          </div>
+                          <div class="stage5-store-row"><small>VECTOR</small><strong>Semantic embedding vector</strong></div>
+                          <div class="stage5-store-row"><small>METADATA</small><strong>D30 HVAC · Aircond water leakage · High</strong></div>
+                          <div class="stage5-store-row"><small>INDEX</small><strong>Stored for semantic similarity search</strong></div>
+                        </section>
+
+                        <div class="stage5-output">
+                          <i aria-hidden="true">✓</i>
+                          <div><small>OUTPUT</small><strong>Retrieval-Ready Knowledge Base</strong><p>Ready for semantic search and linked evidence retrieval.</p></div>
+                        </div>
+                      </aside>
+                    </article>
+                  </div>
+
+                  <div class="retrieval-literature-bar knowledge-literature-bar" aria-label="Literature basis for knowledge preparation">
+                    <small>LITERATURE BASIS</small>
+                    <span class="retrieval-literature-chip">Ludwig, Schmidt and Kühn (2025)</span>
+                    <p>Uses ontology traversal, classical matching and vector retrieval to enrich maintenance context.</p>
+                  </div>
+
+                  <div class="knowledge-transform-callout">
+                    <div class="transform-spark" aria-hidden="true"><span>✦</span></div>
+                    <p><strong>Knowledge is not sent directly to the model.</strong> It is first transformed into a structured, <b>retrieval-ready format</b>.</p>
+                  </div>
+                </div>
+              </section>
+
+              <div class="knowledge-section-divider" aria-hidden="true"><span></span><i>02B</i><span></span></div>
+
+              <section class="parent-child-section knowledge-subsection" id="parent-child-section" aria-labelledby="parent-child-title">
+                <div class="knowledge-section-head parent-child-head">
+                  <div>
+                    <span class="chapter-tag">CHAPTER 02B · PARENT–CHILD CHUNKING</span>
+                    <h3 id="parent-child-title">Retrieve the scenario first, then attach the operational detail</h3>
+                    <p>The parent chunk stores the complete failure scenario used for matching. Two linked child chunks preserve the detailed troubleshooting and preventive-maintenance procedures without fragmenting the scenario during retrieval.</p>
+                  </div>
+                  <div class="knowledge-stage-badge method-badge"><span></span><small>CORE METHOD</small><strong>1 parent + 2 linked children</strong></div>
+                </div>
+
+                <div class="parent-child-method" aria-label="Parent child chunking method">
+                  <article class="parent-chunk-card">
+                    <div class="chunk-card-head"><span>PARENT CHUNK</span><small>SCENARIO CONTEXT</small></div>
+                    <div class="parent-scenario-title"><b>D20</b><div><strong>Water leakage below bathroom sink</strong><small>scenario_id: D20_sink_leak_014</small></div></div>
+                    <dl>
+                      <div><dt>Component</dt><dd>Wash-basin drainage pipe</dd></div>
+                      <div><dt>Observed symptoms</dt><dd>Water dripping below the cabinet</dd></div>
+                      <div><dt>Possible root cause</dt><dd>Loose joint or worn seal</dd></div>
+                      <div><dt>Severity</dt><dd>Medium · no immediate safety flag</dd></div>
+                    </dl>
+                    <div class="embedded-label"><i></i><span>Embedded and searchable in ChromaDB</span></div>
+                  </article>
+
+                  <div class="chunk-link-column" aria-hidden="true"><span></span><i>scenario_id</i><span></span></div>
+
+                  <div class="child-chunk-stack">
+                    <article class="child-chunk-card troubleshooting-child">
+                      <div class="chunk-card-head"><span>CHILD 01</span><small>TROUBLESHOOTING</small></div>
+                      <strong>Corrective procedure</strong>
+                      <ul><li>Inspect the pipe joint and trap</li><li>Tighten the connector</li><li>Replace the worn seal if needed</li></ul>
+                      <div class="linked-label">Linked after parent retrieval</div>
+                    </article>
+                    <article class="child-chunk-card preventive-child">
+                      <div class="chunk-card-head"><span>CHILD 02</span><small>PREVENTIVE MAINTENANCE</small></div>
+                      <strong>Prevention procedure</strong>
+                      <ul><li>Inspect pipe seals monthly</li><li>Check corrosion and movement</li><li>Replace aged fittings early</li></ul>
+                      <div class="linked-label">Linked after parent retrieval</div>
+                    </article>
+                  </div>
+                </div>
+
+                <div class="parent-child-principle">
+                  <div><span>01</span><strong>Search parent embeddings</strong></div><b>→</b>
+                  <div><span>02</span><strong>Select the best scenario</strong></div><b>→</b>
+                  <div><span>03</span><strong>Attach children by scenario_id</strong></div><b>→</b>
+                  <div><span>04</span><strong>Provide complete evidence</strong></div>
+                </div>
+                <div class="knowledge-key-callout"><span>KEY RETRIEVAL PRINCIPLE</span><p><strong>Only parent scenario chunks are embedded and retrieved first.</strong> The linked troubleshooting and preventive children are attached after the correct scenario is selected.</p></div>
+              </section>
+
+              <div class="knowledge-section-divider" aria-hidden="true"><span></span><i>02C</i><span></span></div>
+
+              <section class="hybrid-retrieval-section knowledge-subsection" id="hybrid-retrieval-section" aria-labelledby="hybrid-retrieval-title">
+                <div class="knowledge-section-head retrieval-section-head">
+                  <div>
+                    <span class="chapter-tag">CHAPTER 02C · HYBRID RETRIEVAL &amp; RERANKING</span>
+                    <h3 id="hybrid-retrieval-title">Dense + sparse fusion, then MiniLM reranking</h3>
+                    <p>For every supported complaint, SmartOps AI searches only inside the predicted maintenance category. Semantic and keyword evidence are combined before a cross-encoder reranks the candidate parent scenarios.</p>
+                  </div>
+                  <div class="knowledge-stage-badge runtime-badge"><span></span><small>RUN-TIME</small><strong>Runs for every complaint</strong></div>
+                </div>
+
+                <div class="retrieval-config-head"><strong>Frozen Retrieval Configuration</strong><span>Category Filter → Dense + Sparse → Fusion → Reranker → Parent + Children</span></div>
+                <div class="hybrid-retrieval-flow" aria-label="Hybrid retrieval and reranking flow">
+                  <article class="retrieval-node category-filter-node">
+                    <span class="retrieval-node-number">01</span>
+                    <div class="retrieval-node-icon" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M9 12h46L38 32v17l-12 6V32z"/><path d="M19 21h26"/></svg></div>
+                    <strong>Category Filter</strong>
+                    <p>Search only within the routed maintenance domain.</p>
+                    <small>Example: D20 Plumbing</small>
+                  </article>
+                  <i class="retrieval-arrow" aria-hidden="true">→</i>
+                  <div class="parallel-retrieval-nodes">
+                    <article class="retrieval-node dense-node"><span>DENSE</span><strong>BGE-small</strong><p>Semantic similarity between the complaint and parent scenarios.</p></article>
+                    <article class="retrieval-node sparse-node"><span>SPARSE</span><strong>BM25</strong><p>Exact keyword and maintenance-term matching.</p></article>
+                  </div>
+                  <i class="retrieval-arrow" aria-hidden="true">→</i>
+                  <article class="retrieval-node fusion-node">
+                    <span class="retrieval-node-number">03</span>
+                    <strong>Dense + Sparse Fusion</strong>
+                    <div class="fusion-weight"><span><b>0.40</b> Dense</span><span><b>0.60</b> Sparse</span></div>
+                    <p>Merge both ranking signals into one candidate list.</p>
+                  </article>
+                  <i class="retrieval-arrow" aria-hidden="true">→</i>
+                  <article class="retrieval-node reranker-node">
+                    <span class="retrieval-node-number">04</span>
+                    <div class="reranker-core" aria-hidden="true"><i>CE</i></div>
+                    <strong>MiniLM Reranker</strong>
+                    <p>Cross-encoder scoring reorders the strongest parent candidates.</p>
+                  </article>
+                  <i class="retrieval-arrow" aria-hidden="true">→</i>
+                  <article class="retrieval-node selected-parent-node">
+                    <span class="retrieval-node-number">05</span>
+                    <div class="selected-check" aria-hidden="true">✓</div>
+                    <strong>Selected Parent Scenario</strong>
+                    <p>Highest-ranked scenario becomes the retrieval anchor.</p>
+                    <small>Top-ranked parent</small>
+                  </article>
+                </div>
+
+                <div class="retrieval-evidence-assembly">
+                  <article class="evidence-parent"><small>SELECTED PARENT</small><strong>Scenario Context</strong><span>Symptoms · root cause · severity · component</span></article>
+                  <b aria-hidden="true">+</b>
+                  <article class="evidence-child troubleshooting"><small>LINKED CHILD 01</small><strong>Troubleshooting</strong><span>Corrective procedure and verification</span></article>
+                  <b aria-hidden="true">+</b>
+                  <article class="evidence-child preventive"><small>LINKED CHILD 02</small><strong>Preventive Maintenance</strong><span>Prevention and routine maintenance</span></article>
+                  <i aria-hidden="true">→</i>
+                  <article class="complete-evidence"><small>RETRIEVAL OUTPUT</small><strong>Complete Evidence Package</strong><span>Ready for Gate 1 confidence control</span></article>
+                </div>
+              </section>
+            </article>
+
+            <article class="chapter" data-chapter-content="2" hidden aria-hidden="true">
+              <div class="chapter-copy"><span class="chapter-tag">CHAPTER 03 · UNCERTAINTY CONTROL</span><h3>Gate 1: Is the retrieved evidence reliable enough?</h3><p>A calibrated retrieval-confidence check controls whether a case can proceed to the LLM. Low-confidence or unsupported cases do not force a generated recommendation.</p>
+                <div class="chapter-outcomes vertical"><span class="good">RAG READY → Send to LLM</span><span class="review">RETRIEVAL_HITL → Human review</span><span class="stop">OUT_OF_KB → Unsupported category</span></div>
+                <button class="diagram-link" type="button" data-diagram="assets/diagrams/gate1.jpg" data-title="Gate 1 — Before LLM">Open Gate 1 diagram ↗</button>
+              </div>
+              <div class="chapter-visual gate-visual"><div class="gauge"><span></span><i></i><strong>CONFIDENCE</strong></div><div class="gate-routes"><span class="route-good">RAG READY</span><span class="route-review">HUMAN REVIEW</span><span class="route-stop">OUT_OF_KB</span></div></div>
+            </article>
+
+            <article class="chapter llm-generation-replaced active" data-chapter="3">
+          <div class="llm-generation-embed-shell" id="llm-generation-embed-shell-static">
+            <iframe src="llm_generation/index.html" title="SmartOps LLM Engineering Presentation" loading="eager" allowfullscreen></iframe>
+          </div>
+        </article>
+
+<article class="chapter" data-chapter-content="4" hidden aria-hidden="true">
+              <div class="chapter-copy"><span class="chapter-tag">CHAPTER 05 · OPERATIONAL CONTROL</span><h3>Gate 2: Validate before operational release</h3><p>Deterministic checks validate the output structure, evidence grounding, safety flags and risk indicators before the recommendation is released.</p>
+                <div class="chapter-flow wrapped"><span>JSON valid</span><b>→</b><span>Evidence support</span><b>→</b><span>Safety check</span><b>→</b><span>Release decision</span></div>
+                <div class="chapter-outcomes"><span class="good">AUTO_APPROVED</span><span class="review">HUMAN_REVIEW</span><span class="stop">RELEASE_BLOCKED</span></div>
+                <button class="diagram-link" type="button" data-diagram="assets/diagrams/gate2.jpg" data-title="Gate 2 — After LLM">Open Gate 2 diagram ↗</button>
+              </div>
+              <div class="chapter-visual release-visual"><div class="validation-line"><span>01</span><strong>FORMAT</strong><i>✓</i></div><div class="validation-line"><span>02</span><strong>GROUNDING</strong><i>✓</i></div><div class="validation-line"><span>03</span><strong>SAFETY</strong><i>✓</i></div><div class="release-result"><small>RELEASE DECISION</small><strong>HUMAN REVIEW</strong></div></div>
+            </article>
+          </div>
+        </div>
+
+        <section class="how-smartops-standalone" aria-label="How SmartOps works interactive demonstration">
+          <div id="howSmartOpsInlineMount" class="how-smartops-inline-mount"></div>
+        </section>
+        <script src="assets/how-smartops-component.js"></script>
+      </div>
+
+      <div class="tech-panel" id="validationPanel" data-panel="validation">
+
+        <div class="validation-benchmark">
+          <div class="validation-benchmark-hero">
+            <span>S8 · SYNTHETIC BENCHMARK CONSTRUCTION</span>
+            <h3>Evaluate Every Knowledge-Base Scenario with Known Ground Truth</h3>
+            <p>The benchmark provides equal complaint coverage across all maintenance scenarios and supports controlled retrieval evaluation.</p>
+          </div>
+
+          <div class="validation-benchmark-shell">
+            <div class="validation-benchmark-head">
+              <h4>Scenario-Complete Synthetic Benchmark</h4>
+              <p>Equal query coverage across the full knowledge base</p>
+            </div>
+
+            <div class="validation-benchmark-body">
+              <div class="validation-benchmark-metrics">
+                <article class="validation-benchmark-metric">
+                  <small>Maintenance scenarios</small>
+                  <strong>98</strong>
+                  <span>Scenario parents in the benchmark</span>
+                </article>
+                <article class="validation-benchmark-metric">
+                  <small>Complaint variants per scenario</small>
+                  <strong>5</strong>
+                  <span>Equal query coverage for every scenario</span>
+                </article>
+                <article class="validation-benchmark-metric">
+                  <small>Synthetic complaints</small>
+                  <strong>490</strong>
+                  <span>Total benchmark complaint set</span>
+                </article>
+                <article class="validation-benchmark-metric">
+                  <small>Retrieval modes</small>
+                  <strong>2</strong>
+                  <span>Oracle-category mode and global mode</span>
+                </article>
+              </div>
+
+              <div class="validation-benchmark-notes">
+                <article class="validation-benchmark-note">Every scenario has a known parent-scenario ground truth</article>
+                <article class="validation-benchmark-note">Every scenario receives the same number of complaint variants</article>
+                <div class="validation-benchmark-mode">
+                  <span>Oracle-Category Mode</span>
+                  <span>Global Retrieval Mode</span>
+                </div>
+                <article class="validation-benchmark-summary">Exact scenario retrieval is evaluated consistently across the benchmark</article>
+              </div>
+            </div>
+          </div>
+
+          <div class="validation-benchmark-literature">
+            <strong>LITERATURE BASIS</strong>
+            <span class="chip">ARES</span>
+            <p>Uses synthetic data and automated judges to evaluate context relevance, faithfulness and answer relevance.</p>
+          </div>
+        </div>
+
+        <div class="validation-intro">
+          <div><span>VALIDATED BEFORE OPERATIONAL RELEASE</span><h3>Experimental evidence behind the frozen pipeline</h3><p>Retrieval design, reranking, category filtering, confidence thresholds and efficiency were evaluated before selecting the production configuration.</p></div>
+          <div class="validation-metrics">
+            <article><small>Hit@1 after reranking</small><strong>69.80%</strong><span>+6.94 pp</span></article>
+            <article><small>Hit@5 retrieval</small><strong>90.20%</strong><span>Top-5 result</span></article>
+            <article><small>Accepted precision</small><strong>94.74%</strong><span>Gate 1</span></article>
+            <article><small>Mean latency</small><strong>0.2249 s</strong><span>Category-constrained</span></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="content-section platform-section" id="platform" data-section="platform">
+      <div class="section-heading reveal">
+        <span class="section-number">06</span>
+        <div>
+          <div class="section-kicker">Operational Web Platform</div>
+          <h2>Two roles one governed maintenance workflow</h2>
+          <p>The hotel prototype connects management oversight with a focused technician work experience</p>
+        </div>
+      </div>
+
+      <figure class="role-showcase-visual reveal">
+        <img
+          src="assets/diagrams/two_roles_governed_cards.png?v=1785595199348"
+          alt="SmartOps role cards showing the Admin and Maintenance Manager dashboard and a hotel technician using the mobile task dashboard"
+          class="role-showcase-image"
+          loading="lazy"
+        >
+      </figure>
+
+      <div class="coded-diagram-shell swimlane-code-shell reveal">
+        <div class="coded-diagram-head">
+          <div><span>HUMAN-GOVERNED ROUTING</span><h3>SmartOps Human-Governed Ticket Routing</h3></div>
+          <p>Routine cases are automated while high-risk or uncertain cases remain under human oversight</p>
+        </div>
+        <div class="human-workflow-image-wrap">
+            <img
+              src="assets/diagrams/smartops_human_governed_ticket_routing.png"
+              alt="SmartOps human-governed ticket routing workflow showing system routing, HITL review, technician actions and guest notification"
+              class="human-workflow-image"
+              loading="lazy"
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="hitl-future hitl-future-v2 reveal">
+        <div class="hitl-grid-bg" aria-hidden="true"></div>
+        <div class="hitl-heading"><span>WHY HITL MATTERS</span><h3>Human oversight where automation should stop</h3></div>
+        <div class="hitl-neural-map" aria-label="HITL governance visual">
+          <div class="hitl-scanline" aria-hidden="true"></div>
+          <div class="hitl-core hitl-core-v2"><div class="hitl-core-ring"></div><div class="hitl-core-ring ring-secondary"></div><strong>HITL</strong><small>Human-in-the-loop</small></div>
+          <article class="hitl-node hitl-node-a"><span>01</span><div><strong>Exception &amp; Uncertainty Handling</strong><small>Route low-confidence, incomplete or OUT_OF_KB cases for human review</small></div></article>
+          <article class="hitl-node hitl-node-b"><span>02</span><div><strong>Safety-Critical Escalation</strong><small>Hold high-risk maintenance cases before automatic assignment</small></div></article>
+          <article class="hitl-node hitl-node-c"><span>03</span><div><strong>Accountable Task Assignment</strong><small>Let managers confirm priority and assign the right technician</small></div></article>
+          <i class="hitl-link link-a" aria-hidden="true"></i><i class="hitl-link link-b" aria-hidden="true"></i><i class="hitl-link link-c" aria-hidden="true"></i>
+          <span class="hitl-data-point point-a"></span><span class="hitl-data-point point-b"></span><span class="hitl-data-point point-c"></span><span class="hitl-data-point point-d"></span>
+        </div>
+        <p class="hitl-statement">AI automates routine cases <strong>Humans govern exceptions</strong> Technicians act</p>
+      </div>
+    </section>
+    <section class="content-section demo-section demo-section-v2 demo-hero-v3" id="live-demo" data-section="live-demo">
+      <div class="demo-glow" aria-hidden="true"></div>
+
+      <div class="demo-hero-grid reveal">
+        <div class="demo-hero-copy">
+          <span class="demo-hero-number">07</span>
+          <div class="demo-hero-kicker">Live System Demo</div>
+
+          <h2>Experience the end-<br>to-end operational<br>workflow</h2>
+
+          <p class="demo-hero-description">
+            Follow one hotel maintenance complaint from AI analysis and HITL approval to technician completion — inside the same SmartOps system.
+          </p>
+
+          <div class="demo-hero-flow" aria-label="Live demo workflow">
+            <article>
+              <span>1</span>
+              <strong>Complaint</strong>
+              <small>WhatsApp intake</small>
+            </article>
+            <i aria-hidden="true">→</i>
+            <article>
+              <span>2</span>
+              <strong>AI Analysis</strong>
+              <small>Category + severity</small>
+            </article>
+            <i aria-hidden="true">→</i>
+            <article>
+              <span>3</span>
+              <strong>HITL Review</strong>
+              <small>Manager decision</small>
+            </article>
+            <i aria-hidden="true">→</i>
+            <article>
+              <span>4</span>
+              <strong>Technician</strong>
+              <small>Accept + complete</small>
+            </article>
+            <i aria-hidden="true">→</i>
+            <article>
+              <span>5</span>
+              <strong>Update</strong>
+              <small>Operational visibility</small>
+            </article>
+          </div>
+
+          <div class="demo-hero-actions">
+            <a class="demo-hero-button demo-page-launch" href="guided_demo.php?reset=1">
+              <span>Start Live<br>Demo</span>
+              <b aria-hidden="true">↗</b>
+            </a>
+            <small class="demo-hero-note">
+              The guided Room 305 demo opens in the same tab and includes a Return to Product Website control.
+            </small>
+          </div>
+        </div>
+
+        <div class="demo-hero-browser" aria-hidden="true">
+          <div class="demo-browser-window">
+            <div class="demo-browser-titlebar">
+              <div class="demo-browser-lights"><i></i><i></i><i></i></div>
+              <div class="demo-browser-url">smartops.ai/demo</div>
+            </div>
+
+            <div class="demo-browser-content">
+              <aside class="demo-browser-sidebar-v3">
+                <strong>SmartOps AI</strong>
+                <span class="active"></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </aside>
+
+              <main class="demo-browser-main-v3">
+                <header>
+                  <div>
+                    <small>EXECUTIVE OVERVIEW</small>
+                    <h3>Operational Maintenance</h3>
+                  </div>
+                  <b>LIVE</b>
+                </header>
+
+                <div class="demo-browser-kpis-v3">
+                  <article><small>Total complaints</small><strong>128</strong></article>
+                  <article><small>HITL required</small><strong>09</strong></article>
+                  <article><small>SLA risks</small><strong>04</strong></article>
+                </div>
+
+                <div class="demo-browser-panels-v3">
+                  <article class="demo-browser-bars-v3">
+                    <i style="height:42%"></i>
+                    <i style="height:72%"></i>
+                    <i style="height:55%"></i>
+                    <i style="height:84%"></i>
+                  </article>
+                  <article class="demo-browser-progress-v3">
+                    <span><i style="width:58%"></i></span>
+                    <span><i style="width:80%"></i></span>
+                    <span><i style="width:45%"></i></span>
+                    <span><i style="width:70%"></i></span>
+                    <span><i style="width:57%"></i></span>
+                  </article>
+                </div>
+              </main>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-workspace-wrap" id="demoWorkspace" hidden>
+        <div class="demo-guide-bar"><span>GUIDED DEMO</span><strong id="demoGuideText">Open the HITL Dashboard and review the pending Room 305 case</strong><i id="demoGuideStep">Step 1 of 6</i></div>
+        <div class="demo-app-shell" id="embeddedDemo">
+          <div class="demo-browser-bar demo-browser-bar-v2">
+            <div class="demo-browser-dots"><span></span><span></span><span></span></div>
+            <div class="demo-browser-address">smartops demo / isolated visitor session / room 305</div>
+            <div class="demo-fresh-badge"><span></span>FRESH SESSION</div>
+          </div>
+
+          <div class="demo-system-layout">
+            <aside class="demo-system-sidebar">
+              <div class="demo-mini-brand"><span>S</span><div><strong>SmartOps AI</strong><small>Demo System</small></div></div>
+              <nav aria-label="Demo navigation">
+                <button class="demo-nav-item active" type="button" data-demo-view="overview"><span>⌂</span>Admin Overview</button>
+                <button class="demo-nav-item guided-target" type="button" data-demo-view="hitl"><span>!</span>HITL Dashboard<i id="demoPendingCount">1</i></button>
+                <button class="demo-nav-item" type="button" data-demo-view="technician"><span>⌁</span>Technician Dashboard</button>
+                <button class="demo-nav-item" type="button" data-demo-view="notifications"><span>◉</span>Notifications<i id="demoNotificationCount">0</i></button>
+              </nav>
+              <div class="demo-case-summary"><small>DEMO CASE</small><strong>SSAI-ROOM-305</strong><span>HVAC water leakage</span><b id="demoSidebarStatus">Pending HITL</b></div>
+            </aside>
+
+            <div class="demo-system-main">
+              <section class="demo-dashboard-view active" data-demo-view-panel="overview">
+                <div class="demo-system-head"><div><small>ADMIN DASHBOARD</small><h3>Operational Maintenance Overview</h3></div><span class="demo-live-pill">LIVE DEMO</span></div>
+                <div class="demo-kpi-row"><article><small>Total complaints</small><strong>128</strong><span>Last 7 days</span></article><article><small>Unsolved</small><strong>09</strong><span>Requires action</span></article><article class="warning"><small>HITL required</small><strong id="overviewHitlCount">01</strong><span>Room 305 pending</span></article><article><small>Technicians</small><strong>06</strong><span>Available now</span></article></div>
+                <div class="demo-overview-grid"><article class="demo-chart-card"><div class="demo-card-head"><strong>Daily Resolution Trend</strong><small>7 days</small></div><div class="demo-chart-bars"><i style="height:44%"></i><i style="height:66%"></i><i style="height:52%"></i><i style="height:80%"></i><i style="height:60%"></i><i style="height:92%"></i><i style="height:76%"></i></div></article><article class="demo-queue-card"><div class="demo-card-head"><strong>Action Required</strong><small>Current</small></div><button class="demo-queue-row guided-target" type="button" data-open-view="hitl"><span class="queue-severity">HIGH</span><div><strong>Room 305 · HVAC Leakage</strong><small>Pending manager review</small></div><i>→</i></button><div class="demo-empty-lines"><span></span><span></span><span></span></div></article></div>
+              </section>
+
+              <section class="demo-dashboard-view" data-demo-view-panel="hitl">
+                <div class="demo-system-head"><div><small>ADMIN · HITL</small><h3>HITL Escalation Dashboard</h3></div><span class="demo-live-pill danger" id="demoHitlHeaderPill">1 PENDING</span></div>
+                <div class="demo-hitl-tabs"><button class="active guided-target" id="demoPendingTab" type="button">Pending Review <span id="pendingTabCount">1</span></button><button type="button">Reviewed</button><button type="button">OUT_OF_KB</button></div>
+                <div class="demo-pending-table" id="demoPendingTable">
+                  <div class="demo-table-head"><span>Case</span><span>Location</span><span>Category</span><span>Severity</span><span>Status</span><span>Action</span></div>
+                  <div class="demo-table-row" id="demoRoom305Row"><span><strong>SSAI-ROOM-305</strong><small>Water leaking from air-conditioning unit</small></span><span>Room 305</span><span>D30 HVAC</span><span><b class="table-high">HIGH</b></span><span><b class="table-pending" id="demoRowStatus">Pending</b></span><span><button class="demo-table-action guided-target" type="button" id="demoReviewCase">Review case</button></span></div>
+                </div>
+                <div class="demo-review-drawer" id="demoReviewDrawer" hidden>
+                  <div class="review-drawer-head"><div><small>HIGH-SEVERITY REVIEW</small><h4>Room 305 · HVAC Leakage</h4></div><span>HITL REQUIRED</span></div>
+                  <div class="review-drawer-grid"><article><small>AI diagnosis</small><strong>Indoor AC drainage blockage</strong><p>Water is dripping near the indoor unit and creating a wet-floor hazard</p></article><article><small>Grounded recommendation</small><strong>Inspect drain pan and clear the drain pipe</strong><p>Isolate the affected area before repair</p></article></div>
+                  <div class="review-assignment"><label for="demoTechnicianSelect">Assign technician</label><select id="demoTechnicianSelect"><option>Amir Hassan · HVAC</option><option>Jason Lim · HVAC</option></select><button class="demo-primary-action guided-target" type="button" id="demoAssignTechnician">Approve and assign technician</button></div>
+                </div>
+              </section>
+
+              <section class="demo-dashboard-view" data-demo-view-panel="technician">
+                <div class="demo-system-head"><div><small>TECHNICIAN PORTAL</small><h3>Assigned Maintenance Work</h3></div><span class="demo-live-pill technician-pill" id="demoTechnicianPill">WAITING</span></div>
+                <div class="demo-technician-empty" id="demoTechnicianEmpty"><span>⌁</span><h4>No task assigned yet</h4><p>Complete the manager assignment in the HITL Dashboard first</p></div>
+                <div class="demo-technician-case" id="demoTechnicianCase" hidden>
+                  <div class="tech-case-head"><div><span class="queue-severity">HIGH</span><small>ASSIGNED TASK</small><h4>Room 305 · HVAC Leakage</h4></div><b id="demoTechCaseStatus">Assigned</b></div>
+                  <div class="tech-case-body"><article><small>Issue</small><strong>Water leaking from indoor AC unit</strong></article><article><small>Recommended action</small><strong>Inspect drain pan and clear drain pipe blockage</strong></article><article><small>Guest safety</small><strong>Keep the wet area isolated during repair</strong></article></div>
+                  <div class="tech-case-progress"><span class="active" data-tech-progress="0"><i>1</i>Assigned</span><span data-tech-progress="1"><i>2</i>Accepted</span><span data-tech-progress="2"><i>3</i>In Progress</span><span data-tech-progress="3"><i>4</i>Completed</span></div>
+                  <button class="demo-primary-action guided-target" type="button" id="demoTechnicianAction">Accept task</button>
+                </div>
+              </section>
+
+              <section class="demo-dashboard-view" data-demo-view-panel="notifications">
+                <div class="demo-system-head"><div><small>ADMIN DASHBOARD</small><h3>Operational Notifications</h3></div><span class="demo-live-pill" id="demoNotificationPill">NO NEW UPDATE</span></div>
+                <div class="demo-notification-empty" id="demoNotificationEmpty"><span>◉</span><h4>No completed-case notification yet</h4><p>Complete the Room 305 task in the Technician Dashboard</p></div>
+                <div class="demo-notification-list" id="demoNotificationList" hidden>
+                  <article class="notification-complete"><span>✓</span><div><small>JUST NOW · ROOM 305</small><strong>Maintenance case completed</strong><p>Amir Hassan completed the HVAC leakage task and the case status has been updated</p></div><b>COMPLETED</b></article>
+                  <article><span>↗</span><div><small>GUEST UPDATE</small><strong>Completion notification prepared</strong><p>The guest can now be informed that the maintenance issue has been resolved</p></div><b>SENT</b></article>
+                </div>
+              </section>
+
+              <div class="demo-live-message" id="demoLiveMessage" aria-live="polite">Fresh demo session ready</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="content-section cost-section" id="cost" data-section="cost">
+      <div class="section-heading reveal">
+        <span class="section-number">08</span>
+        <div>
+          <div class="section-kicker">Cost & Deployment</div>
+          <h2>Estimated hotel project cost</h2>
+          <p>SmartOps uses manday-based pricing. For this hotel project site, the estimated cost includes 30 mandays for product work, 20 mandays for implementation, and RM500 monthly maintenance.</p>
+        </div>
+      </div>
+
+      <div class="cost-showcase-v3 project-cost-layout reveal">
+        <article class="cost-v3-card implementation project-card product-card">
+          <div class="cost-v3-head">
+            <span class="cost-v3-step">01</span>
+            <div>
+              <small>PRODUCT COST</small>
+              <strong>Hotel project product work</strong>
+            </div>
+          </div>
+
+          <div class="cost-v3-amount project-amount">
+            <span>RM</span><strong>45,000</strong>
+          </div>
+
+          <div class="cost-v3-mini-math">RM1,500 × 30 mandays</div>
+
+          <ul class="cost-v3-bullets project-bullets">
+            <li>Knowledge base preparation</li>
+            <li>Workflow and dashboard configuration</li>
+            <li>System setup for hotel use case</li>
+          </ul>
+
+          <div class="cost-v3-footer-note accent-purple">Manday rate: RM1,500 / day</div>
+        </article>
+
+        <div class="cost-v3-op" aria-hidden="true">+</div>
+
+        <article class="cost-v3-card subscription project-card implementation-card">
+          <div class="cost-v3-head">
+            <span class="cost-v3-step">02</span>
+            <div>
+              <small>IMPLEMENTATION COST</small>
+              <strong>Estimated site implementation</strong>
+            </div>
+          </div>
+
+          <div class="cost-v3-amount project-amount">
+            <span>RM</span><strong>30,000</strong>
+          </div>
+
+          <div class="cost-v3-mini-math">RM1,500 × 20 mandays</div>
+
+          <ul class="cost-v3-bullets project-bullets">
+            <li>Testing and validation</li>
+            <li>User training and onboarding</li>
+            <li>Deployment and go-live support</li>
+          </ul>
+
+          <div class="cost-v3-footer-note accent-blue">Estimated implementation: 20 days</div>
+        </article>
+
+        <div class="cost-v3-op" aria-hidden="true">+</div>
+
+        <article class="cost-v3-card total project-card maintenance-card">
+          <div class="cost-v3-head total-head">
+            <span class="cost-v3-step">03</span>
+            <div>
+              <small>MAINTENANCE</small>
+              <strong>Post-deployment support</strong>
+            </div>
+          </div>
+
+          <div class="cost-v3-amount project-amount total-amount">
+            <span>RM</span><strong>500</strong><em>/ month</em>
+          </div>
+
+          <div class="cost-v3-total-box maintenance-box">
+            <small>ANNUAL MAINTENANCE</small>
+            <strong>RM 6,000</strong>
+          </div>
+
+          <div class="cost-v3-year2-note">
+            <strong>Estimated monthly maintenance: RM500</strong>
+            <span>Includes support, upkeep and minor system maintenance</span>
+          </div>
+        </article>
+      </div>
+
+      <div class="cost-v3-summary project-cost-summary reveal">
+        <div class="cost-v3-summary-row startup-summary-row">
+          <div class="startup-total"><small>START-UP COST</small><strong>RM 75,000</strong></div>
+          <b>+</b>
+          <div class="startup-recurring"><small>RECURRING COST</small><strong>RM 6,000 / year</strong></div>
+        </div>
+        <p>For a startup, the estimated start-up cost is MYR 75k. Recurring maintenance cost is RM6k yearly.</p>
+      </div>
+
+      <div class="cost-note reveal"><span>COST BASIS</span> MYR 75k is the estimated start-up cost, while recurring maintenance cost is RM6k yearly. For other projects, quotation is based on project scope and required mandays.</div>
+    </section>
+
+
+
+    <section class="content-section value-section" id="business-value" data-section="business-value">
+      <div class="section-heading value-heading reveal">
+        <span class="section-number">09</span>
+        <div>
+          <div class="section-kicker">Uniqueness & Business Value</div>
+          <h2>One platform. One governed maintenance journey.</h2>
+          <p>SmartOps AI connects every operational step—from guest reporting and issue classification to trusted retrieval, human approval and technician assignment.</p>
+        </div>
+      </div>
+
+      <div class="value-benefit-grid reveal">
+        <article class="value-benefit-card">
+          <span>01</span>
+          <small>REDUCE MANUAL WORKLOAD</small>
+          <h3>Less repetitive coordination</h3>
+          <p>Automates complaint routing, evidence retrieval and case preparation so SMEs rely less on manual triage.</p>
+        </article>
+        <article class="value-benefit-card">
+          <span>02</span>
+          <small>IMPROVE RESPONSE SPEED</small>
+          <h3>Faster movement from report to action</h3>
+          <p>Connects reporting, decision support and technician workflow within one visible operating journey.</p>
+        </article>
+        <article class="value-benefit-card">
+          <span>03</span>
+          <small>PRESERVE ORGANISATIONAL KNOWLEDGE</small>
+          <h3>Reusable maintenance intelligence</h3>
+          <p>Keeps troubleshooting and preventive procedures structured, searchable and available to future teams.</p>
+        </article>
+      </div>
+
+
+      <div class="value-industries industries-section" id="industries">
+      <div class="section-heading reveal">
+        
+        <div>
+          <div class="section-kicker">Beyond Hotels</div>
+          <h2>Adaptable across operational maintenance environments</h2>
+          <p>The current prototype is configured for hotel operations, while the modular architecture can be adapted to other facility-based businesses.</p>
+        </div>
+      </div>
+
+      <div class="industry-grid reveal">
+        <article class="industry-card active">
+          <div class="industry-photo"><img src="assets/photos/industry-hotel.webp" alt="Modern hotel building exterior."></div>
+          <span>01</span><div class="industry-card-copy"><h3>Hotels</h3><p>Guest rooms, HVAC, plumbing, lifts, electrical and fire protection.</p><small>CURRENT PROTOTYPE</small></div>
+        </article>
+        <article class="industry-card">
+          <div class="industry-photo"><img src="assets/photos/industry-office.webp" alt="Modern office building exterior."></div>
+          <span>02</span><div class="industry-card-copy"><h3>Office Buildings</h3><p>Tenant issues, shared facilities and critical building systems.</p></div>
+        </article>
+        <article class="industry-card">
+          <div class="industry-photo"><img src="assets/photos/industry-mall.webp" alt="Shopping centre interior with escalators and public areas."></div>
+          <span>03</span><div class="industry-card-copy"><h3>Shopping Centres</h3><p>Retail units, escalators, lighting and high-traffic public areas.</p></div>
+        </article>
+        <article class="industry-card">
+          <div class="industry-photo"><img src="assets/photos/industry-campus.webp" alt="University campus and academic buildings."></div>
+          <span>04</span><div class="industry-card-copy"><h3>Campuses</h3><p>Classrooms, hostels, laboratories and shared infrastructure.</p></div>
+        </article>
+        <article class="industry-card">
+          <div class="industry-photo"><img src="assets/photos/industry-property.webp" alt="Residential property managed as a shared facility."></div>
+          <span>05</span><div class="industry-card-copy"><h3>Property Management</h3><p>Residential units, common areas and technician coordination.</p></div>
+        </article>
+        <article class="industry-card">
+          <div class="industry-photo"><img src="assets/photos/hero-technician.webp" alt="Technician maintaining operational facility equipment."></div>
+          <span>06</span><div class="industry-card-copy"><h3>Commercial Facilities</h3><p>Recurring operational issues and governed maintenance workflows.</p></div>
+        </article>
+      </div>
+      <div class="industry-note reveal"><span>CONFIGURATION NOTE</span> Each deployment requires a domain-specific knowledge base, operational SOP configuration and workflow customisation.</div>
+      </div>
+
+    </section>
+
+    <section class="closing-section">
+      <div class="closing-grid" aria-hidden="true"></div>
+      <div class="closing-copy reveal">
+        <span>SMARTOPS AI · GROUP 7</span>
+        <h2>Grounded intelligence for safer,<br>more visible operational maintenance.</h2>
+        <p>Hotel operations provide the current real-world demonstration. The architecture is designed to support broader maintenance environments through domain-specific configuration.</p>
+        <div class="closing-actions"><a class="button button-primary" href="guided_demo.php?reset=1">Start Live Demo ↗</a><a class="button button-secondary light" href="#home">Back to Top ↑</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Developed by Group 7 · Business Analytics Final Year Project · Sunway University</p>
+  </footer>
+
+  <dialog class="diagram-modal" id="diagramModal" aria-labelledby="diagramTitle">
+    <div class="diagram-modal-bar"><div><small>SMARTOPS TECHNICAL DETAIL</small><strong id="diagramTitle">Detailed diagram</strong></div><button type="button" id="diagramClose" aria-label="Close diagram">×</button></div>
+    <div class="diagram-modal-body"><img id="diagramImage" src="" alt=""></div>
+  </dialog>
+
+  <script src="assets/presentation.js?v=202608021635"></script>
+</body>
+</html>
